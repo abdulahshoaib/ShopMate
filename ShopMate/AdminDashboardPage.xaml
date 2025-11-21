@@ -1,0 +1,44 @@
+<Page
+    x:Class="ShopMate.Pages.AdminDashboardPage"
+    xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+    xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+    Background="{ThemeResource ApplicationPageBackgroundThemeBrush}">
+
+    <ScrollViewer>
+        <StackPanel Padding="40" Spacing="30">
+
+            <!-- Header -->
+            <Grid ColumnDefinitions="*,Auto" Padding="10" Background="White">
+                <TextBlock Text="ShopMate Admin" FontSize="32" FontWeight="Bold" VerticalAlignment="Center"/>
+                <Button Content="Logout" Click="OnLogoutClicked"/>
+            </Grid>
+
+            <!-- Welcome -->
+            <TextBlock Text="Welcome back, Admin!" FontSize="28" FontWeight="SemiBold"/>
+            <TextBlock Text="Manage your store efficiently" FontSize="16" Foreground="Gray"/>
+
+            <!-- Quick Actions -->
+            <Grid ColumnDefinitions="*,*" ColumnSpacing="20" RowSpacing="20">
+
+                <!-- Manage Employees Card -->
+                <Border Background="#3B82F6" CornerRadius="10" Padding="20">
+                    <StackPanel>
+                        <TextBlock Text="Manage Employees" FontWeight="Bold" Foreground="White" FontSize="18"/>
+                        <TextBlock Text="Add or remove salespersons" Foreground="White" FontSize="12"/>
+                        <Button Content="Get Started" Click="OnManageEmployeesClicked"/>
+                    </StackPanel>
+                </Border>
+
+                <!-- View Reports Card -->
+                <Border Background="#10B981" CornerRadius="10" Padding="20">
+                    <StackPanel>
+                        <TextBlock Text="View Reports" FontWeight="Bold" Foreground="White" FontSize="18"/>
+                        <TextBlock Text="Check sales per month/year" Foreground="White" FontSize="12"/>
+                        <Button Content="Get Started" Click="OnViewReportsClicked"/>
+                    </StackPanel>
+                </Border>
+
+            </Grid>
+        </StackPanel>
+    </ScrollViewer>
+</Page>

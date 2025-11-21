@@ -1,0 +1,36 @@
+<Page
+    x:Class="ShopMate.Pages.ViewReportsPage"
+    xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+    xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+    Background="{ThemeResource ApplicationPageBackgroundThemeBrush}">
+
+    <ScrollViewer>
+        <StackPanel Padding="40" Spacing="20">
+
+            <!-- Back -->
+            <Button Content="← Back to Dashboard" Click="OnBackClicked" HorizontalAlignment="Left"/>
+
+            <!-- Header -->
+            <Border Background="#10B981" CornerRadius="10" Padding="20">
+                <TextBlock Text="Sales Resports" FontSize="28" FontWeight="Bold" Foreground="White"/>
+            </Border>
+
+            <!-- Filters -->
+            <StackPanel Orientation="Horizontal" Spacing="20">
+                <ComboBox x:Name="MonthComboBox" Width="150" PlaceholderText="Select Month"/>
+                <ComboBox x:Name="YearComboBox" Width="150" PlaceholderText="Select Year"/>
+                <Button Content="View Report" Click="ViewReport_Click"/>
+            </StackPanel>
+
+            <!-- Report Summary -->
+            <Border Background="White" CornerRadius="10" Padding="20">
+                <StackPanel Spacing="10">
+                    <TextBlock Text="Total Sales: $" FontSize="20" FontWeight="Bold"/>
+                    <TextBlock Text="Number of Transactions: " FontSize="16"/>
+                    <TextBlock Text="Top Selling Products:" FontSize="16"/>
+                </StackPanel>
+            </Border>
+
+        </StackPanel>
+    </ScrollViewer>
+</Page>

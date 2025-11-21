@@ -1,0 +1,49 @@
+<Page
+    x:Class="ShopMate.LoginPage"
+    xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+    xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+    xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+    xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+    mc:Ignorable="d"
+    Background="{ThemeResource ApplicationPageBackgroundThemeBrush}">
+
+    <Grid Padding="40">
+        <Grid.RowDefinitions>
+            <RowDefinition Height="*"/>
+            <RowDefinition Height="Auto"/>
+            <RowDefinition Height="*"/>
+        </Grid.RowDefinitions>
+
+        <Border Grid.Row="1" Width="400" Padding="30" CornerRadius="20" Background="White" HorizontalAlignment="Center" VerticalAlignment="Center" Shadow="True">
+            <StackPanel Spacing="20">
+
+                <!-- Logo -->
+                <Border Width="80" Height="80" CornerRadius="20" Background="Blue" HorizontalAlignment="Center">
+                    <Image Source="shopping_cart_icon.png" Width="40" Height="40"/>
+                </Border>
+
+                <!-- Title -->
+                <StackPanel HorizontalAlignment="Center" Spacing="2">
+                    <TextBlock Text="ShopMate" FontSize="32" FontWeight="Bold" HorizontalAlignment="Center"/>
+                    <TextBlock Text="Sign in to your account" FontSize="16" Foreground="Gray" HorizontalAlignment="Center"/>
+                </StackPanel>
+
+                <!-- Form -->
+                <StackPanel Spacing="10" MaxWidth="300" HorizontalAlignment="Center">
+                    <TextBox x:Name="UsernameTextBox" PlaceholderText="Username" Height="50"/>
+                    <PasswordBox x:Name="PasswordBox" PlaceholderText="Password" Height="50"/>
+                    <TextBlock x:Name="ErrorTextBlock" Foreground="Red" Visibility="Collapsed" FontSize="12" Margin="0,5"/>
+                    <Button Content="Sign In" Click="OnSignInClicked" Height="50" Background="Blue" Foreground="White"/>
+                </StackPanel>
+
+                <!-- Demo credentials -->
+                <StackPanel Spacing="2" HorizontalAlignment="Center">
+                    <TextBlock Text="Demo Credentials:" FontSize="12" Foreground="Gray"/>
+                    <TextBlock Text="Admin: admin / admin123" FontSize="12" Foreground="Gray"/>
+                    <TextBlock Text="Sales: sales / sales123" FontSize="12" Foreground="Gray"/>
+                </StackPanel>
+
+            </StackPanel>
+        </Border>
+    </Grid>
+</Page>
