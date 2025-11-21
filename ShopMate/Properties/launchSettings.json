@@ -1,0 +1,10 @@
+{
+  "profiles": {
+    "ShopMate (Package)": {
+      "commandName": "MsixPackage"
+    },
+    "ShopMate (Unpackaged)": {
+      "commandName": "Project"
+    }
+  }
+}
