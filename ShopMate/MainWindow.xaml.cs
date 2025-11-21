@@ -27,5 +27,11 @@ namespace ShopMate
         {
             InitializeComponent();
         }
+
+        private void LoginButton_Click(object sender, RoutedEventArgs e)
+        {
+            string username = UsernameBox.Text;
+            string password = PasswordBox.Password;
+        }
     }
 }

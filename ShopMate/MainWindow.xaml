@@ -10,10 +10,45 @@
     Title="ShopMate">
 
     <Window.SystemBackdrop>
-        <MicaBackdrop />
+        <DesktopAcrylicBackdrop />
     </Window.SystemBackdrop>
 
     <Grid>
+        <Border 
+            Width="300" 
+            Padding="20" 
+            CornerRadius="10" 
+            Background="#FF2D2D30" 
+            HorizontalAlignment="Center" 
+            VerticalAlignment="Center">
 
+            <StackPanel Spacing="15">
+                <TextBlock Text="Login" 
+                           FontSize="24" 
+                           FontWeight="Bold" 
+                           Foreground="White" 
+                           HorizontalAlignment="Center"/>
+
+                <TextBox x:Name="UsernameBox" 
+                         PlaceholderText="Username" 
+                         Height="35" 
+                         FontSize="14" 
+                         Padding="5" 
+                         BorderThickness="1"
+                         CornerRadius="5"/>
+
+                <PasswordBox x:Name="PasswordBox" 
+                             PlaceholderText="Password" 
+                             Height="35" 
+                             FontSize="14" 
+                             Padding="5" 
+                             BorderThickness="1"
+                             CornerRadius="5"/>
+
+                <Button Content="Login"
+                        FontWeight="SemiBold" 
+                        Click="LoginButton_Click"/>
+            </StackPanel>
+        </Border>
     </Grid>
 </Window>
