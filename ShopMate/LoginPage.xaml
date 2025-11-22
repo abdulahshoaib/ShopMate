@@ -14,7 +14,7 @@
             <RowDefinition Height="*"/>
         </Grid.RowDefinitions>
 
-        <Border Grid.Row="1" Width="400" Padding="30" CornerRadius="20" Background="White" HorizontalAlignment="Center" VerticalAlignment="Center" Shadow="True">
+        <Border Grid.Row="1" Width="400" Padding="30" CornerRadius="20" Background="White" HorizontalAlignment="Center" VerticalAlignment="Center">
             <StackPanel Spacing="20">
 
                 <!-- Logo -->

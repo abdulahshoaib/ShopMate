@@ -22,7 +22,7 @@
     <None Remove="ManageCustomersPage.xaml" />
     <None Remove="ManageEmployeesPage.xaml" />
     <None Remove="SalesPersonDashboardPage.xaml" />
-    <None Remove="ViewReportsPage.xaml" />
+    <!-- ViewReportsPage.xaml left to SDK implicit Page items (do not include it explicitly) -->
   </ItemGroup>
 
   <ItemGroup>
@@ -38,12 +38,9 @@
     <PackageReference Include="Microsoft.WindowsAppSDK" Version="1.8.251106002" />
   </ItemGroup>
 
-  <!-- Page compilation entries -->
+  <!-- Page compilation entries (use Update for SDK implicit items) -->
   <ItemGroup>
-    <Page Update="ViewReportsPage.xaml">
-      <Generator>MSBuild:Compile</Generator>
-    </Page>
-
+    <Folder Include="Pages\" />
     <Page Update="ManageEmployeesPage.xaml">
       <Generator>MSBuild:Compile</Generator>
     </Page>

@@ -1,5 +1,5 @@
 <Page
-    x:Class="ShopMate.Pages.GenerateBillPage"
+    x:Class="ShopMate.GenerateBillPage"
     xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
     xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
     Background="{ThemeResource ApplicationPageBackgroundThemeBrush}">
@@ -21,22 +21,43 @@
                 <Button Content="Add to Bill" Click="AddItem_Click"/>
             </StackPanel>
 
-            <ListView x:Name="BillItemsListView" Height="300">
-                <ListView.View>
-                    <GridView>
-                        <GridViewColumn Header="Product" DisplayMemberBinding="{Binding ProductName}"/>
-                        <GridViewColumn Header="Price" DisplayMemberBinding="{Binding Price}"/>
-                        <GridViewColumn Header="Qty" DisplayMemberBinding="{Binding Quantity}"/>
-                        <GridViewColumn Header="Total" DisplayMemberBinding="{Binding Total}"/>
-                        <GridViewColumn Header="Remove">
-                            <GridViewColumn.CellTemplate>
-                                <DataTemplate>
-                                    <Button Content="Remove" Click="RemoveItem_Click"/>
-                                </DataTemplate>
-                            </GridViewColumn.CellTemplate>
-                        </GridViewColumn>
-                    </GridView>
-                </ListView.View>
+            <!-- Header row for columns -->
+            <Grid Margin="0,8,0,4">
+                <Grid.ColumnDefinitions>
+                    <ColumnDefinition Width="2*"/>
+                    <ColumnDefinition Width="*"/>
+                    <ColumnDefinition Width="80"/>
+                    <ColumnDefinition Width="*"/>
+                    <ColumnDefinition Width="90"/>
+                </Grid.ColumnDefinitions>
+                <TextBlock Text="Product" Grid.Column="0" FontWeight="SemiBold"/>
+                <TextBlock Text="Price" Grid.Column="1" FontWeight="SemiBold"/>
+                <TextBlock Text="Qty" Grid.Column="2" FontWeight="SemiBold"/>
+                <TextBlock Text="Total" Grid.Column="3" FontWeight="SemiBold"/>
+                <TextBlock Text="" Grid.Column="4"/>
+            </Grid>
+
+            <ListView x:Name="BillItemsListView" Height="300" ItemsSource="{Binding BillItems}">
+                <ListView.ItemTemplate>
+                    <DataTemplate>
+                        <Grid Padding="4">
+                            <Grid.ColumnDefinitions>
+                                <ColumnDefinition Width="2*"/>
+                                <ColumnDefinition Width="*"/>
+                                <ColumnDefinition Width="80"/>
+                                <ColumnDefinition Width="*"/>
+                                <ColumnDefinition Width="90"/>
+                            </Grid.ColumnDefinitions>
+
+                            <TextBlock Text="{Binding ProductName}" Grid.Column="0" TextTrimming="CharacterEllipsis"/>
+                            <!-- bind to preformatted string properties -->
+                            <TextBlock Text="{Binding FormattedPrice}" Grid.Column="1"/>
+                            <TextBlock Text="{Binding Quantity}" Grid.Column="2" HorizontalAlignment="Center"/>
+                            <TextBlock Text="{Binding FormattedTotal}" Grid.Column="3"/>
+                            <Button Content="Remove" Grid.Column="4" Click="RemoveItem_Click" HorizontalAlignment="Center"/>
+                        </Grid>
+                    </DataTemplate>
+                </ListView.ItemTemplate>
             </ListView>
         </StackPanel>
 

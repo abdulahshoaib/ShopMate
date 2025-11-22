@@ -1,7 +1,7 @@
 using Microsoft.UI.Xaml;
 using Microsoft.UI.Xaml.Controls;
 
-namespace ShopMate.Pages
+namespace ShopMate
 {
     public sealed partial class SalesPersonDashboardPage : Page
     {

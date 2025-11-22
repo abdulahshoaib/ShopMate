@@ -10,6 +10,7 @@ using Microsoft.UI.Xaml.Data;
 using Microsoft.UI.Xaml.Input;
 using Microsoft.UI.Xaml.Media;
 using Microsoft.UI.Xaml.Navigation;
+using ShopMate.Pages;
 using Windows.Foundation;
 using Windows.Foundation.Collections;
 
@@ -27,6 +28,28 @@ namespace ShopMate
         {
             InitializeComponent();
             this.Content = new LoginPage();
+        }
+
+        // Added handler to match Click="LoginButton_Click" in MainWindow.xaml
+        private void LoginButton_Click(object sender, Microsoft.UI.Xaml.RoutedEventArgs e)
+        {
+            // Minimal, safe behavior so build succeeds.
+            // Use the UsernameBox and PasswordBox defined in MainWindow.xaml.
+            var username = UsernameBox?.Text;
+            var password = PasswordBox?.Password;
+
+            // Example: if username provided, reflect it in the window title.
+            if (!string.IsNullOrWhiteSpace(username))
+            {
+                this.Title = $"ShopMate - {username}";
+            }
+            else
+            {
+                this.Title = "ShopMate";
+            }
+
+            // Optional: replace Content with another Page or Frame navigation here
+            // once you have a dashboard page available.
         }
     }
 }
