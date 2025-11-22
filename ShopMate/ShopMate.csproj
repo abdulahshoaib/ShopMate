@@ -40,6 +40,7 @@
 
   <!-- Page compilation entries (use Update for SDK implicit items) -->
   <ItemGroup>
+    <Folder Include="GUI\" />
     <Folder Include="Pages\" />
     <Page Update="ManageEmployeesPage.xaml">
       <Generator>MSBuild:Compile</Generator>
