@@ -13,6 +13,12 @@
     <EnableMsixTooling>true</EnableMsixTooling>
     <Nullable>enable</Nullable>
   </PropertyGroup>
+  <ItemGroup>
+    <Compile Remove="Pages\**" />
+    <EmbeddedResource Remove="Pages\**" />
+    <None Remove="Pages\**" />
+    <Page Remove="Pages\**" />
+  </ItemGroup>
 
   <ItemGroup>
     <None Remove="AddCustomerPage.xaml" />
@@ -41,7 +47,6 @@
   <!-- Page compilation entries (use Update for SDK implicit items) -->
   <ItemGroup>
     <Folder Include="GUI\" />
-    <Folder Include="Pages\" />
     <Page Update="ManageEmployeesPage.xaml">
       <Generator>MSBuild:Compile</Generator>
     </Page>
@@ -87,4 +92,8 @@
     <PublishTrimmed Condition="'$(Configuration)' == 'Debug'">False</PublishTrimmed>
     <PublishTrimmed Condition="'$(Configuration)' != 'Debug'">True</PublishTrimmed>
   </PropertyGroup>
+
+  <ItemGroup>
+    <PRIResource Remove="Pages\**" />
+  </ItemGroup>
 </Project>

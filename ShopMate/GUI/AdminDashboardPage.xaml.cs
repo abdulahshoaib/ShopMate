@@ -1,7 +1,7 @@
 using Microsoft.UI.Xaml;
 using Microsoft.UI.Xaml.Controls;
 
-namespace ShopMate
+namespace ShopMate.GUI
 {
     public sealed partial class AdminDashboardPage : Page
     {

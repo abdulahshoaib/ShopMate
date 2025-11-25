@@ -4,7 +4,7 @@ using System.Collections.ObjectModel;
 using System.Globalization;
 using System.Linq;
 
-namespace ShopMate
+namespace ShopMate.GUI
 {
     public sealed partial class GenerateBillPage : Page
     {
