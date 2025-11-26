@@ -46,7 +46,6 @@
 
   <!-- Page compilation entries (use Update for SDK implicit items) -->
   <ItemGroup>
-    <Folder Include="GUI\" />
     <Page Update="ManageEmployeesPage.xaml">
       <Generator>MSBuild:Compile</Generator>
     </Page>

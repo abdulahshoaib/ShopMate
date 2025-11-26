@@ -1,5 +1,7 @@
 using Microsoft.UI.Xaml;
 using Microsoft.UI.Xaml.Controls;
+using Microsoft.UI.Xaml.Input;
+using Microsoft.UI.Xaml.Media;
 
 namespace ShopMate.GUI
 {
@@ -10,22 +12,22 @@ namespace ShopMate.GUI
             this.InitializeComponent();
         }
 
+        private sealed record OriginalBrushes(Brush? BorderBrush, Brush? Background);
+
+        
+
         private void OnSignInClicked(object sender, RoutedEventArgs e)
         {
             string username = UsernameTextBox.Text;
             string password = PasswordBox.Password;
 
-            if ((username == "admin" && password == "admin123") ||
-                (username == "sales" && password == "sales123"))
+            if (username == "admin" && password == "admin123")
             {
-                // Navigate to next page
-                ContentDialog dialog = new ContentDialog
-                {
-                    Title = "Success",
-                    Content = "Login Successful!",
-                    CloseButtonText = "OK"
-                };
-                _ = dialog.ShowAsync();
+                this.Content = new AdminDashboardPage();
+            }
+            else if (username == "sales" && password == "sales123")
+            {
+                this.Content = new SalesPersonDashboardPage();
             }
             else
             {
