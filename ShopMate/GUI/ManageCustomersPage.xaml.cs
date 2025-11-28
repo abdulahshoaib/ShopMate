@@ -14,6 +14,10 @@ namespace ShopMate.GUI
         {
             // TODO: Navigate to ManageEmployeesPage
         }
+        private void OnEditCustomerClicked(object sender, RoutedEventArgs e)
+        {
+
+        }
         private void OnManageProductsClicked(object sender, RoutedEventArgs e)
         {
             // TODO: Navigate to AddProductPage

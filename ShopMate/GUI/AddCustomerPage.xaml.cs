@@ -9,7 +9,10 @@ namespace ShopMate.GUI
         {
             this.InitializeComponent();
         }
+        private void OnAddCustomerClicked(object sender, RoutedEventArgs e)
+        {
 
+        }
         private void SaveCustomer_Click(object sender, RoutedEventArgs e)
         {
             // TODO: Implement save logic

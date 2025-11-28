@@ -5,125 +5,149 @@
     xmlns:controls="using:ShopMate.GUI.Controls"
     Background="{ThemeResource ApplicationPageBackgroundThemeBrush}">
 
-    <!-- Animations for sidebar toggle (kept consistent with GenerateBillPage) -->
     <Page.Resources>
+
+        <!-- SIDEBAR ANIMATIONS -->
         <Storyboard x:Name="CollapseSidebarStoryboard">
-            <DoubleAnimation Storyboard.TargetName="SidebarColumn"
-                             Storyboard.TargetProperty="Width.Value"
-                             To="60"
-                             Duration="0:0:0.25"/>
+            <DoubleAnimation
+                Storyboard.TargetName="SidebarColumn"
+                Storyboard.TargetProperty="Width.Value"
+                To="60"
+                Duration="0:0:0.25" />
         </Storyboard>
 
         <Storyboard x:Name="ExpandSidebarStoryboard">
-            <DoubleAnimation Storyboard.TargetName="SidebarColumn"
-                             Storyboard.TargetProperty="Width.Value"
-                             To="220"
-                             Duration="0:0:0.25"/>
+            <DoubleAnimation
+                Storyboard.TargetName="SidebarColumn"
+                Storyboard.TargetProperty="Width.Value"
+                To="220"
+                Duration="0:0:0.25" />
         </Storyboard>
 
-        <!-- Reusable style used across pages (kept for consistency) -->
-        <Style x:Key="ListViewItemStretchStyle" TargetType="ListViewItem">
-            <Setter Property="HorizontalContentAlignment" Value="Stretch"/>
-            <Setter Property="Padding" Value="0"/>
-            <Setter Property="Margin" Value="0"/>
+        <!-- INPUT LABEL -->
+        <Style x:Key="LabelStyle" TargetType="TextBlock">
+            <Setter Property="Foreground" Value="White"/>
+            <Setter Property="FontSize" Value="14"/>
+            <Setter Property="Margin" Value="0,5,0,3"/>
         </Style>
+
+        <!-- TEXTBOX STYLE -->
+        <Style x:Key="InputStyle" TargetType="TextBox">
+            <Setter Property="BorderBrush" Value="#D1D5DB"/>
+            <Setter Property="BorderThickness" Value="1"/>
+            <Setter Property="Padding" Value="8"/>
+            <Setter Property="FontSize" Value="14"/>
+            <Setter Property="CornerRadius" Value="6"/>
+        </Style>
+
+        <!-- CARD PANEL -->
+        <Style x:Key="CardStyle" TargetType="Border">
+            <Setter Property="CornerRadius" Value="18"/>
+            <Setter Property="Padding" Value="20"/>
+            <Setter Property="Margin" Value="0,0,0,20"/>
+        </Style>
+
     </Page.Resources>
 
+
+    <!-- MAIN GRID -->
     <Grid>
         <Grid.ColumnDefinitions>
             <ColumnDefinition x:Name="SidebarColumn" Width="170"/>
             <ColumnDefinition Width="*"/>
         </Grid.ColumnDefinitions>
 
-        <!-- Sidebar Control (same placement as GenerateBillPage) -->
-        <controls:SalesSidebarControl Grid.Column="0"/>
+        <!-- SIDEBAR -->
+        <controls:AdminSidebarControl Grid.Column="0"/>
 
-        <!-- MAIN CONTENT -->
+
+        <!-- PAGE CONTENT -->
         <ScrollViewer Grid.Column="1">
-            <StackPanel Padding="40"
-                        MaxWidth="720"
-                        HorizontalAlignment="Center"
-                        VerticalAlignment="Top"
-                        Spacing="20">
+            <StackPanel Padding="40" Spacing="20">
 
-                <!-- Header (matches GenerateBillPage typography) -->
-                <TextBlock Text="Add New Customer"
+                <!-- PAGE TITLE -->
+                <TextBlock Text="Add Customer"
                            FontSize="32"
                            FontWeight="SemiBold"/>
-                <TextBlock Text="Enter customer details below. Consistent colors and layout with other pages."
-                           Foreground="Gray"
-                           FontSize="12"/>
 
-                <!-- Form card styled like GenerateBillPage panels -->
-                <Border Background="#0B1220"
-                        CornerRadius="12"
-                        Padding="20">
-                    <StackPanel Spacing="12">
+                <TextBlock Text="Enter the customer information below."
+                           FontSize="12"
+                           Foreground="Gray"/>
 
-                        <TextBlock Text="Customer Details"
-                                   FontSize="20"
-                                   FontWeight="SemiBold"
-                                   Foreground="#E5E7EB"/>
 
-                        <TextBlock Text="Provide name, contact and address information."
-                                   FontSize="12"
-                                   Foreground="Gray"/>
+                <Grid ColumnSpacing="20" RowSpacing="20" Margin="0,20,0,0">
 
-                        <!-- Two-column form for compact layout -->
-                        <Grid ColumnSpacing="12" RowSpacing="10" Margin="0,6,0,0">
-                            <Grid.ColumnDefinitions>
-                                <ColumnDefinition Width="*"/>
-                                <ColumnDefinition Width="*"/>
-                            </Grid.ColumnDefinitions>
+                    <Grid.ColumnDefinitions>
+                        <ColumnDefinition Width="*"/>
+                        <ColumnDefinition Width="*"/>
+                    </Grid.ColumnDefinitions>
 
-                            <TextBox Header="Customer Name"
-                                     x:Name="NameTextBox"
-                                     Grid.Column="0"/>
+                    <!-- CUSTOMER INFO -->
+                    <Border Grid.Column="0"
+                            Background="#EF4444"
+                            Style="{StaticResource CardStyle}">
+                        <StackPanel>
 
-                            <TextBox Header="Phone Number"
-                                     x:Name="PhoneTextBox"
-                                     Grid.Column="1"/>
-                        </Grid>
+                            <TextBlock Text="Customer Information"
+                                       FontSize="20"
+                                       FontWeight="Bold"
+                                       Foreground="White"
+                                       Margin="0,0,0,12"/>
 
-                        <!-- Email and Address full width -->
-                        <TextBox Header="Email Address"
-                                 x:Name="EmailTextBox"/>
+                            <TextBlock Text="Full Name" Style="{StaticResource LabelStyle}"/>
+                            <TextBox Style="{StaticResource InputStyle}"/>
 
-                        <TextBox Header="Address"
-                                 x:Name="AddressTextBox"
-                                 AcceptsReturn="True"
-                                 Height="120"/>
+                            <TextBlock Text="Gender" Style="{StaticResource LabelStyle}"/>
+                            <TextBox Style="{StaticResource InputStyle}"/>
 
-                        <!-- Optional notes -->
-                        <TextBox Header="Notes (optional)"
-                                 x:Name="NotesTextBox"
-                                 AcceptsReturn="True"
-                                 Height="80"/>
+                            <TextBlock Text="Age" Style="{StaticResource LabelStyle}"/>
+                            <TextBox Style="{StaticResource InputStyle}"/>
 
-                        <!-- Action buttons (primary blue + subtle cancel) -->
-                        <StackPanel Orientation="Horizontal" Spacing="15" Margin="0,6,0,0">
-                            <Button Content="Save Customer"
-                                    Click="SaveCustomer_Click"
-                                    Background="#3B82F6"
-                                    Foreground="White"
-                                    BorderBrush="Transparent"
-                                    Padding="14,6"
-                                    CornerRadius="6"/>
-
-                            <Button Content="Cancel"
-                                    Click="Cancel_Click"
-                                    Background="Transparent"
-                                    Foreground="#D1D5DB"
-                                    BorderBrush="#334155"
-                                    Padding="14,6"
-                                    CornerRadius="6"/>
                         </StackPanel>
+                    </Border>
 
-                    </StackPanel>
-                </Border>
+
+                    <!-- CONTACT INFO -->
+                    <Border Grid.Column="1"
+                            Background="#10B981"
+                            Style="{StaticResource CardStyle}">
+                        <StackPanel>
+
+                            <TextBlock Text="Contact Information"
+                                       FontSize="20"
+                                       FontWeight="Bold"
+                                       Foreground="White"
+                                       Margin="0,0,0,12"/>
+                            <TextBlock Text="Address" Style="{StaticResource LabelStyle}"/>
+                            <TextBox Style="{StaticResource InputStyle}"
+                                     Height="70"
+                                     TextWrapping="Wrap"
+                                     AcceptsReturn="True"/>
+                            <TextBlock Text="Phone Number" Style="{StaticResource LabelStyle}"/>
+                            <TextBox Style="{StaticResource InputStyle}"/>
+
+                        </StackPanel>
+                    </Border>
+
+                </Grid>
+
+
+                <!-- SAVE BUTTON -->
+                <Button Content="Add Customer"
+                        Width="200"
+                        Height="50"
+                        Background="#3B82F6"
+                        Foreground="White"
+                        BorderBrush="Transparent"
+                        CornerRadius="10"
+                        FontSize="18"
+                        HorizontalAlignment="Center"
+                        Click="OnAddCustomerClicked"/>
+
 
             </StackPanel>
         </ScrollViewer>
 
     </Grid>
+
 </Page>

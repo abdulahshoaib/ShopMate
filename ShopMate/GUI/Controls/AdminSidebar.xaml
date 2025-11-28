@@ -19,16 +19,6 @@
                            FontSize="12"
                            FontWeight="SemiBold"
                            VerticalAlignment="Center"/>
-
-                <Button Content="≡"
-                        Grid.Column="1"
-                        Width="36"
-                        Height="36"
-                        Background="Transparent"
-                        Foreground="#E5E7EB"
-                        BorderBrush="Transparent"
-                        FontSize="20"
-                        Click="OnSidebarToggleClicked"/>
             </Grid>
 
             <!-- Main Buttons -->
@@ -47,7 +37,7 @@
                     </Style>
                 </StackPanel.Resources>
 
-                <Button Content="Dashboard" Background="#374151" Click="OnDashboardClicked"/>
+                <Button Content="Dashboard" Click="OnDashboardClicked"/>
                 <Button Content="Generate Report" Click="OnGenerateReportClicked"/>
                 <Button Content="Manage Staff" Click="OnManageEmployeesClicked"/>
                 <Button Content="Manage Customers" Click="OnManageCustomersClicked"/>
