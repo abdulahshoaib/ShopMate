@@ -29,5 +29,19 @@ namespace ShopMate.GUI
         {
             // TODO: Navigate to GenerateBillPage
         }
+        private void OnGenerateReportClicked(object sender, RoutedEventArgs e)
+        {
+            // TODO: Navigate to GenerateBillPage
+        }
+        private void OnSettingsClicked(object sender, RoutedEventArgs e)
+        {
+            // TODO:
+        }
+        private void OnSignOutClicked(object sender, RoutedEventArgs e)
+        {
+        }
+        private void OnDashboardClicked(object sender, RoutedEventArgs e)
+        {
+        }
     }
 }
