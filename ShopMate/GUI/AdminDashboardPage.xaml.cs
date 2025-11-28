@@ -16,13 +16,7 @@ namespace ShopMate.GUI
         {
             // TODO: Navigate to ManageEmployeesPage
         }
-        private void OnDeleteProductClicked(object sender, RoutedEventArgs e)
-        {
-        }
-        private void OnViewReportsClicked(object sender, RoutedEventArgs e)
-        {
-            // TODO: Navigate to ViewReportsPage
-        }
+        
 
         private void OnManageCustomersClicked(object sender, RoutedEventArgs e)
         {
