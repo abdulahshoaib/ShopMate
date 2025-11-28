@@ -31,14 +31,18 @@ namespace ShopMate
         /// <param name="args">Details about the launch request and process.</param>
         protected override async void OnLaunched(Microsoft.UI.Xaml.LaunchActivatedEventArgs args)
         {
-            await SupabaseInitializer.InitializeAsync();
-
             _window = new Window();
             var rootFrame = new Frame();
             App.MainFrame = rootFrame;
+
+            // Initialize Supabase
+            await ShopMate.DL.SupabaseInitializer.InitializeAsync();
+
             rootFrame.Navigate(typeof(GUI.LoginPage));
             _window.Content = rootFrame;
             _window.Activate();
         }
+
+
     }
 }

@@ -1,66 +1,35 @@
 ﻿using ShopMate.DTOs;
 using ShopMate.DL;
-<<<<<<< HEAD
-using System.Threading.Tasks;
-using Microsoft.UI.Xaml.Controls;
-=======
->>>>>>> 35e9e22d25c513d466883fe8ec25ae9cb75792c2
 using ShopMate.GUI;
+using System.Threading.Tasks;
 
 namespace ShopMate.BL
 {
     internal class LoginBL
     {
-        private LoginDL loginDL;
+        private readonly LoginDL loginDL;
 
         public LoginBL()
         {
             loginDL = new LoginDL();
-
         }
 
-        public async Task<bool> loginuserAsync(LoginDTO loginDTO)
+        public async Task<bool> LoginUserAsync(LoginDTO loginDTO)
         {
-<<<<<<< HEAD
-            var userdto = await loginDL.ValidateLoginAsync(loginDTO);
-            if (userdto == null) return false;
+            var user = await loginDL.ValidateLoginAsync(loginDTO);
 
-            if (userdto.Role == "Admin")
-            {
-                App.MainFrame?.Navigate(typeof(AdminDashboardPage), userdto);
-                return true;
-=======
-            userdto = loginDL.ValidateLogin(logindto);
-            if (userdto != null)
-            {
-                if (userdto.Role == "Admin")
-                {
-                    App.MainFrame?.Navigate(typeof(AdminDashboardPage));
-                    return true;
-                }
-                else if (userdto.Role == "Salesperson")
-                {
-                    App.MainFrame?.Navigate(typeof(SalesPersonDashboardPage));
-                    return true;
-                }
-                else 
-                {
-                    return false;
-                }
->>>>>>> 35e9e22d25c513d466883fe8ec25ae9cb75792c2
-            }
-            else 
-            {
-<<<<<<< HEAD
-                App.MainFrame?.Navigate(typeof(SalesPersonDashboardPage), userdto);
-                return true;
-            }
-
-            return false;
-=======
+            if (user == null)
                 return false;
-            }
->>>>>>> 35e9e22d25c513d466883fe8ec25ae9cb75792c2
+
+            // Navigate based on roleID instead of role string
+            if (user.RoleID == 7)  // Assuming 1 = Admin
+                App.MainFrame?.Navigate(typeof(AdminDashboardPage), user);
+            else if (user.RoleID == 8)  // Assuming 2 = Salesperson
+                App.MainFrame?.Navigate(typeof(SalesPersonDashboardPage), user);
+            else
+                return false;
+
+            return true;
         }
     }
 }
