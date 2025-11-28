@@ -65,7 +65,7 @@
 
                     <StackPanel.Resources>
                         <Style TargetType="Button">
-                            <Setter Property="Width" Value="130"/>
+                            <Setter Property="Width" Value="150"/>
                             <Setter Property="Height" Value="38"/>
                             <Setter Property="FontSize" Value="14"/>
                             <Setter Property="Foreground" Value="#F3F4F6"/>
@@ -79,12 +79,10 @@
                     <Button Content="Dashboard" Click="OnDashboardClicked"/>
                     <Button Content="Generate Report" Click="OnGenerateReportClicked"/>
                     <Button Content="Manage Staff" Click="OnManageEmployeesClicked"/>
-                    <Button Content="Add Customer" Click="OnAddCustomerClicked"/>
-                    <Button Content="Add Product" Click="OnAddProductClicked"/>
-                    <Button Content="Delete Product" Click="OnDeleteProductClicked"/>
+                    <Button Content="Manage Customers" Click="OnManageCustomersClicked"/>
+                    <Button Content="Manage Products" Click="OnManageProductsClicked"/>
 
                     <StackPanel Grid.Row="2"
-                                Padding="10"
                                 Spacing="10"
                                 Margin="0,0,0,20">
 
@@ -131,12 +129,12 @@
                             CornerRadius="18"
                             Padding="20">
                         <StackPanel>
-                            <TextBlock Text="Add Customer"
+                            <TextBlock Text="Manage Customers"
                                        FontWeight="Bold"
                                        Foreground="White"
                                        FontSize="20"/>
 
-                            <TextBlock Text="Register new customer"
+                            <TextBlock Text="Manage all of your customers."
                                        Foreground="White"
                                        FontSize="13"
                                        Margin="0,4,0,10"/>
@@ -146,7 +144,7 @@
                                     Background="#20FFFFFF"
                                     Foreground="White"
                                     BorderBrush="Transparent"
-                                    Click="OnAddCustomerClicked"
+                                    Click="OnManageCustomersClicked"
                                     CornerRadius="6"/>
                         </StackPanel>
                     </Border>
@@ -156,12 +154,12 @@
                             CornerRadius="18"
                             Padding="20">
                         <StackPanel>
-                            <TextBlock Text="Add Product"
+                            <TextBlock Text="Manage Products"
                                        FontWeight="Bold"
                                        Foreground="White"
                                        FontSize="20"/>
 
-                            <TextBlock Text="Add products for sale"
+                            <TextBlock Text="Manage your inventory."
                                        Foreground="White"
                                        FontSize="13"                              
                                        Margin="0,4,0,10"/>
@@ -171,7 +169,7 @@
                                     Background="#20FFFFFF"
                                     Foreground="White"
                                     BorderBrush="Transparent"
-                                    Click="OnAddProductClicked"
+                                    Click="OnManageProductsClicked"
                                     CornerRadius="6"/>
                         </StackPanel>
                     </Border>
@@ -181,23 +179,23 @@
                             CornerRadius="18"
                             Padding="20">
                         <StackPanel>
-                            <TextBlock Text="Delete Product"
+                            <TextBlock Text="Manage Staff"
                                        FontWeight="Bold"
                                        Foreground="White"
                                        FontSize="20"/>
 
-                            <TextBlock Text="Remove items from inventory"
+                            <TextBlock Text="Manage your employees."
                                        Foreground="White"
                                        FontSize="13"
                                        Margin="0,4,0,10"/>
 
-                            <Button Content="Delete Item"
-                                    Tag="TODO: Open Delete Dialog"
+                            <Button Content="Get Started"
+                                    Tag="Implement"
                                     Padding="8,4"
                                     Background="#20FFFFFF"
                                     Foreground="White"
                                     BorderBrush="Transparent"
-                                    Click="OnDeleteProductClicked"
+                                    Click="OnManageEmployeesClicked"
                                     CornerRadius="6"/>
                         </StackPanel>
                     </Border>

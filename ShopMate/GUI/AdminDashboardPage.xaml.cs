@@ -24,12 +24,12 @@ namespace ShopMate.GUI
             // TODO: Navigate to ViewReportsPage
         }
 
-        private void OnAddCustomerClicked(object sender, RoutedEventArgs e)
+        private void OnManageCustomersClicked(object sender, RoutedEventArgs e)
         {
             // TODO: Navigate to AddCustomerPage
         }
 
-        private void OnAddProductClicked(object sender, RoutedEventArgs e)
+        private void OnManageProductsClicked(object sender, RoutedEventArgs e)
         {
             // TODO: Navigate to AddProductPage
         }
