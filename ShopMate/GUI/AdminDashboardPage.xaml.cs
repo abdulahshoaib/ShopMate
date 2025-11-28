@@ -20,7 +20,7 @@ namespace ShopMate.GUI
 
         private void OnManageCustomersClicked(object sender, RoutedEventArgs e)
         {
-            // TODO: Navigate to AddCustomerPage
+            this.Content = new GUI.ManageCustomersPage();
         }
 
         private void OnManageProductsClicked(object sender, RoutedEventArgs e)
@@ -39,9 +39,7 @@ namespace ShopMate.GUI
         }
         private void OnSignOutClicked(object sender, RoutedEventArgs e)
         {
-        }
-        private void OnDashboardClicked(object sender, RoutedEventArgs e)
-        {
+            this.Content = new GUI.LoginPage();
         }
     }
 }

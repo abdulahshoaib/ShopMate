@@ -1,5 +1,6 @@
 using Microsoft.UI.Xaml;
 using Microsoft.UI.Xaml.Controls;
+using Windows.ApplicationModel.VoiceCommands;
 
 namespace ShopMate.GUI
 {
@@ -9,10 +10,29 @@ namespace ShopMate.GUI
         {
             this.InitializeComponent();
         }
-
-        private void OnBackClicked(object sender, RoutedEventArgs e)
+        private void OnManageEmployeesClicked(object sender, RoutedEventArgs e)
         {
-            // TODO: Navigate back to SalesPersonDashboardPage
+            // TODO: Navigate to ManageEmployeesPage
+        }
+        private void OnManageProductsClicked(object sender, RoutedEventArgs e)
+        {
+            // TODO: Navigate to AddProductPage
+        }
+        private void OnGenerateReportClicked(object sender, RoutedEventArgs e)
+        {
+            // TODO: Navigate to GenerateBillPage
+        }
+        private void OnSettingsClicked(object sender, RoutedEventArgs e)
+        {
+            // TODO:
+        }
+        private void OnSignOutClicked(object sender, RoutedEventArgs e)
+        {
+            this.Content = new GUI.LoginPage();
+        }
+        private void OnDashboardClicked(object sender, RoutedEventArgs e)
+        {
+            this.Content = new GUI.AdminDashboardPage();
         }
 
         private void OnAddCustomerClicked(object sender, RoutedEventArgs e)
@@ -29,15 +49,18 @@ namespace ShopMate.GUI
         {
             // TODO: Delete selected customer
         }
-    }
-
-    // Example data model
-    public class Customer
-    {
-        public int Id { get; set; }
-        public string Name { get; set; } = "";
-        public string Phone { get; set; } = "";
-        public string Email { get; set; } = "";
-        public string Address { get; set; } = "";
+        
+        private void OnViewCustomersClicked(object sender, RoutedEventArgs e)
+        {
+        }
+        // Example data model
+        public class Customer
+        {
+            public int Id { get; set; }
+            public string Name { get; set; } = "";
+            public string Phone { get; set; } = "";
+            public string Email { get; set; } = "";
+            public string Address { get; set; } = "";
+        }
     }
 }

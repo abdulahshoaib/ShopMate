@@ -76,7 +76,7 @@
                         </Style>
                     </StackPanel.Resources>
 
-                    <Button Content="Dashboard" Click="OnDashboardClicked"/>
+                    <Button Content="Dashboard" Background="#374151"/>
                     <Button Content="Generate Report" Click="OnGenerateReportClicked"/>
                     <Button Content="Manage Staff" Click="OnManageEmployeesClicked"/>
                     <Button Content="Manage Customers" Click="OnManageCustomersClicked"/>
