@@ -67,6 +67,43 @@ namespace ShopMate.GUI
             SubtotalTextBlock.Text = $"Subtotal: {subtotal.ToString("C", CultureInfo.CurrentCulture)}";
             TotalTextBlock.Text = $"Total: {subtotal.ToString("C", CultureInfo.CurrentCulture)}";
         }
+
+        // ========================= Sidebar button handlers (no-op safe implementations) =========================
+        // These exist only to satisfy XAML event wiring and avoid build errors.
+        private void OnDashboardClicked(object sender, RoutedEventArgs e)
+        {
+            // TODO: navigate to dashboard page if desired
+        }
+
+        private void OnGenerateBillClicked(object sender, RoutedEventArgs e)
+        {
+            // Already on GenerateBill page — placeholder
+        }
+
+        private void OnGenerateReportClicked(object sender, RoutedEventArgs e)
+        {
+            // TODO: open reports view
+        }
+
+        private void OnAddCustomerClicked(object sender, RoutedEventArgs e)
+        {
+            // TODO: open add-customer view
+        }
+
+        private void OnAddProductClicked(object sender, RoutedEventArgs e)
+        {
+            // TODO: open add-product view
+        }
+
+        private void OnSettingsClicked(object sender, RoutedEventArgs e)
+        {
+            // TODO: open settings
+        }
+
+        private void OnSignOutClicked(object sender, RoutedEventArgs e)
+        {
+            // TODO: sign out logic
+        }
     }
 
     // kept inside same file per request — no new files
