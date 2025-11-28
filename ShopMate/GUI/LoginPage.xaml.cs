@@ -2,6 +2,7 @@ using Microsoft.UI.Xaml;
 using Microsoft.UI.Xaml.Controls;
 using Microsoft.UI.Xaml.Input;
 using Microsoft.UI.Xaml.Media;
+using System;
 
 namespace ShopMate.GUI
 {
@@ -23,11 +24,11 @@ namespace ShopMate.GUI
 
             if (username == "admin" && password == "admin123")
             {
-                this.Content = new AdminDashboardPage();
+                App.MainFrame.Navigate(typeof(AdminDashboardPage));
             }
             else if (username == "sales" && password == "sales123")
             {
-                this.Content = new SalesPersonDashboardPage();
+                App.MainFrame.Navigate(typeof(SalesPersonDashboardPage));
             }
             else
             {
