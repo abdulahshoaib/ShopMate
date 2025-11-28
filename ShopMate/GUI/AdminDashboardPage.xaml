@@ -193,7 +193,6 @@
 
                             <Button Content="Delete Item"
                                     Tag="TODO: Open Delete Dialog"
-                                    Click="OnDeleteProductClicked"
                                     Padding="8,4"
                                     Background="#20FFFFFF"
                                     Foreground="White"
@@ -219,7 +218,6 @@
                                        Margin="0,4,0,10"/>
 
                             <Button Content="View Reports"
-                                    Click="OnGenerateReportClicked"
                                     Padding="8,4"
                                     Background="#20FFFFFF"
                                     Foreground="White"
