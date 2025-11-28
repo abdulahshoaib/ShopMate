@@ -6,9 +6,14 @@
     xmlns:local="using:ShopMate.GUI"
     xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
     xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+    xmlns:controls="using:ShopMate.GUI.Controls"
     mc:Ignorable="d">
 
     <Grid>
+
+        <!-- Sidebar -->
+        <controls:SalesSidebarControl Grid.Column="0"/>
+   
 
     </Grid>
 </Page>
