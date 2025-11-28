@@ -1,44 +1,37 @@
 ﻿using ShopMate.DTOs;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 using ShopMate.DL;
-using ShopMate.DTOs;
+using System.Threading.Tasks;
+using Microsoft.UI.Xaml.Controls;
 using ShopMate.GUI;
 
 namespace ShopMate.BL
 {
     internal class LoginBL
     {
-        private LoginDTO logindto;
         private LoginDL loginDL;
-        private UserDTO userdto;
 
         public LoginBL()
         {
             loginDL = new LoginDL();
         }
 
-        // Example function
-        public bool loginuser(LoginDTO logindto)
+        public async Task<bool> loginuserAsync(LoginDTO loginDTO)
         {
-            this.logindto = logindto;
-            userdto= loginDL.ValidateLogin(this.logindto);
+            var userdto = await loginDL.ValidateLoginAsync(loginDTO);
+            if (userdto == null) return false;
+
             if (userdto.Role == "Admin")
             {
-                App.MainFrame?.Navigate(typeof(AdminDashboardPage));
+                App.MainFrame?.Navigate(typeof(AdminDashboardPage), userdto);
                 return true;
             }
             else if (userdto.Role == "Salesperson")
             {
-                App.MainFrame?.Navigate(typeof(SalesPersonDashboardPage));
+                App.MainFrame?.Navigate(typeof(SalesPersonDashboardPage), userdto);
                 return true;
             }
-            else { 
+
             return false;
-            }
         }
     }
 }

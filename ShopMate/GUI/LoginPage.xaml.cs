@@ -23,12 +23,14 @@ namespace ShopMate.GUI
 
         
 
-        private void OnSignInClicked(object sender, RoutedEventArgs e)
+        private async void OnSignInClicked(object sender, RoutedEventArgs e)
         {
             _loginDTO.Username = UsernameTextBox.Text;
             _loginDTO.Password = PasswordBox.Password;
 
-            if (!_loginBL.loginuser(_loginDTO))
+            var success = await _loginBL.loginuserAsync(_loginDTO);
+
+            if (!success)
             {
                 ErrorTextBlock.Text = "Invalid username or password.";
                 ErrorTextBlock.Visibility = Visibility.Visible;

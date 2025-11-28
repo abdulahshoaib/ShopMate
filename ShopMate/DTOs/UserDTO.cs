@@ -1,18 +1,19 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
+﻿using Supabase;
+using Supabase.Postgrest.Attributes;
+using Supabase.Postgrest.Models;
 
+[Table("users")]
+public class UserDTO : BaseModel
+{
+    [PrimaryKey("id", false)]
+    public int Id { get; set; }
 
-namespace ShopMate.DTOs
-    {
-        public class UserDTO
-        {
-            public int Id { get; set; }
-            public string Username { get; set; }
-            public string Role { get; set; }
-        }
+    [Column("username")]
+    public string Username { get; set; }
+
+    [Column("passwordhash")]
+    public string PasswordHash { get; set; }
+
+    [Column("role")]
+    public string Role { get; set; }
 }
-
-

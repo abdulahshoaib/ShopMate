@@ -1,48 +1,26 @@
-﻿using Npgsql;
-using ShopMate.DTOs;
-using System;
-using System.Collections.Generic;
+﻿using Supabase;
+using Supabase.Postgrest.Attributes;
+using Supabase.Postgrest.Models;
 using System.Linq;
-using System.Text;
 using System.Threading.Tasks;
+using ShopMate.DTOs;
 
 namespace ShopMate.DL
 {
     internal class LoginDL
     {
-        private LoginDTO? logindto;
-
-        public UserDTO ValidateLogin(LoginDTO logindto)
+        public async Task<UserDTO?> ValidateLoginAsync(LoginDTO loginDTO)
         {
-            using var con = ConnectionHelper.GetConnection();
-            con.Open();
+            var client = SupabaseInitializer.Client;
 
-            string query = @"
-                SELECT u.id, u.username, r.rolename
-                FROM users u
-                JOIN roles r ON r.id = u.roleid
-                WHERE u.username = @user
-                AND u.passwordhash = @pass
-                LIMIT 1;
-            ";
+            // Use strongly-typed .Where() instead of .Filter()
+            var response = await client.From<UserDTO>()
+                                       .Where(u => u.Username == loginDTO.Username &&
+                                                   u.PasswordHash == loginDTO.Password)
+                                       .Get();
 
-            using var cmd = new NpgsqlCommand(query, con);
-            cmd.Parameters.AddWithValue("@user", logindto.Username);
-            cmd.Parameters.AddWithValue("@pass", logindto.Password);
-
-            using var reader = cmd.ExecuteReader();
-
-            if (reader.Read())
-            {
-                return new UserDTO
-                {
-                    Id = reader.GetInt32(0),
-                    Username = reader.GetString(1),
-                    Role = reader.GetString(2)
-                };
-            }
-
-            return null;
+            var user = response.Models.FirstOrDefault();
+            return user;
         }
     }
 }

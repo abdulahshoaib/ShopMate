@@ -1,5 +1,6 @@
 ﻿using Microsoft.UI.Xaml;
 using Microsoft.UI.Xaml.Controls;
+using ShopMate.DL;
 
 // To learn more about WinUI, the WinUI project structure,
 // and more about our project templates, see: http://aka.ms/winui-project-info.
@@ -28,15 +29,14 @@ namespace ShopMate
         /// Invoked when the application is launched.
         /// </summary>
         /// <param name="args">Details about the launch request and process.</param>
-        protected override void OnLaunched(Microsoft.UI.Xaml.LaunchActivatedEventArgs args)
+        protected override async void OnLaunched(Microsoft.UI.Xaml.LaunchActivatedEventArgs args)
         {
-            _window = new Window();
+            await SupabaseInitializer.InitializeAsync();
 
+            _window = new Window();
             var rootFrame = new Frame();
             App.MainFrame = rootFrame;
-
             rootFrame.Navigate(typeof(GUI.LoginPage));
-
             _window.Content = rootFrame;
             _window.Activate();
         }

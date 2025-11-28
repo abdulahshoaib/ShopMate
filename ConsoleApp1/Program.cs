@@ -9,31 +9,40 @@ namespace SupabaseConnectionTest
     {
         static void Main(string[] args)
         {
-            Console.WriteLine("=== Ultra-Minimal Test ===\n");
+            Console.WriteLine("=== Supabase Connection Diagnostic (FINAL FIX) ===\n");
 
+            // CRITICAL FOR VIRTUALBOX
             AppContext.SetSwitch("System.Net.DisableIPv6", true);
+            AppContext.SetSwitch("System.Net.Http.SocketHttpHandler.Http2Support", false);
 
+            // Bypass SSL
             ServicePointManager.ServerCertificateValidationCallback =
                 new RemoteCertificateValidationCallback((sender, cert, chain, sslPolicyErrors) => true);
 
-            // BARE MINIMUM connection string
-            string connStr = "Host=db.aqfwqczfldatbzqlwfqs.supabase.co;Database=postgres;Username=postgres;Password=shopmate123shopmate;";
+            ServicePointManager.DefaultConnectionLimit = 10;
 
-            Console.WriteLine($"Testing: {connStr}\n");
+            // CORRECTED: Use "Timeout" not "Connection Timeout"
+            string connStr = "Host=db.aqfwqczfldatbzqlwfqs.supabase.co;Port=5432;Database=postgres;Username=postgres;Password=shopmate123shopmate;SslMode=Require;Pooling=false;Timeout=30;";
+
+            Console.WriteLine($"🔹 Testing connection string:\n{connStr}\n");
 
             try
             {
                 using (var con = new NpgsqlConnection(connStr))
                 {
+                    Console.WriteLine("Attempting to open connection...");
                     con.Open();
-                    Console.WriteLine("✅ SUCCESS!");
+                    Console.WriteLine("✅ Connection opened!\n");
 
                     using (var cmd = new NpgsqlCommand("SELECT now();", con))
                     {
                         var result = cmd.ExecuteScalar();
-                        Console.WriteLine($"Time: {result}");
+                        Console.WriteLine($"✅ Query executed!\n🕒 Server time: {result}\n");
                     }
+
                     con.Close();
+                    Console.WriteLine("🎉 SUCCESS! Connection is working!\n");
+                    Console.WriteLine($"✅ Use this connection string in your code:\n{connStr}\n");
                 }
             }
             catch (Exception ex)
@@ -48,15 +57,6 @@ namespace SupabaseConnectionTest
                 }
 
                 Console.WriteLine($"\nStack Trace:\n{ex.StackTrace}");
-
-                Console.WriteLine("\n\n=== TROUBLESHOOTING FOR VIRTUALBOX ===");
-                Console.WriteLine("1. Check VirtualBox network adapter settings:");
-                Console.WriteLine("   - Settings > Network > Adapter 1 > Attached to: NAT");
-                Console.WriteLine("2. Try using Host-Only Adapter instead of NAT");
-                Console.WriteLine("3. In VirtualBox: File > Preferences > Network > Check DNS forwarding");
-                Console.WriteLine("4. Try pinging 8.8.8.8 in your VM command prompt:");
-                Console.WriteLine("   ping 8.8.8.8");
-                Console.WriteLine("5. Ensure your firewall allows outbound HTTPS (443) and PostgreSQL (5432)");
             }
 
             Console.WriteLine("\nPress any key to exit...");
