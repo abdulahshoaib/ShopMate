@@ -45,19 +45,9 @@
                     <TextBlock Text="Admin Panel"
                                x:Name="SidebarTitle"
                                Foreground="#E5E7EB"
-                               FontSize="12"
+                               FontSize="14"
                                FontWeight="SemiBold"
                                VerticalAlignment="Center"/>
-
-                    <Button Content="≡"
-                            Grid.Column="1"
-                            Width="36"
-                            Height="36"
-                            Background="Transparent"
-                            Foreground="#E5E7EB"
-                            BorderBrush="Transparent"
-                            FontSize="20"
-                            Tag="TODO: Sidebar toggle handler"/>
                 </Grid>
 
 
