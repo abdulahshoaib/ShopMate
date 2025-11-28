@@ -37,13 +37,10 @@ namespace ShopMate.GUI
 
         private void OnAddCustomerClicked(object sender, RoutedEventArgs e)
         {
-            // TODO: Navigate to AddCustomerPage
+            this.Content = new GUI.AddCustomerPage();
         }
 
-        private void OnEditCustomerClicked(object sender, RoutedEventArgs e)
-        {
-            // TODO: Edit selected customer
-        }
+        
 
         private void OnDeleteCustomerClicked(object sender, RoutedEventArgs e)
         {
