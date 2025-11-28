@@ -13,12 +13,7 @@ namespace ShopMate.DL
             {
                 using var con = DatabaseHelper.GetConnection();
 
-                string query = @"
-                SELECT u.userID, u.Username, r.roleName
-                FROM users u
-                JOIN roles r ON r.roleID = u.roleID
-                WHERE u.Username = @user
-                AND u.passwordHash = @pass";
+                string query = "SELECT \"userID\", \"Username\", \"roleID\", \"passwordHash\" FROM users WHERE \"Username\" = @user AND \"passwordHash\" = @pass";
 
                 using var cmd = new NpgsqlCommand(query, con);
                 cmd.Parameters.AddWithValue("@user", logindto.Username);
@@ -30,7 +25,7 @@ namespace ShopMate.DL
                 {
                     retDTO.Username = reader["Username"].ToString();
                     retDTO.Id = Convert.ToInt32(reader["userID"]);
-                    retDTO.Role = reader["roleName"].ToString();
+                    retDTO.Role = Convert.ToInt32(reader["roleID"]);
                     return retDTO;
                 }
             }

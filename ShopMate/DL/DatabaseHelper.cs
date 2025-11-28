@@ -2,18 +2,21 @@
 
 public static class DatabaseHelper
 {
-    private const string ConnectionString =
-        "Host=db.aqfwqczfldatbzqlwfqs.supabase.co;" +
-        "Port=5432;" +
-        "Database=postgres;" +
-        "Username=postgres;" +
-        "Password=x9MAjfbTF0gXYuUV;" +
-        "SSL Mode=Require;" +
-        "Trust Server Certificate=true;";
-
+    [System.Obsolete]
     public static NpgsqlConnection GetConnection()
     {
-        var conn = new NpgsqlConnection(ConnectionString);
+        var builder = new NpgsqlConnectionStringBuilder
+        {
+            Host = "cflkjtxddlplfejixnnc.db.eu-west-2.nhost.run",
+            Port = 5432,
+            Username = "postgres",
+            Password = "eTbF5GS3U9aHe@T",
+            Database = "cflkjtxddlplfejixnnc",
+            SslMode = SslMode.Require,
+            TrustServerCertificate = true
+        };
+
+        var conn = new NpgsqlConnection(builder.ConnectionString);
         conn.Open();
         return conn;
     }

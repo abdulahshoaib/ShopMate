@@ -21,12 +21,12 @@ namespace ShopMate.BL
             userdto = loginDL.ValidateLogin(logindto);
             if (userdto != null)
             {
-                if (userdto.Role == "Admin")
+                if (userdto.Role == 1)
                 {
                     App.MainFrame?.Navigate(typeof(AdminDashboardPage));
                     return true;
                 }
-                else if (userdto.Role == "Salesperson")
+                else if (userdto.Role == 2)
                 {
                     App.MainFrame?.Navigate(typeof(SalesPersonDashboardPage));
                     return true;
