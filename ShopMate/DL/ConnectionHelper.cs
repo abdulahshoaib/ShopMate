@@ -10,7 +10,7 @@ namespace ShopMate.DL
                 "Port=5432;" +
                 "Database=postgres;" +
                 "Username=postgres;" +
-                "shopmate123shopmate;" +
+                "Password=shopmate123shopmate;" +
                 "SSL Mode=Disable;" +
                 "Trust Server Certificate=true;";
 
