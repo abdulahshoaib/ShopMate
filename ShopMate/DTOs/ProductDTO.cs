@@ -6,11 +6,19 @@ using System.Threading.Tasks;
 
 namespace ShopMate.DTOs
 {
-    internal class ProductDTO
+    public class ProductDTO
     {
-        public int Id { get; set; }
-        public string Name { get; set; } = string.Empty;
+        public ProductDTO()
+        {
+            Name = "";
+            Description = "";
+        }
+
+        public int ID { get; set; }
+        public string Name { get; set; }
+        public string Description { get; set; }
         public decimal Price { get; set; }
         public int Quantity { get; set; }
+        public int LowStockLimit { get; set; }
     }
 }

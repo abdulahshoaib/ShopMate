@@ -4,6 +4,7 @@
     <Platform Name="x64" />
     <Platform Name="x86" />
   </Configurations>
+  <Project Path="ConsoleApp1/ConsoleApp1.csproj" Id="3c5c274c-7ebe-4fb8-8a16-4cefcbc294a8" />
   <Project Path="ShopMate/ShopMate.csproj">
     <Platform Solution="*|ARM64" Project="ARM64" />
     <Platform Solution="*|x64" Project="x64" />

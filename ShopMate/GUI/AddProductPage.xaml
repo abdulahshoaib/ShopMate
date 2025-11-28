@@ -82,12 +82,16 @@
                                 <ColumnDefinition Width="*"/>
                             </Grid.ColumnDefinitions>
 
-                            <TextBox Header="Price"
-                                     x:Name="PriceTextBox"
-                                     Grid.Column="0"/>
+                            <NumberBox Header="Price"
+                                    x:Name="PriceNumberBox"
+                                    SpinButtonPlacementMode="Inline"
+                                    Minimum="0"
+                                    SmallChange="0.1"/>
 
-                            <TextBox Header="Quantity in stock"
-                                     x:Name="QuantityTextBox"
+
+                            <NumberBox Header="Quantity in stock"
+                                     x:Name="QuantityNumberBox"
+                                     SpinButtonPlacementMode="Inline"
                                      Grid.Column="1"/>
                         </Grid>
 
@@ -105,8 +109,8 @@
                                     Padding="14,6"
                                     CornerRadius="6"/>
 
-                            <Button Content="Cancel"
-                                    Click="Cancel_Click"
+                            <Button Content="Clear"
+                                    Click="Clear_Click"
                                     Background="Transparent"
                                     Foreground="#D1D5DB"
                                     BorderBrush="#334155"
