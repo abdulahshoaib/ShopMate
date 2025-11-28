@@ -6,12 +6,12 @@ namespace ShopMate.Pages
 {
     public sealed partial class ManageEmployeesPage : Page
     {
-        public ObservableCollection<Employee> Employees { get; set; } = new ObservableCollection<Employee>();
+        // public ObservableCollection<Employee> Employees { get; set; } = new ObservableCollection<Employee>();
 
         public ManageEmployeesPage()
         {
             this.InitializeComponent();
-            EmployeesListView.ItemsSource = Employees;
+            // EmployeesListView.ItemsSource = Employees;
         }
 
         private void OnBackClicked(object sender, RoutedEventArgs e)
