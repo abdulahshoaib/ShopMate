@@ -42,6 +42,7 @@
   <ItemGroup>
     <PackageReference Include="Microsoft.Windows.SDK.BuildTools" Version="10.0.26100.7175" />
     <PackageReference Include="Microsoft.WindowsAppSDK" Version="1.8.251106002" />
+    <PackageReference Include="Npgsql" Version="10.0.0" />
   </ItemGroup>
 
   <!-- Page compilation entries (use Update for SDK implicit items) -->
@@ -77,8 +78,6 @@
     <Page Update="LoginPage.xaml">
       <Generator>MSBuild:Compile</Generator>
     </Page>
-
-    <Folder Include="DL\" />
   </ItemGroup>
 
   <PropertyGroup Condition="'$(DisableHasPackageAndPublishMenuAddedByProject)'!='true' and '$(EnableMsixTooling)'=='true'">
