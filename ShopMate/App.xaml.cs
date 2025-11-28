@@ -44,7 +44,7 @@ namespace ShopMate
         protected override void OnLaunched(Microsoft.UI.Xaml.LaunchActivatedEventArgs args)
         {
             _window = new Window();
-            _window.Content = new GUI.SalesPersonDashboardPage();
+            _window.Content = new GUI.LoginPage();
             _window.Activate();
         }
     }
