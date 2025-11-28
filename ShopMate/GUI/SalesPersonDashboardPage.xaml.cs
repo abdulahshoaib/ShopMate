@@ -10,38 +10,35 @@ namespace ShopMate.GUI
             this.InitializeComponent();
         }
 
-        private void OnLogoutClicked(object sender, RoutedEventArgs e)
-        {
-            // TODO: Implement logout logic
-        }
-
         private void OnAddCustomerClicked(object sender, RoutedEventArgs e)
         {
-            // TODO: Navigate to AddCustomerPage
+            this.Content = new AddCustomerPage();
         }
 
         private void OnAddProductClicked(object sender, RoutedEventArgs e)
         {
-            // TODO: Navigate to AddProductPage
+            this.Content = new AddProductPage();
         }
 
         private void OnGenerateBillClicked(object sender, RoutedEventArgs e)
         {
-            // TODO: Navigate to GenerateBillPage
+            this.Content = new GenerateBillPage();
         }
         private void OnGenerateReportClicked(object sender, RoutedEventArgs e)
         {
-            // TODO: Navigate to GenerateBillPage
+            // this.Content = new GenerateReportPage();
         }
         private void OnSettingsClicked(object sender, RoutedEventArgs e)
         {
-            // TODO:
+            this.Content = new SettingsPage();
         }
         private void OnSignOutClicked(object sender, RoutedEventArgs e)
         {
+            this.Content = new LoginPage();
         }
         private void OnDashboardClicked(object sender, RoutedEventArgs e)
         {
+            this.Content = new SalesPersonDashboardPage();
         }
     }
 }
