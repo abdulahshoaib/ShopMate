@@ -1,47 +1,43 @@
 ﻿using Npgsql;
-using ShopMate.DTOs;
+using ShopMate.DTOs; // Ensure you have this namespace/folder created
 using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
+using System.Data.SqlTypes;
 
 namespace ShopMate.DL
 {
     internal class LoginDL
     {
-        private LoginDTO? logindto;
-
         public UserDTO ValidateLogin(LoginDTO logindto)
         {
-            using var con = ConnectionHelper.GetConnection();
-            con.Open();
-
-            string query = @"
-                SELECT u.id, u.username, r.rolename
-                FROM users u
-                JOIN roles r ON r.id = u.roleid
-                WHERE u.username = @user
-                AND u.passwordhash = @pass
-                LIMIT 1;
-            ";
-
-            using var cmd = new NpgsqlCommand(query, con);
-            cmd.Parameters.AddWithValue("@user", logindto.Username);
-            cmd.Parameters.AddWithValue("@pass", logindto.Password);
-
-            using var reader = cmd.ExecuteReader();
-
-            if (reader.Read())
+            try
             {
-                return new UserDTO
-                {
-                    Id = reader.GetInt32(0),
-                    Username = reader.GetString(1),
-                    Role = reader.GetString(2)
-                };
-            }
+                using var con = DatabaseHelper.GetConnection();
 
+                string query = @"
+                SELECT u.userID, u.Username, r.roleName
+                FROM users u
+                JOIN roles r ON r.roleID = u.roleID
+                WHERE u.Username = @user
+                AND u.passwordHash = @pass";
+
+                using var cmd = new NpgsqlCommand(query, con);
+                cmd.Parameters.AddWithValue("@user", logindto.Username);
+                cmd.Parameters.AddWithValue("@pass", logindto.Password);
+
+                using var reader = cmd.ExecuteReader();
+                UserDTO retDTO = new UserDTO();
+                while (reader.Read())
+                {
+                    retDTO.Username = reader["Username"].ToString();
+                    retDTO.Id = Convert.ToInt32(reader["userID"]);
+                    retDTO.Role = reader["roleName"].ToString();
+                    return retDTO;
+                }
+            }
+            catch(Exception e)
+            {
+                return null;
+            }
             return null;
         }
     }

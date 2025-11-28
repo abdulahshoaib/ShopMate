@@ -6,13 +6,13 @@ using System.Threading.Tasks;
 
 
 namespace ShopMate.DTOs
+{
+    public class UserDTO
     {
-        public class UserDTO
-        {
-            public int Id { get; set; }
-            public string Username { get; set; }
-            public string Role { get; set; }
-        }
+        public int Id { get; set; }
+        public string Username { get; set; } = string.Empty;
+        public string Role { get; set; } = string.Empty;
+    }
 }
 
 
