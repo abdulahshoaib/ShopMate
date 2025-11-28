@@ -28,12 +28,12 @@ namespace ShopMate.BL
             userdto= loginDL.ValidateLogin(this.logindto);
             if (userdto.Role == "Admin")
             {
-                App.MainFrame.Navigate(typeof(AdminDashboardPage));
+                App.MainFrame?.Navigate(typeof(AdminDashboardPage));
                 return true;
             }
             else if (userdto.Role == "Salesperson")
             {
-                App.MainFrame.Navigate(typeof(SalesPersonDashboardPage));
+                App.MainFrame?.Navigate(typeof(SalesPersonDashboardPage));
                 return true;
             }
             else { 
