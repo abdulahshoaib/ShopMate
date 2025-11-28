@@ -6,13 +6,17 @@ using System.Threading.Tasks;
 
 namespace ShopMate.DTOs
 {
-    internal class BillDTO
+    public class BillDTO
     {
         public int Id { get; set; }
-        public int CustomerId { get; set; }
-        public string CustomerName { get; set; } = string.Empty;
-        public DateTime CreatedAt { get; set; } = DateTime.Now;
-        public List<BillItemDTO> Items { get; set; } = new List<BillItemDTO>();
-        public decimal Total => Items.Sum(i => i.Total);
+        public int? CustomerId { get; set; }
+        public int UserId { get; set; }
+        public decimal Subtotal { get; set; }
+        public decimal Tax { get; set; }
+        public decimal Discount { get; set; }
+        public decimal Total { get; set; }
+        public string PaymentType { get; set; }
+        public string Note { get; set; }
     }
 }
+

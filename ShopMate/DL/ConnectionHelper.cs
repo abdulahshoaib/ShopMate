@@ -5,26 +5,28 @@ namespace ShopMate.DL
 {
     public static class ConnectionHelper
     {
-        // 🔥 CHANGE THIS ONLY — every contributor will use same DB
         private static string connectionString =
-            "{\r\n  \"ConnectionStrings\": {\r\n    \"DefaultConnection\": \"Host=db.aqfwqczfldatbzqlwfqs.supabase.co;Database=postgres;Username=postgres;Password=!@#123456!@#;SSL Mode=Require;Trust Server Certificate=true\"\r\n  }\r\n}";
+                "Host=db.aqfwqczfldatbzqlwfqs.supabase.co;" +
+                "Port=5432;" +
+                "Database=postgres;" +
+                "Username=postgres;" +
+                "Password=!@#123456!@#;" +
+                "SslMode=Require;" +
+                "Trust Server Certificate=true;";
+
 
         public static NpgsqlConnection GetConnection()
         {
-            var con = new NpgsqlConnection(connectionString);
-            return con;
+            return new NpgsqlConnection(connectionString);
         }
 
-        // Optional: for pooling or checking
         public static bool TestConnection()
         {
             try
             {
-                using (var con = GetConnection())
-                {
-                    con.Open();
-                    return true;
-                }
+                using var con = GetConnection();
+                con.Open();
+                return true;
             }
             catch
             {
