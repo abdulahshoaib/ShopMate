@@ -7,7 +7,7 @@ namespace ShopMate.DL
     {
         // 🔥 CHANGE THIS ONLY — every contributor will use same DB
         private static string connectionString =
-            "{\r\n  \"ConnectionStrings\": {\r\n    \"DefaultConnection\": \"Host=db.aqfwqczfldatbzqlwfqs.supabase.co;Database=postgres;Username=postgres;Password=[YOUR_PASSWORD];SSL Mode=Require;Trust Server Certificate=true\"\r\n  }\r\n}";
+            "{\r\n  \"ConnectionStrings\": {\r\n    \"DefaultConnection\": \"Host=db.aqfwqczfldatbzqlwfqs.supabase.co;Database=postgres;Username=postgres;Password=!@#123456!@#;SSL Mode=Require;Trust Server Certificate=true\"\r\n  }\r\n}";
 
         public static NpgsqlConnection GetConnection()
         {
