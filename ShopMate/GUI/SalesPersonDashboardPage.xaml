@@ -176,8 +176,8 @@
 
                             <TextBlock Text="Add products for sale"
                                     Foreground="White"
-                                    FontSize="13"
-        <!-- Very light white -->                               Margin="0,4,0,10"/>
+                                    FontSize="13"                              
+                                    Margin="0,4,0,10"/>
 
                             <Button Content="Get Started"
                                     Padding="8,4"
