@@ -1,13 +1,13 @@
 ﻿using ShopMate.DTOs;
 using ShopMate.DL;
 using ShopMate.GUI;
+using System.Threading.Tasks;
 
 namespace ShopMate.BL
 {
     internal class LoginBL
     {
-        private LoginDL loginDL;
-        private UserDTO userdto;
+        private readonly LoginDL loginDL;
 
         public LoginBL()
         {
@@ -15,31 +15,22 @@ namespace ShopMate.BL
 
         }
 
-        // Example function
-        public bool loginuser(LoginDTO logindto)
+        public async Task<bool> LoginUserAsync(LoginDTO loginDTO)
         {
-            userdto = loginDL.ValidateLogin(logindto);
-            if (userdto != null)
-            {
-                if (userdto.Role == 1)
-                {
-                    App.MainFrame?.Navigate(typeof(AdminDashboardPage));
-                    return true;
-                }
-                else if (userdto.Role == 2)
-                {
-                    App.MainFrame?.Navigate(typeof(SalesPersonDashboardPage));
-                    return true;
-                }
-                else 
-                {
-                    return false;
-                }
-            }
-            else 
-            {
+            var user = await loginDL.ValidateLoginAsync(loginDTO);
+
+            if (user == null)
                 return false;
-            }
+
+            // Navigate based on roleID instead of role string
+            if (user.RoleID == 7)  // Assuming 1 = Admin
+                App.MainFrame?.Navigate(typeof(AdminDashboardPage), user);
+            else if (user.RoleID == 8)  // Assuming 2 = Salesperson
+                App.MainFrame?.Navigate(typeof(SalesPersonDashboardPage), user);
+            else
+                return false;
+
+            return true;
         }
     }
 }

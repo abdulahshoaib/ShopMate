@@ -10,25 +10,25 @@ namespace ShopMate.GUI
 {
     public sealed partial class LoginPage : Page
     {
-        private LoginDTO _loginDTO;
-        private LoginBL _loginBL;
+        private readonly LoginBL _loginBL;
+
         public LoginPage()
         {
-            _loginBL = new LoginBL();
-            _loginDTO = new LoginDTO();
             this.InitializeComponent();
+            _loginBL = new LoginBL();
         }
 
-        private sealed record OriginalBrushes(Brush? BorderBrush, Brush? Background);
-
-        
-
-        private void OnSignInClicked(object sender, RoutedEventArgs e)
+        private async void OnSignInClicked(object sender, RoutedEventArgs e)
         {
-            _loginDTO.Username = UsernameTextBox.Text;
-            _loginDTO.Password = PasswordBox.Password;
+            var loginDTO = new LoginDTO
+            {
+                Username = UsernameTextBox.Text,
+                Password = PasswordBox.Password
+            };
 
-            if (!_loginBL.loginuser(_loginDTO))
+            bool success = await _loginBL.LoginUserAsync(loginDTO);
+
+            if (!success)
             {
                 ErrorTextBlock.Text = "Invalid username or password.";
                 ErrorTextBlock.Visibility = Visibility.Visible;
@@ -36,3 +36,4 @@ namespace ShopMate.GUI
         }
     }
 }
+

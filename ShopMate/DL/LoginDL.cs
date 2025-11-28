@@ -1,39 +1,25 @@
-﻿using Npgsql;
-using ShopMate.DTOs; // Ensure you have this namespace/folder created
-using System;
-using System.Data.SqlTypes;
+using ShopMate.DTOs;
+using System.Linq;
+using System.Threading.Tasks;
+using Supabase.Postgrest;
 
 namespace ShopMate.DL
 {
     internal class LoginDL
     {
-        public UserDTO ValidateLogin(LoginDTO logindto)
+        public async Task<UserDTO?> ValidateLoginAsync(LoginDTO loginDTO)
         {
-            try
-            {
-                using var con = DatabaseHelper.GetConnection();
+            var client = SupabaseInitializer.Client;
 
-                string query = "SELECT \"userID\", \"Username\", \"roleID\", \"passwordHash\" FROM users WHERE \"Username\" = @user AND \"passwordHash\" = @pass";
+            // Fetch user by username and password
+            var response = await client.From<UserDTO>()
+                                       .Where(u => u.Username == loginDTO.Username &&
+                                                   u.PasswordHash == loginDTO.Password)
+                                       .Get();
 
-                using var cmd = new NpgsqlCommand(query, con);
-                cmd.Parameters.AddWithValue("@user", logindto.Username);
-                cmd.Parameters.AddWithValue("@pass", logindto.Password);
+            var user = response.Models.FirstOrDefault();
 
-                using var reader = cmd.ExecuteReader();
-                UserDTO retDTO = new UserDTO();
-                while (reader.Read())
-                {
-                    retDTO.Username = reader["Username"].ToString();
-                    retDTO.Id = Convert.ToInt32(reader["userID"]);
-                    retDTO.Role = Convert.ToInt32(reader["roleID"]);
-                    return retDTO;
-                }
-            }
-            catch(Exception e)
-            {
-                return null;
-            }
-            return null;
+            return user;
         }
     }
 }
