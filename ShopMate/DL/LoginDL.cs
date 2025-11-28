@@ -10,7 +10,8 @@ namespace ShopMate.DL
 {
     internal class LoginDL
     {
-        private LoginDTO logindto;
+        private LoginDTO? logindto;
+
         public UserDTO ValidateLogin(LoginDTO logindto)
         {
             using var con = ConnectionHelper.GetConnection();

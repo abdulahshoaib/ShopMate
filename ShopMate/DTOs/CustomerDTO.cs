@@ -1,20 +1,20 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-
-namespace ShopMate.DTOs
+﻿namespace ShopMate.DTOs
 {
-        public class CustomerDTO
+    public class CustomerDTO
+    {
+        public CustomerDTO()
         {
-            public int Id { get; set; }
-            public string Name { get; set; }
-            public string Phone { get; set; }
-            public string Email { get; set; }
-            public string Address { get; set; }
+            Name = Phone = Email = Address = "";
+
         }
-  
+        public int ID { get; set; }
+        public string Name { get; set; }
+        public string Phone { get; set; }
+        public string Email { get; set; }
+        public string Address { get; set; }
+        public string Notes { get; set; }
+    }
+
 }
 
 
