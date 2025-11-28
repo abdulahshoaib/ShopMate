@@ -1,4 +1,4 @@
-﻿using System.Data;
+using System.Data;
 using Npgsql;
 
 namespace ShopMate.DL
@@ -11,9 +11,8 @@ namespace ShopMate.DL
                 "Database=postgres;" +
                 "Username=postgres;" +
                 "Password=!@#123456!@#;" +
-                "SSL Mode=Disable;" +
+                "SSL Mode=Require;" +
                 "Trust Server Certificate=true;";
-
 
         public static NpgsqlConnection GetConnection()
         {

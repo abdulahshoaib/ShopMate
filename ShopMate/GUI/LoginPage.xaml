@@ -75,18 +75,7 @@
                         Click="OnSignInClicked"/>
             </StackPanel>
 
-            <!-- Demo accounts -->
-            <StackPanel HorizontalAlignment="Center">
-                <TextBlock Text="Demo Accounts"
-                           FontSize="12"
-                           Foreground="Black"/>
-                <TextBlock Text="Admin → admin / admin123"
-                           FontSize="12"
-                           Foreground="Black"/>
-                <TextBlock Text="Sales → sales / sales123"
-                           FontSize="12"
-                           Foreground="Black"/>
-            </StackPanel>
+           
         </StackPanel>
     </Grid>
 </Page>
