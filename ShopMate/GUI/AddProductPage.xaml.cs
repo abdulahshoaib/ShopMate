@@ -7,17 +7,17 @@ namespace ShopMate.GUI
     {
         public AddProductPage()
         {
-            this.InitializeComponent();
+            InitializeComponent();
         }
 
-        private void AddProduct_Click(object sender, RoutedEventArgs e)
+        private void SaveProduct_Click(object sender, RoutedEventArgs e)
         {
-            // TODO: Implement add product logic
+            // TODO: Save product logic
         }
 
         private void Cancel_Click(object sender, RoutedEventArgs e)
         {
-            // TODO: Implement cancel logic
+            // TODO: Cancel logic
         }
     }
 }
