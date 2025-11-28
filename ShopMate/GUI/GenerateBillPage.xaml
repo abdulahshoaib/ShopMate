@@ -14,10 +14,11 @@
         </Storyboard>
 
         <Storyboard x:Name="ExpandSidebarStoryboard">
-            <DoubleAnimation Storyboard.TargetName="SidebarColumn"
-                             Storyboard.TargetProperty="Width.Value"
-                             To="220"
-                             Duration="0:0:0.25"/>
+            <DoubleAnimation
+                Storyboard.TargetName="SidebarColumn"
+                Storyboard.TargetProperty="Width.Value"
+                To="220"
+                Duration="0:0:0.25"/>
         </Storyboard>
 
         <!-- Makes ListViewItem stretch fully for column alignment -->

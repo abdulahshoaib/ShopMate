@@ -1,13 +1,18 @@
 using Microsoft.UI.Xaml;
 using Microsoft.UI.Xaml.Controls;
+using System;
 using System.Collections.ObjectModel;
 using System.Globalization;
+using System.IO;
 using System.Linq;
+using System.Text;
+using System.Diagnostics;
 
 namespace ShopMate.GUI
 {
     public sealed partial class GenerateBillPage : Page
     {
+        // Observable collection to bind to ListView
         public ObservableCollection<BillItem> BillItems { get; } = new ObservableCollection<BillItem>();
 
         public GenerateBillPage()
@@ -15,34 +20,38 @@ namespace ShopMate.GUI
             this.InitializeComponent();
             this.DataContext = this;
 
-            // Example product list for testing (optional)
+            // Example products for testing
             ProductComboBox.Items.Add("Sample Product A|10.50");
             ProductComboBox.Items.Add("Sample Product B|5.00");
+
             UpdateSummary();
         }
 
+        // ----------------- ADD ITEM -----------------
         private void AddItem_Click(object sender, RoutedEventArgs e)
         {
             if (ProductComboBox.SelectedItem is string productToken &&
                 !string.IsNullOrWhiteSpace(QuantityTextBox.Text) &&
-                int.TryParse(QuantityTextBox.Text, out int qty) && qty > 0)
+                int.TryParse(QuantityTextBox.Text, out int qty) &&
+                qty > 0)
             {
                 var parts = productToken.Split('|');
                 var name = parts[0];
-                decimal price = 0m;
-                if (parts.Length > 1) decimal.TryParse(parts[1], out price);
+                decimal price = 0;
+                if (parts.Length > 1) decimal.TryParse(parts[1], NumberStyles.Any, CultureInfo.InvariantCulture, out price);
 
-                var item = new BillItem
+                BillItems.Add(new BillItem
                 {
                     ProductName = name,
                     Price = price,
                     Quantity = qty
-                };
-                BillItems.Add(item);
+                });
+
                 UpdateSummary();
             }
         }
 
+        // ----------------- REMOVE ITEM -----------------
         private void RemoveItem_Click(object sender, RoutedEventArgs e)
         {
             if (sender is Button btn && btn.DataContext is BillItem item)
@@ -52,61 +61,95 @@ namespace ShopMate.GUI
             }
         }
 
-        private void GenerateBill_Click(object sender, RoutedEventArgs e)
-        {
-            // Minimal action to avoid build/runtime errors: just update summary
-            UpdateSummary();
-        }
-
+        // ----------------- UPDATE BILL SUMMARY -----------------
         private void UpdateSummary()
         {
             int totalItems = BillItems.Sum(i => i.Quantity);
             decimal subtotal = BillItems.Sum(i => i.Total);
 
             TotalItemsTextBlock.Text = $"Items: {totalItems}";
-            SubtotalTextBlock.Text = $"Subtotal: {subtotal.ToString("C", CultureInfo.CurrentCulture)}";
-            TotalTextBlock.Text = $"Total: {subtotal.ToString("C", CultureInfo.CurrentCulture)}";
+            SubtotalTextBlock.Text = $"Subtotal: {subtotal:C}";
+            TotalTextBlock.Text = $"Total: {subtotal:C}";
         }
 
-        // ========================= Sidebar button handlers (no-op safe implementations) =========================
-        // These exist only to satisfy XAML event wiring and avoid build errors.
-        private void OnDashboardClicked(object sender, RoutedEventArgs e)
+        // ----------------- GENERATE BILL -----------------
+        private async void GenerateBill_Click(object sender, RoutedEventArgs e)
         {
-            // TODO: navigate to dashboard page if desired
+            try
+            {
+                UpdateSummary();
+
+                string timestamp = DateTime.Now.ToString("yyyy_MM_dd_HHmmss");
+                string fileName = $"ShopMate_Bill_{timestamp}.txt";
+
+                string downloadsPath = Path.Combine(Environment.GetFolderPath(Environment.SpecialFolder.UserProfile), "Downloads");
+                if (!Directory.Exists(downloadsPath)) downloadsPath = Environment.GetFolderPath(Environment.SpecialFolder.MyDocuments);
+
+                string fullPath = Path.Combine(downloadsPath, fileName);
+
+                // Build bill content
+                var sb = new StringBuilder();
+                sb.AppendLine("===== ShopMate - Bill =====");
+                sb.AppendLine($"Date: {DateTime.Now}");
+                sb.AppendLine("----------------------------");
+                sb.AppendLine("Product\tPrice\tQty\tTotal");
+
+                foreach (var item in BillItems)
+                {
+                    sb.AppendLine($"{item.ProductName}\t{item.Price:C}\t{item.Quantity}\t{item.Total:C}");
+                }
+
+                sb.AppendLine("----------------------------");
+                sb.AppendLine(TotalItemsTextBlock.Text);
+                sb.AppendLine(SubtotalTextBlock.Text);
+                sb.AppendLine(TotalTextBlock.Text);
+                sb.AppendLine("============================");
+
+                // Save the file
+                await File.WriteAllTextAsync(fullPath, sb.ToString());
+
+                // Show confirmation dialog
+                var dialog = new ContentDialog
+                {
+                    Title = "Bill exported",
+                    Content = $"Saved bill to Downloads as:\n{fileName}",
+                    CloseButtonText = "OK",
+                    PrimaryButtonText = "Show in folder",
+                    XamlRoot = this.XamlRoot   
+                };
+
+                var result = await dialog.ShowAsync();
+
+                if (result == ContentDialogResult.Primary)
+                {
+                    // Open folder and select file
+                    Process.Start(new ProcessStartInfo("explorer.exe", $"/select,\"{fullPath}\"") { UseShellExecute = true });
+                }
+            }
+            catch (Exception ex)
+            {
+                var err = new ContentDialog
+                {
+                    Title = "Export failed",
+                    Content = $"Could not generate bill: {ex.Message}",
+                    CloseButtonText = "OK",
+                    XamlRoot = this.XamlRoot
+                };
+                await err.ShowAsync();
+            }
         }
 
-        private void OnGenerateBillClicked(object sender, RoutedEventArgs e)
-        {
-            // Already on GenerateBill page — placeholder
-        }
-
-        private void OnGenerateReportClicked(object sender, RoutedEventArgs e)
-        {
-            // TODO: open reports view
-        }
-
-        private void OnAddCustomerClicked(object sender, RoutedEventArgs e)
-        {
-            // TODO: open add-customer view
-        }
-
-        private void OnAddProductClicked(object sender, RoutedEventArgs e)
-        {
-            // TODO: open add-product view
-        }
-
-        private void OnSettingsClicked(object sender, RoutedEventArgs e)
-        {
-            // TODO: open settings
-        }
-
-        private void OnSignOutClicked(object sender, RoutedEventArgs e)
-        {
-            // TODO: sign out logic
-        }
+        // ----------------- SIDEBAR BUTTON HANDLERS (PLACEHOLDER) -----------------
+        private void OnDashboardClicked(object sender, RoutedEventArgs e) { }
+        private void OnGenerateBillClicked(object sender, RoutedEventArgs e) { }
+        private void OnGenerateReportClicked(object sender, RoutedEventArgs e) { }
+        private void OnAddCustomerClicked(object sender, RoutedEventArgs e) { }
+        private void OnAddProductClicked(object sender, RoutedEventArgs e) { }
+        private void OnSettingsClicked(object sender, RoutedEventArgs e) { }
+        private void OnSignOutClicked(object sender, RoutedEventArgs e) { }
     }
 
-    // kept inside same file per request — no new files
+    // ----------------- BILL ITEM MODEL -----------------
     public class BillItem
     {
         public string ProductName { get; set; } = "";
@@ -115,7 +158,6 @@ namespace ShopMate.GUI
 
         public decimal Total => Price * Quantity;
 
-        // Preformatted strings to avoid using StringFormat or converters in XAML
         public string FormattedPrice => Price.ToString("C", CultureInfo.CurrentCulture);
         public string FormattedTotal => Total.ToString("C", CultureInfo.CurrentCulture);
     }
