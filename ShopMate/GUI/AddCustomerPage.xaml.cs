@@ -2,6 +2,7 @@ using Microsoft.UI.Xaml;
 using Microsoft.UI.Xaml.Controls;
 using ShopMate.BL;
 using ShopMate.DTOs;
+using System;
 
 namespace ShopMate.GUI
 {
@@ -23,10 +24,10 @@ namespace ShopMate.GUI
             CustomerDTO cDTO = new CustomerDTO()
             {
                 Name = NameTextBox.Text,
-                Email = EmailTextBox.Text,
                 Address = AddressTextBox.Text,
                 Phone = PhoneTextBox.Text,
-                Notes = NotesTextBox.Text,
+                Gender = GenderTextBox.Text,
+                Age = Convert.ToInt32(AgeTextBox.Text)
             };
             bool resp = csBL.AddCustomer(cDTO);
 
@@ -57,7 +58,7 @@ namespace ShopMate.GUI
 
         private void Cancel_Click(object sender, RoutedEventArgs e)
         {
-            NameTextBox.Text = AddressTextBox.Text = PhoneTextBox.Text = EmailTextBox.Text = NotesTextBox.Text = "";
+            NameTextBox.Text = AddressTextBox.Text = PhoneTextBox.Text = GenderTextBox.Text = AgeTextBox.Text = "";
         }
     }
 }

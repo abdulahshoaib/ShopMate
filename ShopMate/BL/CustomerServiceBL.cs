@@ -21,9 +21,9 @@ namespace ShopMate.BL
             return csDL.AddCustomer(customerDTO);
         }
 
-        public bool RemoveCustomer(CustomerDTO customerDTO)
+        public bool RemoveCustomer(int ID)
         {
-            return csDL.RemoveCustomer(customerDTO.ID);
+            return csDL.RemoveCustomer(ID);
         }
 
         public bool UpdateCustomer(CustomerDTO customerDTO)

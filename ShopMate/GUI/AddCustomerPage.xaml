@@ -95,13 +95,13 @@
                                        Margin="0,0,0,12"/>
 
                             <TextBlock Text="Full Name" Style="{StaticResource LabelStyle}"/>
-                            <TextBox Style="{StaticResource InputStyle}"/>
+                            <TextBox x:Name="NameTextBox" Style="{StaticResource InputStyle}"/>
 
                             <TextBlock Text="Gender" Style="{StaticResource LabelStyle}"/>
-                            <TextBox Style="{StaticResource InputStyle}"/>
+                            <TextBox x:Name="GenderTextBox" Style="{StaticResource InputStyle}"/>
 
                             <TextBlock Text="Age" Style="{StaticResource LabelStyle}"/>
-                            <TextBox Style="{StaticResource InputStyle}"/>
+                            <TextBox x:Name="AgeTextBox" Style="{StaticResource InputStyle}"/>
 
                         </StackPanel>
                     </Border>
@@ -119,12 +119,12 @@
                                        Foreground="White"
                                        Margin="0,0,0,12"/>
                             <TextBlock Text="Address" Style="{StaticResource LabelStyle}"/>
-                            <TextBox Style="{StaticResource InputStyle}"
+                            <TextBox x:Name="AddressTextBox" Style="{StaticResource InputStyle}"
                                      Height="70"
                                      TextWrapping="Wrap"
                                      AcceptsReturn="True"/>
                             <TextBlock Text="Phone Number" Style="{StaticResource LabelStyle}"/>
-                            <TextBox Style="{StaticResource InputStyle}"/>
+                            <TextBox x:Name="PhoneTextBox" Style="{StaticResource InputStyle}"/>
 
                         </StackPanel>
                     </Border>
