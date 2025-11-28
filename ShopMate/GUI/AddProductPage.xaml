@@ -5,8 +5,8 @@
     xmlns:controls="using:ShopMate.GUI.Controls"
     Background="{ThemeResource ApplicationPageBackgroundThemeBrush}">
 
+    <!-- Animations and shared styles consistent with GenerateBillPage -->
     <Page.Resources>
-        <!-- Smooth width animation for the sidebar (same as dashboard) -->
         <Storyboard x:Name="CollapseSidebarStoryboard">
             <DoubleAnimation Storyboard.TargetName="SidebarColumn"
                              Storyboard.TargetProperty="Width.Value"
@@ -17,61 +17,106 @@
         <Storyboard x:Name="ExpandSidebarStoryboard">
             <DoubleAnimation Storyboard.TargetName="SidebarColumn"
                              Storyboard.TargetProperty="Width.Value"
-                             To="170"
+                             To="220"
                              Duration="0:0:0.25"/>
         </Storyboard>
+
+        <Style x:Key="ListViewItemStretchStyle" TargetType="ListViewItem">
+            <Setter Property="HorizontalContentAlignment" Value="Stretch"/>
+            <Setter Property="Padding" Value="0"/>
+            <Setter Property="Margin" Value="0"/>
+        </Style>
     </Page.Resources>
 
-    <!-- MAIN GRID -->
     <Grid>
-
-        <!-- SIDEBAR + CONTENT -->
         <Grid.ColumnDefinitions>
             <ColumnDefinition x:Name="SidebarColumn" Width="170"/>
             <ColumnDefinition Width="*"/>
         </Grid.ColumnDefinitions>
 
-        <!-- SIDEBAR (exact same placement as dashboard) -->
+        <!-- Sidebar -->
         <controls:SalesSidebarControl Grid.Column="0"/>
 
-        <!-- MAIN CONTENT -->
+        <!-- Main content -->
         <ScrollViewer Grid.Column="1">
-            <StackPanel Padding="40" Spacing="20" MaxWidth="600">
+            <StackPanel Padding="40"
+                        MaxWidth="720"
+                        HorizontalAlignment="Center"
+                        VerticalAlignment="Top"
+                        Spacing="20">
 
-                <!-- Title Section -->
                 <TextBlock Text="Add New Product"
                            FontSize="32"
                            FontWeight="SemiBold"/>
+                <TextBlock Text="Create a product record to make it available for billing."
+                           FontSize="12"
+                           Foreground="Gray"/>
 
-                <TextBlock Text="Enter the product details below"
-                           Foreground="Gray"
-                           FontSize="12"/>
+                <Border Background="#0B1220"
+                        CornerRadius="12"
+                        Padding="20">
+                    <StackPanel Spacing="12">
+                        <TextBlock Text="Product Details"
+                                   FontSize="20"
+                                   FontWeight="SemiBold"
+                                   Foreground="#E5E7EB"/>
 
-                <!-- Product Fields -->
-                <TextBox Header="Product Name" x:Name="ProductNameTextBox"/>
-                <TextBox Header="Product Code / SKU" x:Name="SkuTextBox"/>
-                <TextBox Header="Category" x:Name="CategoryTextBox"/>
-                <TextBox Header="Price" x:Name="PriceTextBox"/>
-                <TextBox Header="Quantity" x:Name="QuantityTextBox"/>
+                        <TextBlock Text="Provide product name, price and stock quantity."
+                                   FontSize="12"
+                                   Foreground="Gray"/>
 
-                <TextBox Header="Description"
-                         x:Name="DescriptionTextBox"
-                         AcceptsReturn="True"
-                         Height="120"/>
+                        <Grid ColumnSpacing="12" RowSpacing="10" Margin="0,6,0,0">
+                            <Grid.ColumnDefinitions>
+                                <ColumnDefinition Width="2*"/>
+                                <ColumnDefinition Width="*"/>
+                            </Grid.ColumnDefinitions>
 
-                <!-- Buttons -->
-                <StackPanel Orientation="Horizontal" Spacing="15">
-                    <Button Content="Save Product"
-                            Click="SaveProduct_Click"
-                            Padding="14,6"/>
+                            <TextBox Header="Product Name"
+                                     x:Name="ProductNameTextBox"
+                                     Grid.Column="0"/>
+                        </Grid>
 
-                    <Button Content="Cancel"
-                            Click="Cancel_Click"
-                            Padding="14,6"/>
-                </StackPanel>
+                        <Grid ColumnSpacing="12" RowSpacing="10">
+                            <Grid.ColumnDefinitions>
+                                <ColumnDefinition Width="*"/>
+                                <ColumnDefinition Width="*"/>
+                            </Grid.ColumnDefinitions>
+
+                            <TextBox Header="Price"
+                                     x:Name="PriceTextBox"
+                                     Grid.Column="0"/>
+
+                            <TextBox Header="Quantity in stock"
+                                     x:Name="QuantityTextBox"
+                                     Grid.Column="1"/>
+                        </Grid>
+
+                        <TextBox Header="Description (optional)"
+                                 x:Name="DescriptionTextBox"
+                                 AcceptsReturn="True"
+                                 Height="80"/>
+
+                        <StackPanel Orientation="Horizontal" Spacing="15" Margin="0,6,0,0">
+                            <Button Content="Save Product"
+                                    Click="SaveProduct_Click"
+                                    Background="#3B82F6"
+                                    Foreground="White"
+                                    BorderBrush="Transparent"
+                                    Padding="14,6"
+                                    CornerRadius="6"/>
+
+                            <Button Content="Cancel"
+                                    Click="Cancel_Click"
+                                    Background="Transparent"
+                                    Foreground="#D1D5DB"
+                                    BorderBrush="#334155"
+                                    Padding="14,6"
+                                    CornerRadius="6"/>
+                        </StackPanel>
+                    </StackPanel>
+                </Border>
 
             </StackPanel>
         </ScrollViewer>
-
     </Grid>
 </Page>

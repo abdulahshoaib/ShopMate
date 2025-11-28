@@ -1,18 +1,109 @@
-<?xml version="1.0" encoding="utf-8"?>
 <Page
     x:Class="ShopMate.GUI.GenerateReportPage"
     xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
     xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
-    xmlns:local="using:ShopMate.GUI"
     xmlns:controls="using:ShopMate.GUI.Controls"
-    xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
-    xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
-    
-    mc:Ignorable="d">
+    Background="{ThemeResource ApplicationPageBackgroundThemeBrush}">
+
+    <Page.Resources>
+        <Storyboard x:Name="CollapseSidebarStoryboard">
+            <DoubleAnimation Storyboard.TargetName="SidebarColumn"
+                             Storyboard.TargetProperty="Width.Value"
+                             To="60"
+                             Duration="0:0:0.25"/>
+        </Storyboard>
+
+        <Storyboard x:Name="ExpandSidebarStoryboard">
+            <DoubleAnimation Storyboard.TargetName="SidebarColumn"
+                             Storyboard.TargetProperty="Width.Value"
+                             To="220"
+                             Duration="0:0:0.25"/>
+        </Storyboard>
+
+        <Style x:Key="ListViewItemStretchStyle" TargetType="ListViewItem">
+            <Setter Property="HorizontalContentAlignment" Value="Stretch"/>
+            <Setter Property="Padding" Value="0"/>
+            <Setter Property="Margin" Value="0"/>
+        </Style>
+    </Page.Resources>
 
     <Grid>
-        <!-- Sidebar -->
+        <Grid.ColumnDefinitions>
+            <ColumnDefinition x:Name="SidebarColumn" Width="170"/>
+            <ColumnDefinition Width="*"/>
+        </Grid.ColumnDefinitions>
+
         <controls:SalesSidebarControl Grid.Column="0"/>
 
+        <ScrollViewer Grid.Column="1">
+            <StackPanel Padding="40" MaxWidth="900" HorizontalAlignment="Center" Spacing="20">
+
+                <TextBlock Text="Generate Report"
+                           FontSize="32"
+                           FontWeight="SemiBold"/>
+                <TextBlock Text="Export summary reports for customers, products and sales."
+                           FontSize="12"
+                           Foreground="Gray"/>
+
+                <Border Background="#0B1220" CornerRadius="12" Padding="20">
+                    <StackPanel Spacing="12">
+                        <TextBlock Text="Report Parameters"
+                                   FontSize="20"
+                                   FontWeight="SemiBold"
+                                   Foreground="#E5E7EB"/>
+
+                        <TextBlock Text="Choose a report type and optional date range. Reports are exported to Downloads."
+                                   FontSize="12"
+                                   Foreground="Gray"/>
+
+                        <Grid ColumnSpacing="12" RowSpacing="10" Margin="0,6,0,0">
+                            <Grid.ColumnDefinitions>
+                                <ColumnDefinition Width="2*"/>
+                                <ColumnDefinition Width="*"/>
+                                <ColumnDefinition Width="*"/>
+                            </Grid.ColumnDefinitions>
+
+                            <ComboBox Header="Report Type" x:Name="ReportTypeComboBox" Grid.Column="0">
+                                <x:String>Customers</x:String>
+                                <x:String>Products</x:String>
+                                <x:String>Summary</x:String>
+                            </ComboBox>
+
+                            <DatePicker x:Name="StartDatePicker" Header="Start Date" Grid.Column="1"/>
+                            <DatePicker x:Name="EndDatePicker" Header="End Date" Grid.Column="2"/>
+                        </Grid>
+
+                        <StackPanel Orientation="Horizontal" Spacing="12" Margin="0,6,0,0">
+                            <Button Content="Generate Report"
+                                    Click="GenerateReport_Click"
+                                    Background="#3B82F6"
+                                    Foreground="White"
+                                    BorderBrush="Transparent"
+                                    Padding="12,8"
+                                    CornerRadius="6"/>
+
+                            <Button Content="Preview"
+                                    Click="Preview_Click"
+                                    Background="Transparent"
+                                    Foreground="#D1D5DB"
+                                    BorderBrush="#334155"
+                                    Padding="12,8"
+                                    CornerRadius="6"/>
+                        </StackPanel>
+
+                        <TextBlock Text="Preview / Output" FontWeight="SemiBold" Foreground="#E5E7EB" Margin="0,6,0,0"/>
+                        <TextBox x:Name="PreviewTextBox"
+                                 AcceptsReturn="True"
+                                 TextWrapping="Wrap"
+                                 Height="240"
+                                 IsReadOnly="True"
+                                 Background="#071018"
+                                 Foreground="#D1D5DB"
+                                 BorderBrush="#1F2937"
+                                 Padding="10"/>
+                    </StackPanel>
+                </Border>
+            </StackPanel>
+        </ScrollViewer>
     </Grid>
 </Page>

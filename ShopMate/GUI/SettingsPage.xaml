@@ -1,19 +1,82 @@
-<?xml version="1.0" encoding="utf-8"?>
 <Page
     x:Class="ShopMate.GUI.SettingsPage"
     xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
     xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
-    xmlns:local="using:ShopMate.GUI"
-    xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
-    xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
     xmlns:controls="using:ShopMate.GUI.Controls"
-    mc:Ignorable="d">
+    Background="{ThemeResource ApplicationPageBackgroundThemeBrush}">
+
+    <Page.Resources>
+        <Storyboard x:Name="CollapseSidebarStoryboard">
+            <DoubleAnimation Storyboard.TargetName="SidebarColumn"
+                             Storyboard.TargetProperty="Width.Value"
+                             To="60"
+                             Duration="0:0:0.25"/>
+        </Storyboard>
+
+        <Storyboard x:Name="ExpandSidebarStoryboard">
+            <DoubleAnimation Storyboard.TargetName="SidebarColumn"
+                             Storyboard.TargetProperty="Width.Value"
+                             To="220"
+                             Duration="0:0:0.25"/>
+        </Storyboard>
+    </Page.Resources>
 
     <Grid>
+        <Grid.ColumnDefinitions>
+            <ColumnDefinition x:Name="SidebarColumn" Width="170"/>
+            <ColumnDefinition Width="*"/>
+        </Grid.ColumnDefinitions>
 
-        <!-- Sidebar -->
         <controls:SalesSidebarControl Grid.Column="0"/>
-   
 
+        <ScrollViewer Grid.Column="1">
+            <StackPanel Padding="40" MaxWidth="720" HorizontalAlignment="Center" Spacing="20">
+                <TextBlock Text="Settings" FontSize="32" FontWeight="SemiBold"/>
+                <TextBlock Text="Application preferences — theme, default tax, export options." FontSize="12" Foreground="Gray"/>
+
+                <Border Background="#0B1220" CornerRadius="12" Padding="20">
+                    <StackPanel Spacing="12">
+                        <TextBlock Text="Appearance" FontSize="18" FontWeight="SemiBold" Foreground="#E5E7EB"/>
+                        <StackPanel Orientation="Horizontal" Spacing="12" VerticalAlignment="Center">
+                            <TextBlock Text="Use dark theme" VerticalAlignment="Center" Foreground="#D1D5DB"/>
+                            <ToggleSwitch x:Name="DarkThemeToggle" HorizontalAlignment="Left"/>
+                        </StackPanel>
+
+                        <TextBlock Text="Billing" FontSize="18" FontWeight="SemiBold" Foreground="#E5E7EB" Margin="0,6,0,0"/>
+                        <Grid ColumnSpacing="12">
+                            <Grid.ColumnDefinitions>
+                                <ColumnDefinition Width="*"/>
+                                <ColumnDefinition Width="*"/>
+                            </Grid.ColumnDefinitions>
+
+                            <TextBox Header="Default tax rate (%)" x:Name="TaxRateTextBox" Grid.Column="0"/>
+                            <ComboBox Header="Currency" x:Name="CurrencyComboBox" Grid.Column="1">
+                                <x:String>USD</x:String>
+                                <x:String>EUR</x:String>
+                                <x:String>GBP</x:String>
+                                <x:String>PKR</x:String>
+                            </ComboBox>
+                        </Grid>
+
+                        <StackPanel Orientation="Horizontal" Spacing="12" Margin="0,6,0,0">
+                            <Button Content="Save Settings"
+                                    Click="SaveSettings_Click"
+                                    Background="#3B82F6"
+                                    Foreground="White"
+                                    BorderBrush="Transparent"
+                                    Padding="12,8"
+                                    CornerRadius="6"/>
+                            <Button Content="Reset to defaults"
+                                    Click="ResetSettings_Click"
+                                    Background="Transparent"
+                                    Foreground="#D1D5DB"
+                                    BorderBrush="#334155"
+                                    Padding="12,8"
+                                    CornerRadius="6"/>
+                        </StackPanel>
+                    </StackPanel>
+                </Border>
+            </StackPanel>
+        </ScrollViewer>
     </Grid>
 </Page>
