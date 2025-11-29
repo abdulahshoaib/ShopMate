@@ -4,7 +4,6 @@ using Microsoft.UI.Xaml.Controls;
 using Microsoft.UI.Xaml.Media;
 using ShopMate.BL;
 using ShopMate.DTOs;
-using ShopMate.DL;
 using System;
 using System.Threading.Tasks;
 
@@ -107,27 +106,6 @@ namespace ShopMate.GUI
 
             try
             {
-                // Ensure Supabase client initialized. Try to initialize here if not.
-                if (SupabaseInitializer.client == null)
-                {
-                    try
-                    {
-                        await SupabaseInitializer.InitializeAsync();
-                    }
-                    catch (Exception initEx)
-                    {
-                        var initErr = new ContentDialog
-                        {
-                            Title = "Initialization failed",
-                            Content = $"Could not initialize backend client: {initEx.Message}\nPlease check network or app configuration.",
-                            CloseButtonText = "OK",
-                            XamlRoot = this.Content.XamlRoot
-                        };
-                        await initErr.ShowAsync();
-                        return;
-                    }
-                }
-
                 bool added = await pmBL.AddProduct(dto);
 
                 if (added)
@@ -152,7 +130,7 @@ namespace ShopMate.GUI
                     var failDialog = new ContentDialog
                     {
                         Title = "Add Failed",
-                        Content = "Product could not be added. Please try again.\n(If this persists, check backend logs or network.)",
+                        Content = "Product could not be added. Please try again.",
                         CloseButtonText = "OK",
                         XamlRoot = this.Content.XamlRoot
                     };
@@ -171,6 +149,37 @@ namespace ShopMate.GUI
                 await errorDialog.ShowAsync();
             }
         }
-       
+
+        // ---------------------------
+        // Helper methods (optional)
+        // ---------------------------
+        private async Task<bool> UpdateProductAsync(ProductDTO dto)
+        {
+            if (dto == null) return false;
+
+            try
+            {
+                return await pmBL.UpdateProduct(dto);
+            }
+            catch
+            {
+                return false;
+            }
+        }
+
+        private async Task<bool> RemoveProductByIdAsync(int id)
+        {
+            if (id <= 0) return false;
+
+            try
+            {
+                var dto = new ProductDTO { ID = id };
+                return await pmBL.RemoveProduct(dto);
+            }
+            catch
+            {
+                return false;
+            }
+        }
     }
 }

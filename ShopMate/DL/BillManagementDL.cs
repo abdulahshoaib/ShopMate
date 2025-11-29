@@ -136,7 +136,7 @@ namespace ShopMate.DL
                     .Get();
 
                 var lowStockCount = response.Models
-                    .Count(p => p.Quantity <= p.LowStockLimit);
+                    .Count(p => p.Stock <= p.LowStockLimit);
 
                 return lowStockCount;
             }
