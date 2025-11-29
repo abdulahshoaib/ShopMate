@@ -76,6 +76,34 @@ namespace ShopMate.GUI
             }
 
             // ---------------------------
+            // Expiry validation (optional) - only validate/use DatePicker when checkbox is checked
+            // ---------------------------
+            DateTime? expiry = null;
+            if (HasExpiryCheckBox?.IsChecked == true)
+            {
+                if (ExpiryDatePicker != null)
+                {
+                    var picked = ExpiryDatePicker.Date.DateTime.Date;
+                    if (picked < DateTime.Today)
+                    {
+                        ExpiryDatePicker.BorderBrush = new SolidColorBrush(Colors.Red);
+                        ExpiryDatePicker.Focus(FocusState.Programmatic);
+                        hasError = true;
+                    }
+                    else
+                    {
+                        ExpiryDatePicker.BorderBrush = new SolidColorBrush(Colors.White);
+                        expiry = picked;
+                    }
+                }
+            }
+            else
+            {
+                if (ExpiryDatePicker != null)
+                    ExpiryDatePicker.BorderBrush = new SolidColorBrush(Colors.White);
+            }
+
+            // ---------------------------
             // If validation fails
             // ---------------------------
             if (hasError)
@@ -100,7 +128,7 @@ namespace ShopMate.GUI
                 Description = desc,
                 Price = price,
                 Stock = stock,
-                ExpiryDate = null,
+                ExpiryDate = expiry,
                 LowStockLimit = 5
             };
 
@@ -124,6 +152,14 @@ namespace ShopMate.GUI
                     DescriptionTextBox.Text = "";
                     QuantityTextBox.Text = "";
                     PriceTextBox.Text = "";
+
+                    // Reset expiry UI
+                    if (ExpiryDatePicker != null)
+                        ExpiryDatePicker.Date = DateTimeOffset.Now;
+                    if (HasExpiryCheckBox != null)
+                        HasExpiryCheckBox.IsChecked = false;
+                    if (ExpiryDatePicker != null)
+                        ExpiryDatePicker.IsEnabled = false;
                 }
                 else
                 {
@@ -147,6 +183,25 @@ namespace ShopMate.GUI
                     XamlRoot = this.Content.XamlRoot
                 };
                 await errorDialog.ShowAsync();
+            }
+        }
+
+        private void HasExpiryCheckBox_Checked(object sender, RoutedEventArgs e)
+        {
+            if (ExpiryDatePicker != null)
+            {
+                ExpiryDatePicker.IsEnabled = true;
+                ExpiryDatePicker.Focus(FocusState.Programmatic);
+            }
+        }
+
+        private void HasExpiryCheckBox_Unchecked(object sender, RoutedEventArgs e)
+        {
+            if (ExpiryDatePicker != null)
+            {
+                ExpiryDatePicker.IsEnabled = false;
+                ExpiryDatePicker.Date = DateTimeOffset.Now;
+                ExpiryDatePicker.BorderBrush = new SolidColorBrush(Colors.White);
             }
         }
 

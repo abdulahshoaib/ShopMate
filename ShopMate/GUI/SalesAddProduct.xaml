@@ -99,6 +99,18 @@
                                      TextWrapping="Wrap"
                                      AcceptsReturn="True"/>
 
+                            <!-- Expiry Date Info -->
+                            <StackPanel Orientation="Horizontal" Spacing="8">
+                                <CheckBox x:Name="HasExpiryCheckBox"
+                                          Content="Has expiry?"
+                                          VerticalAlignment="Center"
+                                          Checked="HasExpiryCheckBox_Checked"
+                                          Unchecked="HasExpiryCheckBox_Unchecked"/>
+                                <DatePicker x:Name="ExpiryDatePicker"
+                                            VerticalAlignment="Center"
+                                            IsEnabled="False"/>
+                            </StackPanel>
+
                         </StackPanel>
                     </Border>
 
