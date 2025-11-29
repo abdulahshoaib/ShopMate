@@ -1,6 +1,6 @@
 using Microsoft.UI.Xaml;
 using Microsoft.UI.Xaml.Controls;
-using ShopMate.Pages;
+using ShopMate.GUI;
 using System;
 
 namespace ShopMate.GUI.Controls

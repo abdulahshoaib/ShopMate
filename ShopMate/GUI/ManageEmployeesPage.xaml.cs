@@ -1,32 +1,46 @@
 using Microsoft.UI.Xaml;
 using Microsoft.UI.Xaml.Controls;
-using System.Collections.ObjectModel;
+using Windows.ApplicationModel.VoiceCommands;
+using System;
 
-namespace ShopMate.Pages
+namespace ShopMate.GUI
 {
     public sealed partial class ManageEmployeesPage : Page
     {
-        // public ObservableCollection<Employee> Employees { get; set; } = new ObservableCollection<Employee>();
-
         public ManageEmployeesPage()
         {
             this.InitializeComponent();
-            // EmployeesListView.ItemsSource = Employees;
+        }
+        private void Navigate(Type t)
+        {
+            var window = (Application.Current as App)?._window;
+            Frame? frame = window?.Content as Frame;
+
+            frame?.Navigate(t);
         }
 
-        private void OnBackClicked(object sender, RoutedEventArgs e)
+        private void OnEditEmployeeClicked(object sender, RoutedEventArgs e)
         {
-            // TODO: Navigate back to AdminDashboardPage
+
         }
 
-        private void AddEmployee_Click(object sender, RoutedEventArgs e)
+
+        private void OnAddEmployeeClicked(object sender, RoutedEventArgs e)
         {
-            // TODO: Add employee logic
+            Navigate(typeof(AddEmployeePage));
         }
 
-        private void RemoveEmployee_Click(object sender, RoutedEventArgs e)
+
+
+        private void OnDeleteEmployeeClicked(object sender, RoutedEventArgs e)
         {
-            // TODO: Remove employee logic
+            // TODO: Delete selected customer
         }
+
+        private void OnViewEmployeesClicked(object sender, RoutedEventArgs e)
+        {
+        }
+        // Example data model
+        
     }
 }

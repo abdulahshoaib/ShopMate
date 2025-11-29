@@ -21,7 +21,7 @@ namespace ShopMate.GUI
 
         private void OnManageEmployeesClicked(object sender, RoutedEventArgs e)
         {
-            // TODO: Navigate to ManageEmployeesPage
+            Navigate(typeof(ManageEmployeesPage));
         }
         
 
