@@ -1,11 +1,12 @@
-using Microsoft.UI;
 using Microsoft.UI.Xaml;
 using Microsoft.UI.Xaml.Controls;
 using ShopMate.BL;
 using ShopMate.DTOs;
 using System;
-using System.Drawing;
+using Microsoft.UI;
 using Microsoft.UI.Xaml.Media;
+using System.Drawing;
+using System.Threading.Tasks;
 
 
 namespace ShopMate.GUI
@@ -19,7 +20,7 @@ namespace ShopMate.GUI
 
             this.csBL = new CustomerServiceBL();
         }
-        private void OnAddCustomerClicked(object sender, RoutedEventArgs e)
+        private async void OnAddCustomerClicked(object sender, RoutedEventArgs e)
         {
             bool f = false;
             if (NameTextBox.Text == "")
@@ -54,7 +55,41 @@ namespace ShopMate.GUI
             }
             if(!f)
             {
-
+                var customer = new CustomerDTO
+                {
+                    Name = NameTextBox.Text.Trim(),
+                    Phone = PhoneTextBox.Text.Trim(),
+                    Address = AddressTextBox.Text,
+                    Age = Convert.ToInt32(AgeTextBox.Text),
+                    Gender = (GenderComboBox.SelectedItem as ComboBoxItem)?.Content.ToString() ?? "Male"
+                };
+                if (await csBL.AddCustomerAsync(customer))
+                {
+                    ContentDialog dialog = new ContentDialog
+                    {
+                        Title = "Success",
+                        Content = "Customer added successfully!",
+                        CloseButtonText = "OK",
+                        XamlRoot = this.XamlRoot
+                    };
+                    await dialog.ShowAsync();
+                    NameTextBox.Text = "";
+                    PhoneTextBox.Text = "";
+                    AddressTextBox.Text = "";
+                    AgeTextBox.Text = "";
+                    GenderComboBox.SelectedIndex = 0;
+                }
+                else
+                {
+                    ContentDialog dialog = new ContentDialog
+                    {
+                        Title = "Error",
+                        Content = "Failed to add customer. Please try again.",
+                        CloseButtonText = "OK",
+                        XamlRoot = this.XamlRoot
+                    };
+                    await dialog.ShowAsync();
+                }
             }
         }
         
