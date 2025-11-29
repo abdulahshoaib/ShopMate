@@ -85,7 +85,8 @@
                                     Background="#20FFFFFF"
                                     Foreground="White"
                                     BorderBrush="Transparent"
-                                    CornerRadius="6"/>
+                                    CornerRadius="6"
+                                    Click="OnAddCustomerClicked"/>
                         </StackPanel>
                     </Border>
 
@@ -110,7 +111,8 @@
                                     Background="#20FFFFFF"
                                     Foreground="White"
                                     BorderBrush="Transparent"
-                                    CornerRadius="6"/>
+                                    CornerRadius="6"
+                                    Click="OnAddProductClicked"/>
                         </StackPanel>
                     </Border>
 
@@ -135,7 +137,8 @@
                                     Background="#20FFFFFF"
                                     Foreground="White"
                                     BorderBrush="Transparent"
-                                    CornerRadius="6"/>
+                                    CornerRadius="6"
+                                    Click="OnGenerateBillClicked"/>
                         </StackPanel>
                     </Border>
 
@@ -160,7 +163,8 @@
                                     Background="#20FFFFFF"
                                     Foreground="White"
                                     BorderBrush="Transparent"
-                                    CornerRadius="6"/>
+                                    CornerRadius="6"
+                                    Click="OnGenerateReportClicked"/>
                         </StackPanel>
                     </Border>
 

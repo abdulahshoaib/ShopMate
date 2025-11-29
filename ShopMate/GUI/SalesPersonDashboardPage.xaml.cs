@@ -1,5 +1,6 @@
 using Microsoft.UI.Xaml;
 using Microsoft.UI.Xaml.Controls;
+using System;
 
 namespace ShopMate.GUI
 {
@@ -9,33 +10,30 @@ namespace ShopMate.GUI
         {
             this.InitializeComponent();
         }
+        private void Navigate(Type t)
+        {
+            var window = (Application.Current as App)?._window;
+            Frame? frame = window?.Content as Frame;
 
+            frame?.Navigate(t);
+        }
         private void OnAddCustomerClicked(object sender, RoutedEventArgs e)
         {
-            this.Content = new AddCustomerPage();
+            Navigate(typeof(SalesAddCustomer));
         }
 
         private void OnAddProductClicked(object sender, RoutedEventArgs e)
         {
-            this.Content = new AddProductPage();
+            Navigate(typeof(SalesAddProduct));
         }
 
         private void OnGenerateBillClicked(object sender, RoutedEventArgs e)
         {
-            this.Content = new GenerateBillPage();
+            Navigate(typeof(GenerateBillPage));
         }
         private void OnGenerateReportClicked(object sender, RoutedEventArgs e)
         {
-            // this.Content = new GenerateReportPage();
-        }
-        
-        private void OnSignOutClicked(object sender, RoutedEventArgs e)
-        {
-            this.Content = new LoginPage();
-        }
-        private void OnDashboardClicked(object sender, RoutedEventArgs e)
-        {
-            this.Content = new SalesPersonDashboardPage();
+            
         }
     }
 }
