@@ -33,7 +33,7 @@ namespace ShopMate.GUI
         }
         private void OnGenerateReportClicked(object sender, RoutedEventArgs e)
         {
-            
+            Navigate(typeof(SalesGenerateReport));
         }
     }
 }

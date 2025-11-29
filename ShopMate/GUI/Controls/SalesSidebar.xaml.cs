@@ -32,7 +32,7 @@ namespace ShopMate.GUI.Controls
             => Navigate(typeof(GenerateBillPage));
 
         private void OnGenerateReportClicked(object sender, RoutedEventArgs e)
-            => Navigate(typeof(GenerateReportPage));
+            => Navigate(typeof(SalesGenerateReport));
 
         private void OnAddCustomerClicked(object sender, RoutedEventArgs e)
             => Navigate(typeof(SalesAddCustomer));

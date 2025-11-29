@@ -23,9 +23,9 @@ namespace ShopMate.BL
                 return false;
 
             // Navigate based on roleID instead of role string
-            if (user.RoleID == 7)  // Assuming 1 = Admin
+            if (user.RoleID == 7)  // Assuming 7 = Admin
                 App.MainFrame?.Navigate(typeof(AdminDashboardPage), user);
-            else if (user.RoleID == 8)  // Assuming 2 = Salesperson
+            else if (user.RoleID == 8)  // Assuming 8 = Salesperson
                 App.MainFrame?.Navigate(typeof(SalesPersonDashboardPage), user);
             else
                 return false;

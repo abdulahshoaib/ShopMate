@@ -5,7 +5,7 @@
         public CustomerDTO()
         {
             Name = Phone = Gender = Address = "";
-
+            Age = 5;
         }
         public string Name { get; set; }
         public string Phone { get; set; }

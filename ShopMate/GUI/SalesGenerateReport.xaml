@@ -1,5 +1,5 @@
 <Page
-    x:Class="ShopMate.GUI.GenerateReportPage"
+    x:Class="ShopMate.GUI.SalesGenerateReport"
     xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
     xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
     xmlns:controls="using:ShopMate.GUI.Controls"
@@ -33,7 +33,7 @@
             <ColumnDefinition Width="*"/>
         </Grid.ColumnDefinitions>
 
-        <controls:AdminSidebarControl Grid.Column="0"/>
+        <controls:SalesSidebarControl Grid.Column="0"/>
 
         <ScrollViewer Grid.Column="1">
             <StackPanel Padding="40" MaxWidth="900" HorizontalAlignment="Center" Spacing="20">

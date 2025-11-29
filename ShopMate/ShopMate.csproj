@@ -30,6 +30,7 @@
     <None Remove="GUI\MainWindow.xaml" />
     <None Remove="GUI\SalesAddCustomer.xaml" />
     <None Remove="GUI\SalesAddProduct.xaml" />
+    <None Remove="GUI\SalesGenerateReport.xaml" />
     <None Remove="LoginPage.xaml" />
     <None Remove="ManageCustomersPage.xaml" />
     <None Remove="ManageEmployeesPage.xaml" />
@@ -101,6 +102,12 @@
 
   <ItemGroup>
     <PRIResource Remove="Pages\**" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <Page Update="GUI\SalesGenerateReport.xaml">
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
   </ItemGroup>
 
   <ItemGroup>
