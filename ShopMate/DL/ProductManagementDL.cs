@@ -11,22 +11,79 @@ namespace ShopMate.DL
     {
         public ProductManagementDL()
         {
+        }
+        public async Task<List<ProductDTO>> GetAllProducts()
+        {
+            try
+            {
+                var client = SupabaseInitializer.client;
 
+                var response = await client
+                    .From<ProductDTO>()
+                    .Get();
+
+                return response.Models;
+            }
+            catch (System.Exception)
+            {
+                return new List<ProductDTO>();
+            }
         }
 
-        public bool AddProduct(ProductDTO pDTO)
+        public async Task<bool> AddProduct(ProductDTO pDTO)
         {
-            return true;
+            try
+            {
+                var client = SupabaseInitializer.client;
+
+                var response = await client
+                    .From<ProductDTO>()
+                    .Insert(pDTO);
+
+                return response.Models.Count > 0;
+            }
+            catch (System.Exception)
+            {
+                return false;
+            }
         }
 
-        public bool RemoveProduct(int ID)
+        public async Task<bool> RemoveProduct(int ID)
         {
-            return true;
+            try
+            {
+                var client = SupabaseInitializer.client;
+
+                await client
+                    .From<ProductDTO>()
+                    .Where(p => p.ID == ID)
+                    .Delete();
+
+                return true;
+            }
+            catch (System.Exception)
+            {
+                return false;
+            }
         }
 
-        public bool UpdateProduct(ProductDTO pDTO)
+        public async Task<bool> UpdateProduct(ProductDTO pDTO)
         {
-            return true;
+            try
+            {
+                var client = SupabaseInitializer.client;
+
+                await client
+                    .From<ProductDTO>()
+                    .Where(p => p.ID == pDTO.ID)
+                    .Update(pDTO);
+
+                return true;
+            }
+            catch (System.Exception)
+            {
+                return false;
+            }
         }
     }
 }

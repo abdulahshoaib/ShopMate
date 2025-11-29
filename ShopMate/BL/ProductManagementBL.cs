@@ -17,19 +17,24 @@ namespace ShopMate.BL
             pmDL = new ProductManagementDL();
         }
 
-        public bool AddProduct(ProductDTO pDTO)
+        public async Task<List<ProductDTO>> GetAllProducts()
         {
-            return pmDL.AddProduct(pDTO);
+            return await pmDL.GetAllProducts();
         }
 
-        public bool RemoveProduct(ProductDTO pDTO)
+        public async Task<bool> AddProduct(ProductDTO pDTO)
         {
-            return pmDL.RemoveProduct(pDTO.ID);
+            return await pmDL.AddProduct(pDTO);
         }
 
-        public bool UpdateProduct(ProductDTO pDTO)
+        public async Task<bool> RemoveProduct(ProductDTO pDTO)
         {
-            return pmDL.UpdateProduct(pDTO);
+            return await pmDL.RemoveProduct(pDTO.ID);
+        }
+
+        public async Task<bool> UpdateProduct(ProductDTO pDTO)
+        {
+            return await pmDL.UpdateProduct(pDTO);
         }
     }
 }
