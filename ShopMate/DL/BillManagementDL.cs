@@ -90,13 +90,15 @@ namespace ShopMate.DL
             try
             {
                 var client = SupabaseInitializer.client;
-                var today = DateTime.Today;
+
+                var todayStart = DateTime.Today;
+                var tomorrowStart = DateTime.Today.AddDays(1);
 
                 var response = await client
                     .From<BillDTO>()
-                    .Where(b => b.CreatedAt >= today && b.CreatedAt < today.AddDays(1))
+                    .Where(b => b.CreatedAt >= todayStart && b.CreatedAt < tomorrowStart)
                     .Get();
-
+                
                 return response.Models.Sum(b => b.Total);
             }
             catch (System.Exception)
@@ -110,11 +112,13 @@ namespace ShopMate.DL
             try
             {
                 var client = SupabaseInitializer.client;
-                var today = DateTime.Today;
+
+                var todayStart = DateTime.Today;
+                var tomorrowStart = DateTime.Today.AddDays(1);
 
                 var response = await client
                     .From<BillDTO>()
-                    .Where(b => b.CreatedAt >= today && b.CreatedAt < today.AddDays(1))
+                    .Where(b => b.CreatedAt >= todayStart && b.CreatedAt < tomorrowStart)
                     .Get();
 
                 return response.Models.Count;
@@ -133,12 +137,11 @@ namespace ShopMate.DL
 
                 var response = await client
                     .From<ProductDTO>()
+                    .Where(p => p.Quantity <= p.LowStockLimit)
+                    .Select("ID")
                     .Get();
 
-                var lowStockCount = response.Models
-                    .Count(p => p.Stock <= p.LowStockLimit);
-
-                return lowStockCount;
+                return response.Models.Count;
             }
             catch (System.Exception)
             {
@@ -151,11 +154,13 @@ namespace ShopMate.DL
             try
             {
                 var client = SupabaseInitializer.client;
-                var today = DateTime.Today;
+
+                var todayStart = DateTime.Today;
+                var tomorrowStart = DateTime.Today.AddDays(1);
 
                 var response = await client
                     .From<BillDTO>()
-                    .Where(b => b.CreatedAt >= today && b.CreatedAt < today.AddDays(1))
+                    .Where(b => b.CreatedAt >= todayStart && b.CreatedAt < tomorrowStart)
                     .Get();
 
                 if (response.Models.Count == 0)
@@ -168,6 +173,5 @@ namespace ShopMate.DL
                 return 0;
             }
         }
-
     }
 }

@@ -32,7 +32,7 @@ namespace ShopMate.DTOs
         public string Address { get; set; }
 
         [Column("customerAge")]
-        public int Age { get; set; }
+        public int? Age { get; set; }
     }
 
 }
