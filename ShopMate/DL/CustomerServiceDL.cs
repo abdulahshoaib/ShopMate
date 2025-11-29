@@ -36,21 +36,15 @@ namespace ShopMate.DL
             {
                 var client = SupabaseInitializer.client;
 
-                // Build a new DTO payload without relying on caller's internal state
-                var newCustomer = new CustomerDTO
-                {
-                    Name = cDTO.Name,
-                    Phone = cDTO.Phone,
-                    Address = cDTO.Address,
-                    Age = cDTO.Age,
-                    Gender = cDTO.Gender
-                };
+                var response = await client
+                    .From<CustomerDTO>()
+                    .Insert(cDTO);
 
-                var response = await client.From<CustomerDTO>().Insert(newCustomer);
-                return response?.Models?.Count > 0;
+                return response.Models.Count > 0;
             }
-            catch (Exception)
+            catch (Exception ex)
             {
+                Console.WriteLine($"Error adding customer: {ex.Message}");
                 return false;
             }
         }
