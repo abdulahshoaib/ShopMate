@@ -16,7 +16,10 @@ namespace ShopMate.BL
             csDL = new CustomerServiceDL();
         }
 
-
+        public async Task<List<CustomerDTO>> GetAllCustomers()
+        {
+            return await csDL.GetAllCustomers();
+        }
 
         public async Task<bool> AddCustomerAsync(CustomerDTO customerDTO)
         {
