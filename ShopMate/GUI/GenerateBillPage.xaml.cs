@@ -23,6 +23,7 @@ namespace ShopMate.GUI
             // Example products for testing
             ProductComboBox.Items.Add("Sample Product A|10.50");
             ProductComboBox.Items.Add("Sample Product B|5.00");
+            ProductComboBox.Items.Add("Sample Product C|15.00");
 
             UpdateSummary();
         }
