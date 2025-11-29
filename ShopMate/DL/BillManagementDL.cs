@@ -137,7 +137,7 @@ namespace ShopMate.DL
 
                 var response = await client
                     .From<ProductDTO>()
-                    .Where(p => p.Quantity <= p.LowStockLimit)
+                    .Where(p => p.Stock <= p.LowStockLimit)
                     .Select("ID")
                     .Get();
 
