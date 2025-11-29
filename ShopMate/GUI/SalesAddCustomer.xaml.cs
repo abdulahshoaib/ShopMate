@@ -1,99 +1,165 @@
+using Microsoft.UI;
 using Microsoft.UI.Xaml;
 using Microsoft.UI.Xaml.Controls;
+using Microsoft.UI.Xaml.Media;
 using ShopMate.BL;
 using ShopMate.DTOs;
 using System;
-using Microsoft.UI;
-using Microsoft.UI.Xaml.Media;
-using System.Drawing;
+using System.Text.RegularExpressions;
 using System.Threading.Tasks;
-
 
 namespace ShopMate.GUI
 {
     public sealed partial class SalesAddCustomer : Page
     {
-        private readonly CustomerServiceBL csBL;
+        private readonly CustomerServiceBL csBL = new CustomerServiceBL();
+
         public SalesAddCustomer()
         {
             this.InitializeComponent();
-
-            this.csBL = new CustomerServiceBL();
         }
+
         private async void OnAddCustomerClicked(object sender, RoutedEventArgs e)
         {
-            bool f = false;
-            if (NameTextBox.Text == "")
+            bool hasError = false;
+
+            // ---------------------------
+            // Safe trimmed values
+            // ---------------------------
+            string name = (NameTextBox.Text ?? string.Empty).Trim();
+            string phone = (PhoneTextBox.Text ?? string.Empty).Trim();
+            string ageRaw = (AgeTextBox.Text ?? string.Empty).Trim();
+            string gender = (GenderComboBox.SelectedItem as ComboBoxItem)?.Content?.ToString() ?? "Male";
+            string address = (AddressTextBox.Text ?? string.Empty).Trim();
+
+            // ---------------------------
+            // Name validation
+            // ---------------------------
+            if (string.IsNullOrEmpty(name))
             {
-                NameTextBox.BorderBrush = new SolidColorBrush(ColorHelper.FromArgb(255, 255, 0, 0));
+                NameTextBox.BorderBrush = new SolidColorBrush(Colors.Red);
                 NameTextBox.Focus(FocusState.Programmatic);
-                f = true;
+                hasError = true;
             }
             else
             {
-                NameTextBox.BorderBrush = new SolidColorBrush(ColorHelper.FromArgb(255, 255, 255, 255));
+                NameTextBox.BorderBrush = new SolidColorBrush(Colors.White);
             }
-            if (PhoneTextBox.Text == "")
+
+            // ---------------------------
+            // Phone validation (basic regex)
+            // ---------------------------
+            if (string.IsNullOrEmpty(phone) || !Regex.IsMatch(phone, @"^\+?\d{7,15}$"))
             {
-                PhoneTextBox.BorderBrush = new SolidColorBrush(ColorHelper.FromArgb(255, 255, 0, 0));
-                PhoneTextBox.Focus(FocusState.Programmatic);
-                f = true;
-            }
-            else
-            {
-                PhoneTextBox.BorderBrush = new SolidColorBrush(ColorHelper.FromArgb(255, 255, 255, 255));
-            }
-            if (AgeTextBox.Text == "" || Convert.ToInt32(AgeTextBox.Text) < 5)
-            {
-                AgeTextBox.BorderBrush = new SolidColorBrush(ColorHelper.FromArgb(255, 255, 0, 0));
-                AgeTextBox.Focus(FocusState.Programmatic);
-                f = true;
+                PhoneTextBox.BorderBrush = new SolidColorBrush(Colors.Red);
+                if (!hasError) PhoneTextBox.Focus(FocusState.Programmatic);
+                hasError = true;
             }
             else
             {
-                AgeTextBox.BorderBrush = new SolidColorBrush(ColorHelper.FromArgb(255, 255, 255, 255));
+                PhoneTextBox.BorderBrush = new SolidColorBrush(Colors.White);
             }
-            if(!f)
+
+            // ---------------------------
+            // Age validation
+            // ---------------------------
+            if (!int.TryParse(ageRaw, out int age) || age < 5)
             {
-                var customer = new CustomerDTO
+                AgeTextBox.BorderBrush = new SolidColorBrush(Colors.Red);
+                if (!hasError) AgeTextBox.Focus(FocusState.Programmatic);
+                hasError = true;
+            }
+            else
+            {
+                AgeTextBox.BorderBrush = new SolidColorBrush(Colors.White);
+            }
+
+            // ---------------------------
+            // Address validation
+            // ---------------------------
+            if (string.IsNullOrEmpty(address))
+            {
+                AddressTextBox.BorderBrush = new SolidColorBrush(Colors.Red);
+                if (!hasError) AddressTextBox.Focus(FocusState.Programmatic);
+                hasError = true;
+            }
+            else
+            {
+                AddressTextBox.BorderBrush = new SolidColorBrush(Colors.White);
+            }
+
+            // ---------------------------
+            // If validation fails
+            // ---------------------------
+            if (hasError)
+            {
+                var dialog = new ContentDialog
                 {
-                    Name = NameTextBox.Text.Trim(),
-                    Phone = PhoneTextBox.Text.Trim(),
-                    Address = AddressTextBox.Text,
-                    Age = Convert.ToInt32(AgeTextBox.Text),
-                    Gender = (GenderComboBox.SelectedItem as ComboBoxItem)?.Content.ToString() ?? "Male"
+                    Title = "Validation",
+                    Content = "Please fix the highlighted fields.",
+                    CloseButtonText = "OK",
+                    XamlRoot = this.Content.XamlRoot
                 };
-                if (await csBL.AddCustomerAsync(customer))
+                await dialog.ShowAsync();
+                return;
+            }
+
+            // ---------------------------
+            // Build DTO
+            // ---------------------------
+            var dto = new CustomerDTO
+            {
+                Name = name,
+                Phone = phone,
+                Age = age,
+                Gender = gender,
+                Address = address
+            };
+
+            try
+            {
+                bool added = await csBL.AddCustomerAsync(dto);
+                if (added)
                 {
-                    ContentDialog dialog = new ContentDialog
+                    var okDialog = new ContentDialog
                     {
-                        Title = "Success",
-                        Content = "Customer added successfully!",
+                        Title = "Customer Added",
+                        Content = $"Customer '{dto.Name}' was added successfully.",
                         CloseButtonText = "OK",
-                        XamlRoot = this.XamlRoot
+                        XamlRoot = this.Content.XamlRoot
                     };
-                    await dialog.ShowAsync();
+                    await okDialog.ShowAsync();
+
+                    // Clear fields
                     NameTextBox.Text = "";
                     PhoneTextBox.Text = "";
-                    AddressTextBox.Text = "";
                     AgeTextBox.Text = "";
+                    AddressTextBox.Text = "";
                     GenderComboBox.SelectedIndex = 0;
                 }
                 else
                 {
-                    ContentDialog dialog = new ContentDialog
+                    var failDialog = new ContentDialog
                     {
-                        Title = "Error",
-                        Content = "Failed to add customer. Please try again.",
+                        Title = "Add Failed",
+                        Content = "Customer could not be added. Please try again.",
                         CloseButtonText = "OK",
-                        XamlRoot = this.XamlRoot
+                        XamlRoot = this.Content.XamlRoot
                     };
-                    await dialog.ShowAsync();
+                    await failDialog.ShowAsync();
                 }
             }
+            catch (Exception ex)
+            {
+                var errorDialog = new ContentDialog
+                {
+                    Title = "Error",
+                    Content = $"An error occurred while adding customer:\n{ex.Message}",
+                    CloseButtonText = "OK",
+                    XamlRoot = this.Content.XamlRoot
+                };
+                await errorDialog.ShowAsync();
+            }
         }
-        
-
-        
     }
 }

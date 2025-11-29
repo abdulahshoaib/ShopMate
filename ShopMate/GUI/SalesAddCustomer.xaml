@@ -68,7 +68,7 @@
         <!-- SIDEBAR -->
         <controls:SalesSidebarControl Grid.Column="0"/>
 
-
+ 
         <!-- PAGE CONTENT -->
         <ScrollViewer Grid.Column="1">
             <StackPanel Padding="40" Spacing="20">
