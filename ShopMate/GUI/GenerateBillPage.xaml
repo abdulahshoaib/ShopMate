@@ -61,36 +61,36 @@
                         <ColumnDefinition Width="*"/>
                     </Grid.ColumnDefinitions>
 
-                    <!-- Individual KPI cards -->
+                    <!-- KPI cards -->
                     <Border Grid.Column="0" Background="#3B82F6" CornerRadius="18" Padding="18">
                         <StackPanel>
-                            <TextBlock Text="Total Sales"   Foreground="White" FontWeight="Bold" FontSize="14"/>
-                            <TextBlock Text="$12,452"       Foreground="White" FontSize="22" FontWeight="SemiBold" Margin="0,6,0,0"/>
-                            <TextBlock Text="Today"         Foreground="#E6F0FF" FontSize="12" Margin="0,6,0,0"/>
+                            <TextBlock Text="Total Sales" Foreground="White" FontWeight="Bold" FontSize="14"/>
+                            <TextBlock x:Name="TotalSalesTextBlock" Text="$0.00" Foreground="White" FontSize="22" FontWeight="SemiBold" Margin="0,6,0,0"/>
+                            <TextBlock Text="Today" Foreground="#E6F0FF" FontSize="12" Margin="0,6,0,0"/>
                         </StackPanel>
                     </Border>
 
                     <Border Grid.Column="1" Background="#10B981" CornerRadius="18" Padding="18">
                         <StackPanel>
-                            <TextBlock Text="Bills Today"   Foreground="White" FontWeight="Bold" FontSize="14"/>
-                            <TextBlock Text="24"            Foreground="White" FontSize="22" FontWeight="SemiBold" Margin="0,6,0,0"/>
-                            <TextBlock Text="Created"       Foreground="#EAF7EE" FontSize="12" Margin="0,6,0,0"/>
+                            <TextBlock Text="Bills Today" Foreground="White" FontWeight="Bold" FontSize="14"/>
+                            <TextBlock x:Name="TotalBillsTextBlock" Text="0" Foreground="White" FontSize="22" FontWeight="SemiBold" Margin="0,6,0,0"/>
+                            <TextBlock Text="Created" Foreground="#EAF7EE" FontSize="12" Margin="0,6,0,0"/>
                         </StackPanel>
                     </Border>
 
                     <Border Grid.Column="2" Background="#8B5CF6" CornerRadius="18" Padding="18">
                         <StackPanel>
-                            <TextBlock Text="Active Customers" Foreground="White" FontWeight="Bold" FontSize="14"/>
-                            <TextBlock Text="342"              Foreground="White" FontSize="22" FontWeight="SemiBold" Margin="0,6,0,0"/>
-                            <TextBlock Text="This Month"       Foreground="#EFE6FF" FontSize="12" Margin="0,6,0,0"/>
+                            <TextBlock Text="Average Bill" Foreground="White" FontWeight="Bold" FontSize="14"/>
+                            <TextBlock x:Name="AvgBillValTextBlock" Text="0" Foreground="White" FontSize="22" FontWeight="SemiBold" Margin="0,6,0,0"/>
+                            <TextBlock Text="Today" Foreground="#EFE6FF" FontSize="12" Margin="0,6,0,0"/>
                         </StackPanel>
                     </Border>
 
                     <Border Grid.Column="3" Background="#F59E0B" CornerRadius="18" Padding="18">
                         <StackPanel>
-                            <TextBlock Text="Outstanding"   Foreground="White" FontWeight="Bold" FontSize="14"/>
-                            <TextBlock Text="$1,230"        Foreground="White" FontSize="22" FontWeight="SemiBold" Margin="0,6,0,0"/>
-                            <TextBlock Text="Unpaid"        Foreground="#FFF7E6" FontSize="12" Margin="0,6,0,0"/>
+                            <TextBlock Text="Low Stock" Foreground="White" FontWeight="Bold" FontSize="14"/>
+                            <TextBlock x:Name="LowStockTextBlock" Text="0" Foreground="White" FontSize="22" FontWeight="SemiBold" Margin="0,6,0,0"/>
+                            <TextBlock Text="Products" Foreground="#FFF7E6" FontSize="12" Margin="0,6,0,0"/>
                         </StackPanel>
                     </Border>
                 </Grid>
@@ -119,12 +119,20 @@
                             <StackPanel Orientation="Horizontal" Spacing="12" Margin="0,6,0,0">
                                 <ComboBox Header="Select Customer"
                                           x:Name="CustomerComboBox"
-                                          Width="320"/>
+                                          Width="320"
+                                          DisplayMemberPath="Name"
+                                          SelectedValuePath="ID"/>
                             </StackPanel>
 
                             <!-- Product + qty + add button -->
                             <StackPanel Orientation="Horizontal" Spacing="12">
-                                <ComboBox Header="Select Product" x:Name="ProductComboBox" Width="320"/>
+
+                                <ComboBox Header="Select Product"
+                                      x:Name="ProductComboBox"
+                                      Width="320"
+                                      DisplayMemberPath="Name"
+                                      SelectedValuePath="Id"/>
+                                
                                 <TextBox Header="Quantity" x:Name="QuantityTextBox" Width="120"/>
 
                                 <!-- Add Item Button -->

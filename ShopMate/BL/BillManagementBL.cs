@@ -11,7 +11,7 @@ namespace ShopMate.BL
     public class BillManagementBL
     {
         private readonly BillManagementDL bmDL;
-        BillManagementBL()
+        public BillManagementBL()
         {
             bmDL = new BillManagementDL();
         }

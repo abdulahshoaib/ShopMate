@@ -7,11 +7,18 @@ using System.IO;
 using System.Linq;
 using System.Text;
 using System.Diagnostics;
+using ShopMate.BL;
+using System.Threading.Tasks;
+using Windows.ApplicationModel.VoiceCommands;
 
 namespace ShopMate.GUI
 {
     public sealed partial class GenerateBillPage : Page
     {
+        private readonly BillManagementBL bmBL;
+        private readonly CustomerServiceBL csBL;
+        private readonly ProductManagementBL pmBL;
+
         // Observable collection to bind to ListView
         public ObservableCollection<BillItem> BillItems { get; } = new ObservableCollection<BillItem>();
 
@@ -20,11 +27,51 @@ namespace ShopMate.GUI
             this.InitializeComponent();
             this.DataContext = this;
 
-            // Example products for testing
-            ProductComboBox.Items.Add("Sample Product A|10.50");
-            ProductComboBox.Items.Add("Sample Product B|5.00");
+            this.bmBL = new BillManagementBL();
+            this.csBL = new CustomerServiceBL();
+            this.pmBL = new ProductManagementBL();
 
+            _ = LoadCustomers();
+            _ = LoadProducts();
+            _ = LoadKPI();
             UpdateSummary();
+        }
+
+        private async Task LoadCustomers()
+        {
+            var customers = await csBL.GetAllCustomers();
+            CustomerComboBox.ItemsSource = customers;
+        }
+
+        private async Task LoadProducts()
+        {
+            var products = await pmBL.GetAllProducts();
+            ProductComboBox.ItemsSource = products;
+        }
+
+        private async Task LoadKPI()
+        {
+            try
+            {
+                var totalSales = await bmBL.GetTotalSalesToday();
+                TotalSalesTextBlock.Text = $"${totalSales:N2}";
+
+                var totalBills = await bmBL.GetTotalBillsToday();
+                TotalBillsTextBlock.Text = totalBills.ToString();
+
+                var avgBillVal = await bmBL.GetAverageBillValueToday();
+                AvgBillValTextBlock.Text = avgBillVal.ToString();
+
+                var lowStock = await bmBL.GetLowStockProductsCount();
+                LowStockTextBlock.Text = lowStock.ToString();
+            }
+            catch (Exception)
+            {
+                TotalSalesTextBlock.Text = "$0.00";
+                TotalBillsTextBlock.Text = "0";
+                AvgBillValTextBlock.Text = "0";
+                LowStockTextBlock.Text = "0";
+            }
         }
 
         // ----------------- ADD ITEM -----------------
