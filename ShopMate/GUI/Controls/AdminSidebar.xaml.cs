@@ -27,8 +27,6 @@ namespace ShopMate.GUI.Controls
         private void OnManageProductsClicked(object sender, RoutedEventArgs e)
             => Navigate(typeof(ManageProductsPage));
 
-        private void OnSettingsClicked(object sender, RoutedEventArgs e)
-            => Navigate(typeof(SettingsPage));
 
         private void OnSignOutClicked(object sender, RoutedEventArgs e)
             => Navigate(typeof(LoginPage));

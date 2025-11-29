@@ -28,10 +28,7 @@ namespace ShopMate.GUI
         {
             // this.Content = new GenerateReportPage();
         }
-        private void OnSettingsClicked(object sender, RoutedEventArgs e)
-        {
-            this.Content = new SettingsPage();
-        }
+        
         private void OnSignOutClicked(object sender, RoutedEventArgs e)
         {
             this.Content = new LoginPage();
