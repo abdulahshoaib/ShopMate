@@ -16,7 +16,6 @@ namespace ShopMate.DTOs
         }
 
         [PrimaryKey("customerID", false)]
-        [Column("customerID")]
         public int ID { get; set; }
 
         [Column("customerName")]
