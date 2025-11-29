@@ -27,7 +27,7 @@ namespace ShopMate.DTOs
         public decimal Price { get; set; }
 
         [Column("stock")]
-        public int Quantity { get; set; }
+        public int Stock { get; set; }
 
         [Column("expirydate")]
         public DateTime? ExpiryDate { get; set; }
