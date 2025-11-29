@@ -1,8 +1,12 @@
+using Microsoft.UI;
 using Microsoft.UI.Xaml;
 using Microsoft.UI.Xaml.Controls;
 using ShopMate.BL;
 using ShopMate.DTOs;
 using System;
+using System.Drawing;
+using Microsoft.UI.Xaml.Media;
+
 
 namespace ShopMate.GUI
 {
@@ -17,7 +21,41 @@ namespace ShopMate.GUI
         }
         private void OnAddCustomerClicked(object sender, RoutedEventArgs e)
         {
+            bool f = false;
+            if (NameTextBox.Text == "")
+            {
+                NameTextBox.BorderBrush = new SolidColorBrush(ColorHelper.FromArgb(255, 255, 0, 0));
+                NameTextBox.Focus(FocusState.Programmatic);
+                f = true;
+            }
+            else
+            {
+                NameTextBox.BorderBrush = new SolidColorBrush(ColorHelper.FromArgb(255, 255, 255, 255));
+            }
+            if (PhoneTextBox.Text == "")
+            {
+                PhoneTextBox.BorderBrush = new SolidColorBrush(ColorHelper.FromArgb(255, 255, 0, 0));
+                PhoneTextBox.Focus(FocusState.Programmatic);
+                f = true;
+            }
+            else
+            {
+                PhoneTextBox.BorderBrush = new SolidColorBrush(ColorHelper.FromArgb(255, 255, 255, 255));
+            }
+            if (AgeTextBox.Text == "" || Convert.ToInt32(AgeTextBox.Text) < 5)
+            {
+                AgeTextBox.BorderBrush = new SolidColorBrush(ColorHelper.FromArgb(255, 255, 0, 0));
+                AgeTextBox.Focus(FocusState.Programmatic);
+                f = true;
+            }
+            else
+            {
+                AgeTextBox.BorderBrush = new SolidColorBrush(ColorHelper.FromArgb(255, 255, 255, 255));
+            }
+            if(!f)
+            {
 
+            }
         }
         private void SaveCustomer_Click(object sender, RoutedEventArgs e)
         {
@@ -26,7 +64,7 @@ namespace ShopMate.GUI
                 Name = NameTextBox.Text,
                 Address = AddressTextBox.Text,
                 Phone = PhoneTextBox.Text,
-                Gender = GenderTextBox.Text,
+                Gender = GenderComboBox.SelectedValue.ToString(),
                 Age = Convert.ToInt32(AgeTextBox.Text)
             };
             bool resp = csBL.AddCustomer(cDTO);
@@ -56,9 +94,6 @@ namespace ShopMate.GUI
             }
         }
 
-        private void Cancel_Click(object sender, RoutedEventArgs e)
-        {
-            NameTextBox.Text = AddressTextBox.Text = PhoneTextBox.Text = GenderTextBox.Text = AgeTextBox.Text = "";
-        }
+        
     }
 }

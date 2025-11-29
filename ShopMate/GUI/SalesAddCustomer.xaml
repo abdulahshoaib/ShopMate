@@ -40,6 +40,14 @@
             <Setter Property="CornerRadius" Value="6"/>
         </Style>
 
+        <Style x:Key="ComboStyle" TargetType="ComboBox">
+            <Setter Property="BorderBrush" Value="#D1D5DB"/>
+            <Setter Property="BorderThickness" Value="1"/>
+            <Setter Property="Padding" Value="8"/>
+            <Setter Property="FontSize" Value="14"/>
+            <Setter Property="CornerRadius" Value="6"/>
+        </Style>
+
         <!-- CARD PANEL -->
         <Style x:Key="CardStyle" TargetType="Border">
             <Setter Property="CornerRadius" Value="18"/>
@@ -84,7 +92,7 @@
 
                     <!-- CUSTOMER INFO -->
                     <Border Grid.Column="0"
-                            Background="#EF4444"
+                            Background="#F59E0B"
                             Style="{StaticResource CardStyle}">
                         <StackPanel>
 
@@ -98,7 +106,10 @@
                             <TextBox x:Name="NameTextBox" Style="{StaticResource InputStyle}"/>
 
                             <TextBlock Text="Gender" Style="{StaticResource LabelStyle}"/>
-                            <TextBox x:Name="GenderTextBox" Style="{StaticResource InputStyle}"/>
+                            <ComboBox x:Name="GenderComboBox" SelectedIndex="0" HorizontalAlignment="Stretch" Style="{StaticResource ComboStyle}">
+                                <ComboBoxItem Content="Male"/>
+                                <ComboBoxItem Content="Female"/>
+                            </ComboBox>
 
                             <TextBlock Text="Age" Style="{StaticResource LabelStyle}"/>
                             <TextBox x:Name="AgeTextBox" Style="{StaticResource InputStyle}"/>
