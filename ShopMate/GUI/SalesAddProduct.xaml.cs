@@ -25,9 +25,6 @@ namespace ShopMate.GUI
             int stock = 0;
             decimal price = 0m;
 
-            // ---------------------------
-            // Safe trimmed values
-            // ---------------------------
             string name = (ProductNameTextBox.Text ?? string.Empty).Trim();
             string desc = (DescriptionTextBox.Text ?? string.Empty).Trim();
             string qty = (QuantityTextBox.Text ?? string.Empty).Trim();
@@ -119,9 +116,6 @@ namespace ShopMate.GUI
                 return;
             }
 
-            // ---------------------------
-            // Build DTO safely
-            // ---------------------------
             var dto = new ProductDTO
             {
                 Name = name,
