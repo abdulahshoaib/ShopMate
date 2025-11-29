@@ -139,14 +139,6 @@ namespace ShopMate.GUI
             }
         }
 
-        // ----------------- SIDEBAR BUTTON HANDLERS (PLACEHOLDER) -----------------
-        private void OnDashboardClicked(object sender, RoutedEventArgs e) { }
-        private void OnGenerateBillClicked(object sender, RoutedEventArgs e) { }
-        private void OnGenerateReportClicked(object sender, RoutedEventArgs e) { }
-        private void OnAddCustomerClicked(object sender, RoutedEventArgs e) { }
-        private void OnAddProductClicked(object sender, RoutedEventArgs e) { }
-        private void OnSettingsClicked(object sender, RoutedEventArgs e) { }
-        private void OnSignOutClicked(object sender, RoutedEventArgs e) { }
     }
 
     // ----------------- BILL ITEM MODEL -----------------

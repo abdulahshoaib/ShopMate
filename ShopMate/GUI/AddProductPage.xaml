@@ -5,120 +5,135 @@
     xmlns:controls="using:ShopMate.GUI.Controls"
     Background="{ThemeResource ApplicationPageBackgroundThemeBrush}">
 
-    <!-- Animations and shared styles consistent with GenerateBillPage -->
     <Page.Resources>
+
+        <!-- SIDEBAR ANIMATIONS -->
         <Storyboard x:Name="CollapseSidebarStoryboard">
-            <DoubleAnimation Storyboard.TargetName="SidebarColumn"
-                             Storyboard.TargetProperty="Width.Value"
-                             To="60"
-                             Duration="0:0:0.25"/>
+            <DoubleAnimation
+                Storyboard.TargetName="SidebarColumn"
+                Storyboard.TargetProperty="Width.Value"
+                To="60"
+                Duration="0:0:0.25" />
         </Storyboard>
 
         <Storyboard x:Name="ExpandSidebarStoryboard">
-            <DoubleAnimation Storyboard.TargetName="SidebarColumn"
-                             Storyboard.TargetProperty="Width.Value"
-                             To="220"
-                             Duration="0:0:0.25"/>
+            <DoubleAnimation
+                Storyboard.TargetName="SidebarColumn"
+                Storyboard.TargetProperty="Width.Value"
+                To="220"
+                Duration="0:0:0.25" />
         </Storyboard>
 
-        <Style x:Key="ListViewItemStretchStyle" TargetType="ListViewItem">
-            <Setter Property="HorizontalContentAlignment" Value="Stretch"/>
-            <Setter Property="Padding" Value="0"/>
-            <Setter Property="Margin" Value="0"/>
+        <!-- INPUT LABEL -->
+        <Style x:Key="LabelStyle" TargetType="TextBlock">
+            <Setter Property="Foreground" Value="White"/>
+            <Setter Property="FontSize" Value="14"/>
+            <Setter Property="Margin" Value="0,5,0,3"/>
         </Style>
+
+        <!-- TEXTBOX STYLE -->
+        <Style x:Key="InputStyle" TargetType="TextBox">
+            <Setter Property="BorderBrush" Value="#D1D5DB"/>
+            <Setter Property="BorderThickness" Value="1"/>
+            <Setter Property="Padding" Value="8"/>
+            <Setter Property="FontSize" Value="14"/>
+            <Setter Property="CornerRadius" Value="6"/>
+        </Style>
+
+        <!-- CARD PANEL -->
+        <Style x:Key="CardStyle" TargetType="Border">
+            <Setter Property="CornerRadius" Value="18"/>
+            <Setter Property="Padding" Value="20"/>
+            <Setter Property="Margin" Value="0,0,0,20"/>
+        </Style>
+
     </Page.Resources>
 
+    <!-- MAIN GRID -->
     <Grid>
         <Grid.ColumnDefinitions>
             <ColumnDefinition x:Name="SidebarColumn" Width="170"/>
             <ColumnDefinition Width="*"/>
         </Grid.ColumnDefinitions>
 
-        <!-- Sidebar -->
+        <!-- SIDEBAR -->
         <controls:AdminSidebarControl Grid.Column="0"/>
 
-        <!-- Main content -->
+        <!-- PAGE CONTENT -->
         <ScrollViewer Grid.Column="1">
-            <StackPanel Padding="40"
-                        MaxWidth="720"
-                        HorizontalAlignment="Center"
-                        VerticalAlignment="Top"
-                        Spacing="20">
+            <StackPanel Padding="40" Spacing="20">
 
-                <TextBlock Text="Add New Product"
+                <!-- PAGE TITLE -->
+                <TextBlock Text="Add Product"
                            FontSize="32"
                            FontWeight="SemiBold"/>
-                <TextBlock Text="Create a product record to make it available for billing."
+
+                <TextBlock Text="Enter the product information below."
                            FontSize="12"
                            Foreground="Gray"/>
 
-                <Border Background="#0B1220"
-                        CornerRadius="12"
-                        Padding="20">
-                    <StackPanel Spacing="12">
-                        <TextBlock Text="Product Details"
-                                   FontSize="20"
-                                   FontWeight="SemiBold"
-                                   Foreground="#E5E7EB"/>
+                <Grid ColumnSpacing="20" RowSpacing="20" Margin="0,20,0,0">
+                    <Grid.ColumnDefinitions>
+                        <ColumnDefinition Width="*"/>
+                        <ColumnDefinition Width="*"/>
+                    </Grid.ColumnDefinitions>
 
-                        <TextBlock Text="Provide product name, price and stock quantity."
-                                   FontSize="12"
-                                   Foreground="Gray"/>
+                    <!-- PRODUCT INFO -->
+                    <Border Grid.Column="0"
+                            Background="#EF4444"
+                            Style="{StaticResource CardStyle}">
+                        <StackPanel>
 
-                        <Grid ColumnSpacing="12" RowSpacing="10" Margin="0,6,0,0">
-                            <Grid.ColumnDefinitions>
-                                <ColumnDefinition Width="2*"/>
-                                <ColumnDefinition Width="*"/>
-                            </Grid.ColumnDefinitions>
+                            <TextBlock Text="Product Information"
+                                       FontSize="20"
+                                       FontWeight="Bold"
+                                       Foreground="White"
+                                       Margin="0,0,0,12"/>
 
-                            <TextBox Header="Product Name"
-                                     x:Name="ProductNameTextBox"
-                                     Grid.Column="0"/>
-                        </Grid>
+                            <TextBlock Text="Product Name" Style="{StaticResource LabelStyle}"/>
+                            <TextBox x:Name="ProductNameTextBox" Style="{StaticResource InputStyle}"/>
 
-                        <Grid ColumnSpacing="12" RowSpacing="10">
-                            <Grid.ColumnDefinitions>
-                                <ColumnDefinition Width="*"/>
-                                <ColumnDefinition Width="*"/>
-                            </Grid.ColumnDefinitions>
+                            <TextBlock Text="Description" Style="{StaticResource LabelStyle}"/>
+                            <TextBox x:Name="DescriptionTextBox" Style="{StaticResource InputStyle}"
+                                     Height="70"
+                                     TextWrapping="Wrap"
+                                     AcceptsReturn="True"/>
 
-                            <NumberBox Header="Price"
-                                    x:Name="PriceNumberBox"
-                                    SpinButtonPlacementMode="Inline"
-                                    Minimum="0"
-                                    SmallChange="0.1"/>
-
-
-                            <NumberBox Header="Quantity in stock"
-                                     x:Name="QuantityNumberBox"
-                                     SpinButtonPlacementMode="Inline"
-                                     Grid.Column="1"/>
-                        </Grid>
-
-                        <TextBox Header="Description (optional)"
-                                 x:Name="DescriptionTextBox"
-                                 AcceptsReturn="True"
-                                 Height="80"/>
-
-                        <StackPanel Orientation="Horizontal" Spacing="15" Margin="0,6,0,0">
-                            <Button Content="Save Product"
-                                    Click="SaveProduct_Click"
-                                    Background="#3B82F6"
-                                    Foreground="White"
-                                    BorderBrush="Transparent"
-                                    Padding="14,6"
-                                    CornerRadius="6"/>
-
-                            <Button Content="Clear"
-                                    Click="Clear_Click"
-                                    Background="Transparent"
-                                    Foreground="#D1D5DB"
-                                    BorderBrush="#334155"
-                                    Padding="14,6"
-                                    CornerRadius="6"/>
                         </StackPanel>
-                    </StackPanel>
-                </Border>
+                    </Border>
+
+                    <!-- STOCK INFO -->
+                    <Border Grid.Column="1"
+                            Background="#10B981"
+                            Style="{StaticResource CardStyle}">
+                        <StackPanel>
+
+                            <TextBlock Text="Stock Information"
+                                       FontSize="20"
+                                       FontWeight="Bold"
+                                       Foreground="White"
+                                       Margin="0,0,0,12"/>
+                            <TextBlock Text="Quantity" Style="{StaticResource LabelStyle}"/>
+                            <TextBox x:Name="QuantityTextBox" Style="{StaticResource InputStyle}"/>
+
+                            <TextBlock Text="Price" Style="{StaticResource LabelStyle}"/>
+                            <TextBox x:Name="PriceTextBox" Style="{StaticResource InputStyle}"/>
+
+                        </StackPanel>
+                    </Border>
+                </Grid>
+
+                <!-- SAVE BUTTON -->
+                <Button Content="Add Product"
+                        Width="200"
+                        Height="50"
+                        Background="#3B82F6"
+                        Foreground="White"
+                        BorderBrush="Transparent"
+                        CornerRadius="10"
+                        FontSize="18"
+                        HorizontalAlignment="Center"
+                        Click="OnAddProductClicked"/>
 
             </StackPanel>
         </ScrollViewer>
