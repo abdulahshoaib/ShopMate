@@ -1,31 +1,53 @@
 using Microsoft.UI.Xaml;
 using Microsoft.UI.Xaml.Controls;
-using Microsoft.UI.Xaml.Controls.Primitives;
-using Microsoft.UI.Xaml.Data;
-using Microsoft.UI.Xaml.Input;
-using Microsoft.UI.Xaml.Media;
-using Microsoft.UI.Xaml.Navigation;
+using Windows.ApplicationModel.VoiceCommands;
 using System;
-using System.Collections.Generic;
-using System.IO;
-using System.Linq;
-using System.Runtime.InteropServices.WindowsRuntime;
-using Windows.Foundation;
-using Windows.Foundation.Collections;
-
-// To learn more about WinUI, the WinUI project structure,
-// and more about our project templates, see: http://aka.ms/winui-project-info.
 
 namespace ShopMate.GUI
 {
-    /// <summary>
-    /// An empty page that can be used on its own or navigated to within a Frame.
-    /// </summary>
     public sealed partial class ManageProductsPage : Page
     {
         public ManageProductsPage()
         {
-            InitializeComponent();
+            this.InitializeComponent();
+        }
+        private void Navigate(Type t)
+        {
+            var window = (Application.Current as App)?._window;
+            Frame? frame = window?.Content as Frame;
+
+            frame?.Navigate(t);
+        }
+
+        private void OnEditProductClicked(object sender, RoutedEventArgs e)
+        {
+
+        }
+
+
+        private void OnAddProductClicked(object sender, RoutedEventArgs e)
+        {
+            Navigate(typeof(AddProductPage));
+        }
+
+
+
+        private void OnDeleteProductClicked(object sender, RoutedEventArgs e)
+        {
+            // TODO: Delete selected customer
+        }
+
+        private void OnViewProductsClicked(object sender, RoutedEventArgs e)
+        {
+        }
+        // Example data model
+        public class Customer
+        {
+            public int Id { get; set; }
+            public string Name { get; set; } = "";
+            public string Phone { get; set; } = "";
+            public string Email { get; set; } = "";
+            public string Address { get; set; } = "";
         }
     }
 }

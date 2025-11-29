@@ -1,5 +1,5 @@
 <Page
-    x:Class="ShopMate.GUI.AddProductPage"
+    x:Class="ShopMate.GUI.SalesAddProduct"
     xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
     xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
     xmlns:controls="using:ShopMate.GUI.Controls"
@@ -35,7 +35,7 @@
         </Grid.ColumnDefinitions>
 
         <!-- Sidebar -->
-        <controls:AdminSidebarControl Grid.Column="0"/>
+        <controls:SalesSidebarControl Grid.Column="0"/>
 
         <!-- Main content -->
         <ScrollViewer Grid.Column="1">

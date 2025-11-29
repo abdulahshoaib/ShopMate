@@ -1,6 +1,7 @@
 using Microsoft.UI.Xaml;
 using Microsoft.UI.Xaml.Controls;
 using Windows.ApplicationModel.VoiceCommands;
+using System;
 
 namespace ShopMate.GUI
 {
@@ -10,38 +11,23 @@ namespace ShopMate.GUI
         {
             this.InitializeComponent();
         }
-        private void OnManageEmployeesClicked(object sender, RoutedEventArgs e)
+        private void Navigate(Type t)
         {
-            // TODO: Navigate to ManageEmployeesPage
+            var window = (Application.Current as App)?._window;
+            Frame? frame = window?.Content as Frame;
+
+            frame?.Navigate(t);
         }
+
         private void OnEditCustomerClicked(object sender, RoutedEventArgs e)
         {
-
+            
         }
-        private void OnManageProductsClicked(object sender, RoutedEventArgs e)
-        {
-            // TODO: Navigate to AddProductPage
-        }
-        private void OnGenerateReportClicked(object sender, RoutedEventArgs e)
-        {
-            // TODO: Navigate to GenerateBillPage
-        }
-        private void OnSettingsClicked(object sender, RoutedEventArgs e)
-        {
-            // TODO:
-        }
-        private void OnSignOutClicked(object sender, RoutedEventArgs e)
-        {
-            this.Content = new GUI.LoginPage();
-        }
-        private void OnDashboardClicked(object sender, RoutedEventArgs e)
-        {
-            this.Content = new GUI.AdminDashboardPage();
-        }
-
+        
+        
         private void OnAddCustomerClicked(object sender, RoutedEventArgs e)
         {
-            this.Content = new GUI.AddCustomerPage();
+            Navigate(typeof(AddCustomerPage));
         }
 
         

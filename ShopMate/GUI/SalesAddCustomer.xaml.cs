@@ -1,0 +1,64 @@
+using Microsoft.UI.Xaml;
+using Microsoft.UI.Xaml.Controls;
+using ShopMate.BL;
+using ShopMate.DTOs;
+using System;
+
+namespace ShopMate.GUI
+{
+    public sealed partial class SalesAddCustomer : Page
+    {
+        private readonly CustomerServiceBL csBL;
+        public SalesAddCustomer()
+        {
+            this.InitializeComponent();
+
+            this.csBL = new CustomerServiceBL();
+        }
+        private void OnAddCustomerClicked(object sender, RoutedEventArgs e)
+        {
+
+        }
+        private void SaveCustomer_Click(object sender, RoutedEventArgs e)
+        {
+            CustomerDTO cDTO = new CustomerDTO()
+            {
+                Name = NameTextBox.Text,
+                Address = AddressTextBox.Text,
+                Phone = PhoneTextBox.Text,
+                Gender = GenderTextBox.Text,
+                Age = Convert.ToInt32(AgeTextBox.Text)
+            };
+            bool resp = csBL.AddCustomer(cDTO);
+
+            if (resp)
+            {
+                ContentDialog dialog = new ContentDialog
+                {
+                    Title = "Success",
+                    Content = "Customer saved successfully!",
+                    CloseButtonText = "OK",
+                    XamlRoot = this.Content.XamlRoot
+                };
+                _ = dialog.ShowAsync();
+            }
+            else
+            {
+
+                ContentDialog dialog = new ContentDialog
+                {
+                    Title = "Error",
+                    Content = "Unable to save customer. Try Again",
+                    CloseButtonText = "OK",
+                    XamlRoot = this.Content.XamlRoot
+                };
+                _ = dialog.ShowAsync();
+            }
+        }
+
+        private void Cancel_Click(object sender, RoutedEventArgs e)
+        {
+            NameTextBox.Text = AddressTextBox.Text = PhoneTextBox.Text = GenderTextBox.Text = AgeTextBox.Text = "";
+        }
+    }
+}

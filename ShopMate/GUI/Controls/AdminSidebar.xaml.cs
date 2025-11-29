@@ -31,11 +31,7 @@ namespace ShopMate.GUI.Controls
         private void OnSignOutClicked(object sender, RoutedEventArgs e)
             => Navigate(typeof(LoginPage));
 
-        private void OnSidebarToggleClicked(object sender, RoutedEventArgs e)
-        {
-            // Optional: raise event OR implement collapse animation here
-            SidebarToggled?.Invoke(this, EventArgs.Empty);
-        }
+        
 
         public event EventHandler? SidebarToggled;
 

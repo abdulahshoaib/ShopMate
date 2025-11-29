@@ -1,0 +1,153 @@
+<Page
+    x:Class="ShopMate.GUI.SalesAddCustomer"
+    xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+    xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+    xmlns:controls="using:ShopMate.GUI.Controls"
+    Background="{ThemeResource ApplicationPageBackgroundThemeBrush}">
+
+    <Page.Resources>
+
+        <!-- SIDEBAR ANIMATIONS -->
+        <Storyboard x:Name="CollapseSidebarStoryboard">
+            <DoubleAnimation
+                Storyboard.TargetName="SidebarColumn"
+                Storyboard.TargetProperty="Width.Value"
+                To="60"
+                Duration="0:0:0.25" />
+        </Storyboard>
+
+        <Storyboard x:Name="ExpandSidebarStoryboard">
+            <DoubleAnimation
+                Storyboard.TargetName="SidebarColumn"
+                Storyboard.TargetProperty="Width.Value"
+                To="220"
+                Duration="0:0:0.25" />
+        </Storyboard>
+
+        <!-- INPUT LABEL -->
+        <Style x:Key="LabelStyle" TargetType="TextBlock">
+            <Setter Property="Foreground" Value="White"/>
+            <Setter Property="FontSize" Value="14"/>
+            <Setter Property="Margin" Value="0,5,0,3"/>
+        </Style>
+
+        <!-- TEXTBOX STYLE -->
+        <Style x:Key="InputStyle" TargetType="TextBox">
+            <Setter Property="BorderBrush" Value="#D1D5DB"/>
+            <Setter Property="BorderThickness" Value="1"/>
+            <Setter Property="Padding" Value="8"/>
+            <Setter Property="FontSize" Value="14"/>
+            <Setter Property="CornerRadius" Value="6"/>
+        </Style>
+
+        <!-- CARD PANEL -->
+        <Style x:Key="CardStyle" TargetType="Border">
+            <Setter Property="CornerRadius" Value="18"/>
+            <Setter Property="Padding" Value="20"/>
+            <Setter Property="Margin" Value="0,0,0,20"/>
+        </Style>
+
+    </Page.Resources>
+
+
+    <!-- MAIN GRID -->
+    <Grid>
+        <Grid.ColumnDefinitions>
+            <ColumnDefinition x:Name="SidebarColumn" Width="170"/>
+            <ColumnDefinition Width="*"/>
+        </Grid.ColumnDefinitions>
+
+        <!-- SIDEBAR -->
+        <controls:SalesSidebarControl Grid.Column="0"/>
+
+
+        <!-- PAGE CONTENT -->
+        <ScrollViewer Grid.Column="1">
+            <StackPanel Padding="40" Spacing="20">
+
+                <!-- PAGE TITLE -->
+                <TextBlock Text="Add Customer"
+                           FontSize="32"
+                           FontWeight="SemiBold"/>
+
+                <TextBlock Text="Enter the customer information below."
+                           FontSize="12"
+                           Foreground="Gray"/>
+
+
+                <Grid ColumnSpacing="20" RowSpacing="20" Margin="0,20,0,0">
+
+                    <Grid.ColumnDefinitions>
+                        <ColumnDefinition Width="*"/>
+                        <ColumnDefinition Width="*"/>
+                    </Grid.ColumnDefinitions>
+
+                    <!-- CUSTOMER INFO -->
+                    <Border Grid.Column="0"
+                            Background="#EF4444"
+                            Style="{StaticResource CardStyle}">
+                        <StackPanel>
+
+                            <TextBlock Text="Customer Information"
+                                       FontSize="20"
+                                       FontWeight="Bold"
+                                       Foreground="White"
+                                       Margin="0,0,0,12"/>
+
+                            <TextBlock Text="Full Name" Style="{StaticResource LabelStyle}"/>
+                            <TextBox x:Name="NameTextBox" Style="{StaticResource InputStyle}"/>
+
+                            <TextBlock Text="Gender" Style="{StaticResource LabelStyle}"/>
+                            <TextBox x:Name="GenderTextBox" Style="{StaticResource InputStyle}"/>
+
+                            <TextBlock Text="Age" Style="{StaticResource LabelStyle}"/>
+                            <TextBox x:Name="AgeTextBox" Style="{StaticResource InputStyle}"/>
+
+                        </StackPanel>
+                    </Border>
+
+
+                    <!-- CONTACT INFO -->
+                    <Border Grid.Column="1"
+                            Background="#10B981"
+                            Style="{StaticResource CardStyle}">
+                        <StackPanel>
+
+                            <TextBlock Text="Contact Information"
+                                       FontSize="20"
+                                       FontWeight="Bold"
+                                       Foreground="White"
+                                       Margin="0,0,0,12"/>
+                            <TextBlock Text="Address" Style="{StaticResource LabelStyle}"/>
+                            <TextBox x:Name="AddressTextBox" Style="{StaticResource InputStyle}"
+                                     Height="70"
+                                     TextWrapping="Wrap"
+                                     AcceptsReturn="True"/>
+                            <TextBlock Text="Phone Number" Style="{StaticResource LabelStyle}"/>
+                            <TextBox x:Name="PhoneTextBox" Style="{StaticResource InputStyle}"/>
+
+                        </StackPanel>
+                    </Border>
+
+                </Grid>
+
+
+                <!-- SAVE BUTTON -->
+                <Button Content="Add Customer"
+                        Width="200"
+                        Height="50"
+                        Background="#3B82F6"
+                        Foreground="White"
+                        BorderBrush="Transparent"
+                        CornerRadius="10"
+                        FontSize="18"
+                        HorizontalAlignment="Center"
+                        Click="OnAddCustomerClicked"/>
+
+
+            </StackPanel>
+        </ScrollViewer>
+
+    </Grid>
+
+</Page>

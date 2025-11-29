@@ -27,7 +27,8 @@
     <None Remove="GUI\Controls\AdminSidebar.xaml" />
     <None Remove="GUI\GenerateReportPage.xaml" />
     <None Remove="GUI\MainWindow.xaml" />
-    <None Remove="GUI\ManageProductsPage.xaml" />
+    <None Remove="GUI\SalesAddCustomer.xaml" />
+    <None Remove="GUI\SalesAddProduct.xaml" />
     <None Remove="LoginPage.xaml" />
     <None Remove="ManageCustomersPage.xaml" />
     <None Remove="ManageEmployeesPage.xaml" />
@@ -103,6 +104,18 @@
 
   <ItemGroup>
     <Page Update="GUI\ManageProductsPage.xaml">
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+  </ItemGroup>
+
+  <ItemGroup>
+    <Page Update="GUI\SalesAddProduct.xaml">
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+  </ItemGroup>
+
+  <ItemGroup>
+    <Page Update="GUI\SalesAddCustomer.xaml">
       <Generator>MSBuild:Compile</Generator>
     </Page>
   </ItemGroup>
