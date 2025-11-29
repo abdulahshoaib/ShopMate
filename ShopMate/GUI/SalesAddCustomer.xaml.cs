@@ -75,18 +75,9 @@ namespace ShopMate.GUI
             }
 
             // ---------------------------
-            // Address validation
+            // Address is optional for sales flow — do not fail validation when empty
             // ---------------------------
-            if (string.IsNullOrEmpty(address))
-            {
-                AddressTextBox.BorderBrush = new SolidColorBrush(Colors.Red);
-                if (!hasError) AddressTextBox.Focus(FocusState.Programmatic);
-                hasError = true;
-            }
-            else
-            {
-                AddressTextBox.BorderBrush = new SolidColorBrush(Colors.White);
-            }
+            AddressTextBox.BorderBrush = new SolidColorBrush(Colors.White);
 
             // ---------------------------
             // If validation fails

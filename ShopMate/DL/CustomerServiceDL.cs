@@ -32,17 +32,27 @@ namespace ShopMate.DL
 
         public async Task<bool> AddCustomerAsync(CustomerDTO cDTO)
         {
-            var client = SupabaseInitializer.client;
-            var newCustomer = new CustomerDTO
+            try
             {
-                Name = cDTO.Name,
-                Phone = cDTO.Phone,
-                Address = cDTO.Address,
-                Age = cDTO.Age,
-                Gender = cDTO.Gender
-            };
-            var response = await client.From<CustomerDTO>().Insert(cDTO);
-            return response.Models.Count > 0;
+                var client = SupabaseInitializer.client;
+
+                // Build a new DTO payload without relying on caller's internal state
+                var newCustomer = new CustomerDTO
+                {
+                    Name = cDTO.Name,
+                    Phone = cDTO.Phone,
+                    Address = cDTO.Address,
+                    Age = cDTO.Age,
+                    Gender = cDTO.Gender
+                };
+
+                var response = await client.From<CustomerDTO>().Insert(newCustomer);
+                return response?.Models?.Count > 0;
+            }
+            catch (Exception)
+            {
+                return false;
+            }
         }
 
         public async Task<bool> RemoveCustomer(int ID)

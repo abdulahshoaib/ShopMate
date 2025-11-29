@@ -8,8 +8,11 @@ namespace ShopMate.DTOs
     {
         public CustomerDTO()
         {
+            // Initialize reference-type properties to empty strings to satisfy non-nullable contracts.
             Name = Phone = Gender = Address = "";
-            Age = 5;
+
+            // Do not hardcode an arbitrary default age; use the type's default (0) so callers explicitly set it when needed.
+            Age = default;
         }
 
         [PrimaryKey("customerID", false)]
