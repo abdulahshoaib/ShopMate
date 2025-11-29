@@ -16,19 +16,21 @@ namespace ShopMate.BL
             csDL = new CustomerServiceDL();
         }
 
+
+
         public async Task<bool> AddCustomerAsync(CustomerDTO customerDTO)
         {
             return await csDL.AddCustomerAsync(customerDTO);
         }
 
-        public bool RemoveCustomer(int ID)
+        public async Task<bool> RemoveCustomer(int ID)
         {
-            return csDL.RemoveCustomer(ID);
+            return await csDL.RemoveCustomer(ID);
         }
 
-        public bool UpdateCustomer(CustomerDTO customerDTO)
+        public async Task<bool> UpdateCustomer(CustomerDTO customerDTO)
         {
-            return csDL.UpdateCustomer(customerDTO);
+            return await csDL.UpdateCustomer(customerDTO);
         }
     }
 }

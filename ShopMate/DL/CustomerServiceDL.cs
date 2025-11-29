@@ -2,15 +2,32 @@
 using System;
 using System.Collections.Generic;
 using System.Linq;
-using System.Text;
 using System.Threading.Tasks;
 
 namespace ShopMate.DL
 {
     class CustomerServiceDL
     {
-        public CustomerServiceDL() {
-            
+        public CustomerServiceDL()
+        {
+        }
+
+        public async Task<List<CustomerDTO>> GetAllCustomers()
+        {
+            try
+            {
+                var client = SupabaseInitializer.client;
+
+                var response = await client
+                    .From<CustomerDTO>()
+                    .Get();
+
+                return response.Models;
+            }
+            catch (System.Exception)
+            {
+                return new List<CustomerDTO>();
+            }
         }
 
         public async Task<bool> AddCustomerAsync(CustomerDTO cDTO)
@@ -28,16 +45,42 @@ namespace ShopMate.DL
             return response.Models.Count > 0;
         }
 
-        public bool RemoveCustomer(int ID)
+        public async Task<bool> RemoveCustomer(int ID)
         {
-            // TODO: Add DB call to remove customer to the customers table
-            return true;
+            try
+            {
+                var client = SupabaseInitializer.client;
+
+                await client
+                    .From<CustomerDTO>()
+                    .Where(c => c.ID == ID)
+                    .Delete();
+
+                return true;
+            }
+            catch (Exception)
+            {
+                return false;
+            }
         }
 
-        public bool UpdateCustomer(CustomerDTO cDTO)
+        public async Task<bool> UpdateCustomer(CustomerDTO cDTO)
         {
-            // TODO: Add DB to update the incoming customer's data
-            return true; 
+            try
+            {
+                var client = SupabaseInitializer.client;
+
+                await client
+                    .From<CustomerDTO>()
+                    .Where(c => c.ID == cDTO.ID)
+                    .Update(cDTO);
+
+                return true;
+            }
+            catch (System.Exception)
+            {
+                return false;
+            }
         }
     }
 }
