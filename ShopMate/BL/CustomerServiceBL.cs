@@ -10,15 +10,15 @@ namespace ShopMate.BL
 {
     public class CustomerServiceBL
     {
-        CustomerServiceDL csDL;
+        private readonly CustomerServiceDL csDL;
 
         public CustomerServiceBL() {
             csDL = new CustomerServiceDL();
         }
 
-        public bool AddCustomer(CustomerDTO customerDTO)
+        public async Task<bool> AddCustomerAsync(CustomerDTO customerDTO)
         {
-            return csDL.AddCustomer(customerDTO);
+            return await csDL.AddCustomerAsync(customerDTO);
         }
 
         public bool RemoveCustomer(int ID)

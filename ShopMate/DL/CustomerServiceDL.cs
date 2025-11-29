@@ -13,10 +13,19 @@ namespace ShopMate.DL
             
         }
 
-        public bool AddCustomer(CustomerDTO cDTO)
+        public async Task<bool> AddCustomerAsync(CustomerDTO cDTO)
         {
-            // TODO: Add DB call to add new customer to the customers table
-            return true;
+            var client = SupabaseInitializer.client;
+            var newCustomer = new CustomerDTO
+            {
+                Name = cDTO.Name,
+                Phone = cDTO.Phone,
+                Address = cDTO.Address,
+                Age = cDTO.Age,
+                Gender = cDTO.Gender
+            };
+            var response = await client.From<CustomerDTO>().Insert(cDTO);
+            return response.Models.Count > 0;
         }
 
         public bool RemoveCustomer(int ID)

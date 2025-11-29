@@ -57,42 +57,7 @@ namespace ShopMate.GUI
 
             }
         }
-        private void SaveCustomer_Click(object sender, RoutedEventArgs e)
-        {
-            CustomerDTO cDTO = new CustomerDTO()
-            {
-                Name = NameTextBox.Text,
-                Address = AddressTextBox.Text,
-                Phone = PhoneTextBox.Text,
-                Gender = GenderComboBox.SelectedValue.ToString(),
-                Age = Convert.ToInt32(AgeTextBox.Text)
-            };
-            bool resp = csBL.AddCustomer(cDTO);
-
-            if (resp)
-            {
-                ContentDialog dialog = new ContentDialog
-                {
-                    Title = "Success",
-                    Content = "Customer saved successfully!",
-                    CloseButtonText = "OK",
-                    XamlRoot = this.Content.XamlRoot
-                };
-                _ = dialog.ShowAsync();
-            }
-            else
-            {
-
-                ContentDialog dialog = new ContentDialog
-                {
-                    Title = "Error",
-                    Content = "Unable to save customer. Try Again",
-                    CloseButtonText = "OK",
-                    XamlRoot = this.Content.XamlRoot
-                };
-                _ = dialog.ShowAsync();
-            }
-        }
+        
 
         
     }
