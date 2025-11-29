@@ -6,7 +6,7 @@ namespace ShopMate.DL
 {
     public static class SupabaseInitializer
     {
-        public static Client Client { get; private set; }
+        public static Client client { get; private set; }
 
         public static async Task InitializeAsync()
         {
@@ -18,9 +18,8 @@ namespace ShopMate.DL
                 AutoConnectRealtime = false
             };
 
-            Client = new Client(url, key, options);
-            await Client.InitializeAsync();
-            Console.WriteLine("✅ Supabase Initialized");
+            client = new Client(url, key, options);
+            await client.InitializeAsync();
         }
     }
 }

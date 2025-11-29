@@ -11,10 +11,10 @@ namespace ShopMate.DTOs
         public int UserID { get; set; }
 
         [Supabase.Postgrest.Attributes.Column("Username")]
-        public string Username { get; set; }
+        public string Username { get; set; } = string.Empty;
 
         [Supabase.Postgrest.Attributes.Column("passwordHash")]
-        public string PasswordHash { get; set; }
+        public string PasswordHash { get; set; } = string.Empty;
 
         [Supabase.Postgrest.Attributes.Column("roleID")]
         public int RoleID { get; set; }

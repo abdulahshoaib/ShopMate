@@ -9,7 +9,7 @@ namespace ShopMate.DL
     {
         public async Task<UserDTO?> ValidateLoginAsync(LoginDTO loginDTO)
         {
-            var client = SupabaseInitializer.Client;
+            var client = SupabaseInitializer.client;
 
             // Fetch user by username and password
             var response = await client.From<UserDTO>()

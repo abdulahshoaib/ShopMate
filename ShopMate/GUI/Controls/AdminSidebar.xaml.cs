@@ -33,7 +33,6 @@ namespace ShopMate.GUI.Controls
 
         
 
-        public event EventHandler? SidebarToggled;
 
         private void Navigate(Type t)
         {
