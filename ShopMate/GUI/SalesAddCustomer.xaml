@@ -129,13 +129,14 @@
                                        FontWeight="Bold"
                                        Foreground="White"
                                        Margin="0,0,0,12"/>
-                            <TextBlock Text="Address" Style="{StaticResource LabelStyle}"/>
-                            <TextBox x:Name="AddressTextBox" Style="{StaticResource InputStyle}"
-                                     Height="70"
-                                     TextWrapping="Wrap"
-                                     AcceptsReturn="True"/>
+                            
                             <TextBlock Text="Phone Number" Style="{StaticResource LabelStyle}"/>
                             <TextBox x:Name="PhoneTextBox" Style="{StaticResource InputStyle}"/>
+                            <TextBlock Text="Address" Style="{StaticResource LabelStyle}"/>
+                            <TextBox x:Name="AddressTextBox" Style="{StaticResource InputStyle}"
+         Height="70"
+         TextWrapping="Wrap"
+         AcceptsReturn="True"/>
 
                         </StackPanel>
                     </Border>
