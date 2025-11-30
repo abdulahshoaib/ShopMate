@@ -2,6 +2,7 @@ using Microsoft.UI.Xaml;
 using Microsoft.UI.Xaml.Controls;
 using Windows.ApplicationModel.VoiceCommands;
 using System;
+using ShopMate.GUI.AdminGUI;
 
 namespace ShopMate.GUI
 {
@@ -21,7 +22,7 @@ namespace ShopMate.GUI
 
         private void OnEditCustomerClicked(object sender, RoutedEventArgs e)
         {
-            
+            Navigate(typeof(UpdateCustomerPage));
         }
         
         
@@ -34,13 +35,14 @@ namespace ShopMate.GUI
 
         private void OnDeleteCustomerClicked(object sender, RoutedEventArgs e)
         {
-            // TODO: Delete selected customer
+            Navigate(typeof(DeleteCustomerPage));
         }
         
         private void OnViewCustomersClicked(object sender, RoutedEventArgs e)
         {
+            // Navigate(typeof(ViewCustomersPage));
         }
-        // Example data model
+
         public class Customer
         {
             public int Id { get; set; }
