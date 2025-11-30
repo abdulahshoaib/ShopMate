@@ -38,10 +38,11 @@ namespace ShopMate.GUI
             Navigate(typeof(DeleteEmployeePage));
         }
 
-        //private void OnViewEmployeesClicked(object sender, RoutedEventArgs e)
-        //{
-        //    Navigate(typeof(ViewEmployeePage));
-        //}
+        // Ensure the event handler referenced from XAML exists.
+        private void OnViewEmployeesClicked(object sender, RoutedEventArgs e)
+        {
+            //Navigate(typeof(ViewEmployeePage));
+        }
         
     }
 }
