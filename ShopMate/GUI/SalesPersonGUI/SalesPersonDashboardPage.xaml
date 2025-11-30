@@ -42,9 +42,10 @@
             <StackPanel Padding="40" Spacing="20">
 
                 <!-- Welcome Header -->
-                <TextBlock Text="Welcome!"
+                <TextBlock x:Name="WelcomeTitle"
                            FontSize="32"
                            FontWeight="SemiBold"/>
+                
                 <TextBlock Text="What would you like to do today?"
                            FontSize="12"
                            Foreground="Gray"/>

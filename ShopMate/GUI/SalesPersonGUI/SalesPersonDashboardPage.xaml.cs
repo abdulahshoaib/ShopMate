@@ -9,6 +9,8 @@ namespace ShopMate.GUI
         public SalesPersonDashboardPage()
         {
             this.InitializeComponent();
+
+            WelcomeTitle.Text = $"Welcome, {GlobalSession.DisplayUsername}!";
         }
         private void Navigate(Type t)
         {

@@ -13,6 +13,6 @@ namespace ShopMate
         public static EmployeeDTO? CurrentEmployee { get; set; }
 
         public static string DisplayUsername =>
-            CurrentUser?.Username ?? "Unknown User";
+            CurrentEmployee?.Name?? "Unknown User";
     }
 }
