@@ -10,7 +10,9 @@ namespace ShopMate.GUI
         {
             this.InitializeComponent();
 
-            WelcomeTitle.Text = $"Welcome, {GlobalSession.DisplayUsername}!";
+            WelcomeTitle.Text = GlobalSession.DisplayUsername;
+            DashboardDay.Text = DateTime.Now.ToString("dddd");
+            DashboardDate.Text = DateTime.Now.ToString("MMMM dd, yyyy");
         }
         private void Navigate(Type t)
         {
@@ -34,9 +36,9 @@ namespace ShopMate.GUI
             Navigate(typeof(GenerateBillPage));
         }
 
-        //private void OnGenerateReportClicked(object sender, RoutedEventArgs e)
-        //{
-        //    Navigate(typeof(SalesGenerateReport));
-        //}
+        private void OnUpdateStockClicked(object sender, RoutedEventArgs e)
+        {
+            // Navigate(typeof(UpdateStockPage));
+        }
     }
 }
