@@ -7,7 +7,6 @@ namespace ShopMate.DTOs
     public class EmployeeDTO : BaseModel
     {
         [PrimaryKey("salesPersonID", false)]
-        [Column("salesPersonID")]
         public int ID { get; set; }
 
         [Column("name")]
@@ -18,9 +17,5 @@ namespace ShopMate.DTOs
 
         [Column("address")]
         public string Address { get; set; } = string.Empty;
-
-        public EmployeeDTO()
-        {
-        }
     }
 }

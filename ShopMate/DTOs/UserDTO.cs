@@ -1,23 +1,26 @@
 ﻿using Supabase.Postgrest.Attributes;
 using Supabase.Postgrest.Models;
-using System.ComponentModel.DataAnnotations.Schema;
+using System;
 
 namespace ShopMate.DTOs
 {
-    [Supabase.Postgrest.Attributes.Table("users")]
+    [Table("users")]
     public class UserDTO : BaseModel
     {
         [PrimaryKey("userID", false)]
-        public int UserID { get; set; }
+        public int ID { get; set; }
 
-        [Supabase.Postgrest.Attributes.Column("Username")]
+        [Column("Username")]
         public string Username { get; set; } = string.Empty;
 
-        [Supabase.Postgrest.Attributes.Column("passwordHash")]
+        [Column("passwordHash")]
         public string PasswordHash { get; set; } = string.Empty;
 
-        [Supabase.Postgrest.Attributes.Column("roleID")]
+        [Column("roleID")]
         public int RoleID { get; set; }
 
+        [Column("employeeID")]
+        public int? EmployeeID { get; set; }
     }
+
 }
