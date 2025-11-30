@@ -12,6 +12,11 @@ namespace ShopMate.BL
     {
         private readonly UserManagementDL umDL = new UserManagementDL();
 
+
+        public async Task<List<UserDTO>> GetAllUsers()
+        {
+            return await umDL.GetAllUsers();
+        }
         public async Task<UserDTO?> GetUser(int EmpolyeeID)
         {
             return await umDL.GetUser(EmpolyeeID);

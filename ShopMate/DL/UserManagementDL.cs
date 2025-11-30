@@ -12,6 +12,24 @@ namespace ShopMate.DL
 
         public UserManagementDL() { }
 
+        public async Task<List<UserDTO>> GetAllUsers()
+        {
+            try
+            {
+                var client = SupabaseInitializer.client;
+
+                var response = await client
+                    .From<UserDTO>()
+                    .Get();
+
+               return response.Models.ToList();
+            }
+            catch
+            {
+                return new List<UserDTO>();
+            }
+        }
+
         public async Task<UserDTO?> GetUser(int EmployeeID)
         {
             try
@@ -67,6 +85,5 @@ namespace ShopMate.DL
                 return false;
             }
         }
-
     }
 }
