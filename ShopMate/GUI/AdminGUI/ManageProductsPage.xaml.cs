@@ -22,7 +22,7 @@ namespace ShopMate.GUI
 
         private void OnEditProductClicked(object sender, RoutedEventArgs e)
         {
-
+            Navigate(typeof(UpdateProductPage));
         }
 
 
@@ -35,7 +35,7 @@ namespace ShopMate.GUI
 
         private void OnDeleteProductClicked(object sender, RoutedEventArgs e)
         {
-            // TODO: Delete selected customer
+            Navigate(typeof(DeleteProductPage));
         }
 
         private void OnViewProductsClicked(object sender, RoutedEventArgs e)
