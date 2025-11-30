@@ -4,8 +4,15 @@
     xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml">
 
     <Grid Background="#111827">
+        <Grid.RowDefinitions>
+            <RowDefinition Height="*"/>
+            <RowDefinition Height="Auto"/>
+        </Grid.RowDefinitions>
 
-        <StackPanel Padding="10" Spacing="15">
+        <!-- ===========================
+             TOP SECTION
+        ============================ -->
+        <StackPanel Padding="10" Spacing="15" Grid.Row="0">
 
             <!-- Header -->
             <Grid Margin="0,10,0,5">
@@ -38,24 +45,31 @@
                 </StackPanel.Resources>
 
                 <Button Content="Dashboard" Click="OnDashboardClicked"/>
-                <!--<Button Content="Generate Report" Click="OnGenerateReportClicked"/>-->
                 <Button Content="Manage Staff" Click="OnManageEmployeesClicked"/>
                 <Button Content="Manage Customers" Click="OnManageCustomersClicked"/>
                 <Button Content="Manage Products" Click="OnManageProductsClicked"/>
 
-                <!-- Divider + Settings -->
-                <StackPanel Spacing="10" Margin="0,0,0,20">
-                    <Rectangle Height="1"
-                               Fill="#1F2937"
-                               Margin="0,0,0,10"/>
-
-                    <Button Content="Sign Out"
-                            Foreground="#EF4444"
-                            Click="OnSignOutClicked"/>
-                </StackPanel>
-
             </StackPanel>
+            <Rectangle Height="1"
+                       Fill="#1F2937"
+                       Margin="0,0,0,5"/>
+        </StackPanel>
 
+
+        <StackPanel Grid.Row="1" Padding="10" Spacing="10">
+
+            
+
+            <Button Content="Sign Out"
+                    Foreground="#EF4444"
+                    HorizontalAlignment="Left"
+                    Width="150"
+                    Height="38"
+                    Padding="12,5"
+                    Background="Transparent"
+                    BorderBrush="Transparent"
+                    FontSize="14"
+                    Click="OnSignOutClicked"/>
         </StackPanel>
 
     </Grid>
