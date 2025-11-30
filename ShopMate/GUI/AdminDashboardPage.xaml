@@ -134,7 +134,7 @@
                         </StackPanel>
                     </Border>
 
-                    <Border Grid.Column="1" Grid.Row="1"
+                    <!--<Border Grid.Column="1" Grid.Row="1"
                             Background="#F59E0B"
                             CornerRadius="18"
                             Padding="20">
@@ -157,7 +157,7 @@
                                     Click="OnGenerateReportClicked"
                                     CornerRadius="6"/>
                         </StackPanel>
-                    </Border>
+                    </Border>-->
 
                 </Grid>
 

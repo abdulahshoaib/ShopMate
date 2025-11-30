@@ -38,7 +38,7 @@
                 </StackPanel.Resources>
 
                 <Button Content="Dashboard" Click="OnDashboardClicked"/>
-                <Button Content="Generate Report" Click="OnGenerateReportClicked"/>
+                <!--<Button Content="Generate Report" Click="OnGenerateReportClicked"/>-->
                 <Button Content="Manage Staff" Click="OnManageEmployeesClicked"/>
                 <Button Content="Manage Customers" Click="OnManageCustomersClicked"/>
                 <Button Content="Manage Products" Click="OnManageProductsClicked"/>

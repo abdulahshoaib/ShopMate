@@ -142,7 +142,7 @@
                         </StackPanel>
                     </Border>
 
-                    <!-- Sales Report -->
+                    <!-- Sales Report --><!--
                     <Border Grid.Column="1" Grid.Row="1"
                             Background="#F59E0B"
                             CornerRadius="18"
@@ -166,7 +166,7 @@
                                     CornerRadius="6"
                                     Click="OnGenerateReportClicked"/>
                         </StackPanel>
-                    </Border>
+                    </Border>-->
 
                 </Grid>
 

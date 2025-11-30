@@ -41,7 +41,7 @@
                     </StackPanel.Resources>
                     <Button Content="Dashboard" Click="OnDashboardClicked"/>
                     <Button Content="Generate Bill" Click="OnGenerateBillClicked"/>
-                    <Button Content="Generate Report" Click="OnGenerateReportClicked"/>
+                    <!--<Button Content="Generate Report" Click="OnGenerateReportClicked"/>-->
                     <Button Content="Add Customer" Click="OnAddCustomerClicked"/>
                     <Button Content="Add Product" Click="OnAddProductClicked"/>
                     <StackPanel Grid.Row="2"
