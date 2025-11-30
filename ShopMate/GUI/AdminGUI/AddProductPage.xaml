@@ -114,10 +114,10 @@
                                        Foreground="White"
                                        Margin="0,0,0,12"/>
                             <TextBlock Text="Quantity" Style="{StaticResource LabelStyle}"/>
-                            <TextBox x:Name="QuantityTextBox" Style="{StaticResource InputStyle}"/>
+                            <NumberBox x:Name="QuantityNumberBox" Style="{StaticResource InputStyle}"/>
 
                             <TextBlock Text="Price" Style="{StaticResource LabelStyle}"/>
-                            <TextBox x:Name="PriceTextBox" Style="{StaticResource InputStyle}"/>
+                            <NumberBox x:Name="PriceNumberBox" Style="{StaticResource InputStyle}"/>
 
                         </StackPanel>
                     </Border>
