@@ -49,16 +49,23 @@ namespace ShopMate.GUI
         {
             try
             {
-                TotalSalesTextBlock.Text = $"${(await bmBL.GetTotalSalesToday()):N2}";
-                TotalBillsTextBlock.Text = (await bmBL.GetTotalBillsToday()).ToString();
-                AvgBillValTextBlock.Text = (await bmBL.GetAverageBillValueToday()).ToString();
-                LowStockTextBlock.Text = (await bmBL.GetLowStockProductsCount()).ToString();
+                var totalSales = await bmBL.GetTotalSalesToday();
+                TotalSalesTextBlock.Text = $"{totalSales:C}";
+
+                var totalBills = await bmBL.GetTotalBillsToday();
+                TotalBillsTextBlock.Text = totalBills.ToString();
+
+                var avgBillVal = await bmBL.GetAverageBillValueToday();
+                AvgBillValTextBlock.Text = $"{avgBillVal:C}";
+
+                var lowStock = await bmBL.GetLowStockProductsCount();
+                LowStockTextBlock.Text = lowStock.ToString();
             }
             catch
             {
                 TotalSalesTextBlock.Text = "$0.00";
                 TotalBillsTextBlock.Text = "0";
-                AvgBillValTextBlock.Text = "0";
+                AvgBillValTextBlock.Text = "$0.00";
                 LowStockTextBlock.Text = "0";
             }
         }
@@ -146,6 +153,7 @@ namespace ShopMate.GUI
             }).ToList();
 
             int? billId = await bmBL.CreateBill(billDTO, itemDTOs);
+            _ = LoadKPI();
 
             if (billId == null)
             {
