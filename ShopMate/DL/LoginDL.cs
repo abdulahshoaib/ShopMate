@@ -9,7 +9,7 @@ namespace ShopMate.DL
     {
         public async Task<UserDTO?> ValidateLoginAsync(LoginDTO loginDTO)
         {
-            var client = SupabaseInitializer.client;
+            var client = SupabaseInitializer.Client;
 
             string hashed = HashPassword(loginDTO.Password);
 

@@ -12,7 +12,7 @@ namespace ShopMate.DL
         {
             try
             {
-                var client = SupabaseInitializer.client;
+                var client = SupabaseInitializer.Client;
 
                 var billResponse = await client
                     .From<BillDTO>()
@@ -71,7 +71,7 @@ namespace ShopMate.DL
         {
             try
             {
-                var client = SupabaseInitializer.client;
+                var client = SupabaseInitializer.Client;
 
                 var response = await client
                     .From<BillDTO>()
@@ -89,7 +89,7 @@ namespace ShopMate.DL
         {
             try
             {
-                var client = SupabaseInitializer.client;
+                var client = SupabaseInitializer.Client;
 
                 var response = await client
                     .From<BillItemDTO>()
@@ -108,7 +108,7 @@ namespace ShopMate.DL
         {
             try
             {
-                var client = SupabaseInitializer.client;
+                var client = SupabaseInitializer.Client;
 
                 var todayStart = DateTime.Today;
                 var tomorrowStart = DateTime.Today.AddDays(1);
@@ -130,7 +130,7 @@ namespace ShopMate.DL
         {
             try
             {
-                var client = SupabaseInitializer.client;
+                var client = SupabaseInitializer.Client;
 
                 var todayStart = DateTime.Today;
                 var tomorrowStart = DateTime.Today.AddDays(1);
@@ -152,7 +152,7 @@ namespace ShopMate.DL
         {
             try
             {
-                var client = SupabaseInitializer.client;
+                var client = SupabaseInitializer.Client;
 
                 var response = await client
                     .From<ProductDTO>()
@@ -174,7 +174,7 @@ namespace ShopMate.DL
         {
             try
             {
-                var client = SupabaseInitializer.client;
+                var client = SupabaseInitializer.Client;
 
                 var todayStart = DateTime.Today;
                 var tomorrowStart = DateTime.Today.AddDays(1);

@@ -14,7 +14,7 @@ namespace ShopMate.DL
         {
             try
             {
-                var client = SupabaseInitializer.client;
+                var client = SupabaseInitializer.Client;
 
                 var response = await client
                     .From<UserDTO>()
@@ -32,7 +32,7 @@ namespace ShopMate.DL
         {
             try
             {
-                var client = SupabaseInitializer.client;
+                var client = SupabaseInitializer.Client;
 
                 var response = await client
                     .From<UserDTO>()
@@ -51,7 +51,7 @@ namespace ShopMate.DL
         {
             try
             {
-                var client = SupabaseInitializer.client;
+                var client = SupabaseInitializer.Client;
 
                 var response = await client
                     .From<UserDTO>()
@@ -69,7 +69,7 @@ namespace ShopMate.DL
         {
             try
             {
-                var client = SupabaseInitializer.client;
+                var client = SupabaseInitializer.Client;
 
                 var response = await client
                     .From<UserDTO>()

@@ -11,10 +11,10 @@ namespace ShopMate.GUI.AdminGUI
     public sealed partial class EditEmployeePage : Page
     {
         private List<EmployeeDTO> employees = [];
-        private EmployeeDTO selectedEmployee = new EmployeeDTO();
+        private EmployeeDTO selectedEmployee = new();
 
-        private List<UserDTO> users = [];
-        private UserDTO? selectedUser = new UserDTO();
+        private readonly List<UserDTO> users = [];
+        private UserDTO? selectedUser = new();
 
         private readonly UserManagementBL umBL;
         private readonly EmployManagementBL emBL;
@@ -34,7 +34,7 @@ namespace ShopMate.GUI.AdminGUI
             EmployeeComboBox.ItemsSource = employees;
             EmployeeComboBox.DisplayMemberPath = "Name";
             EmployeeComboBox.SelectedIndex = 0;
-            EmployeeComboBox_SelectionChanged(null, null);
+            EmployeeComboBox_SelectionChanged(null!, null!);
         }
 
         private async void EmployeeComboBox_SelectionChanged(object sender, SelectionChangedEventArgs e)
@@ -75,8 +75,7 @@ namespace ShopMate.GUI.AdminGUI
             selectedEmployee.Name = NameTextBox.Text;
             selectedEmployee.Phone = PhoneTextBox.Text;
             selectedEmployee.Address = AddressTextBox.Text;
-
-            bool empUpdated = await emBL.UpdateEmployee(selectedEmployee);
+            _ = await emBL.UpdateEmployee(selectedEmployee);
 
             if (selectedUser != null)
             {
@@ -113,8 +112,7 @@ namespace ShopMate.GUI.AdminGUI
         private string HashPassword(string password)
         {
             // Simple SHA256 example
-            using var sha = System.Security.Cryptography.SHA256.Create();
-            var bytes = sha.ComputeHash(System.Text.Encoding.UTF8.GetBytes(password));
+            var bytes = System.Security.Cryptography.SHA256.HashData(System.Text.Encoding.UTF8.GetBytes(password));
             return System.BitConverter.ToString(bytes).Replace("-", "").ToLower();
         }
 

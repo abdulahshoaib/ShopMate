@@ -13,7 +13,7 @@ namespace ShopMate.DL
         {
             try
             {
-                var client = SupabaseInitializer.client;
+                var client = SupabaseInitializer.Client;
 
                 var response = await client
                     .From<EmployeeDTO>()
@@ -23,7 +23,7 @@ namespace ShopMate.DL
             }
             catch (System.Exception)
             {
-                return new List<EmployeeDTO>();
+                return [];
             }
         }
 
@@ -31,7 +31,7 @@ namespace ShopMate.DL
         {
             try
             {
-                var client = SupabaseInitializer.client;
+                var client = SupabaseInitializer.Client;
 
                 var response = await client
                     .From<EmployeeDTO>()
@@ -50,7 +50,7 @@ namespace ShopMate.DL
         {
             try
             {
-                var client = SupabaseInitializer.client;
+                var client = SupabaseInitializer.Client;
 
                 var response = await client
                     .From<EmployeeDTO>()
@@ -69,7 +69,7 @@ namespace ShopMate.DL
         {
             try
             {
-                var client = SupabaseInitializer.client;
+                var client = SupabaseInitializer.Client;
 
                 await client
                     .From<UserDTO>()
@@ -94,7 +94,7 @@ namespace ShopMate.DL
         {
             try
             {
-                var client = SupabaseInitializer.client;
+                var client = SupabaseInitializer.Client;
 
                 await client
                     .From<EmployeeDTO>()

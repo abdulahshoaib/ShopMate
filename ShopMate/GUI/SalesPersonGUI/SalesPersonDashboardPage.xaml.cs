@@ -33,9 +33,10 @@ namespace ShopMate.GUI
         {
             Navigate(typeof(GenerateBillPage));
         }
-        private void OnGenerateReportClicked(object sender, RoutedEventArgs e)
-        {
-            Navigate(typeof(SalesGenerateReport));
-        }
+
+        //private void OnGenerateReportClicked(object sender, RoutedEventArgs e)
+        //{
+        //    Navigate(typeof(SalesGenerateReport));
+        //}
     }
 }
