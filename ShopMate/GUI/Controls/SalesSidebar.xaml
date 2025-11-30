@@ -16,67 +16,149 @@
                 <RowDefinition Height="Auto"/>
             </Grid.RowDefinitions>
 
-            <!-- =======================
-                 TOP SECTION
-            ======================== -->
+            <!-- MAIN SIDEBAR CONTENT -->
             <StackPanel Padding="10" Spacing="15" Grid.Row="0">
 
                 <!-- Header -->
                 <Grid Margin="0,10,0,5">
                     <Grid.ColumnDefinitions>
                         <ColumnDefinition Width="*"/>
-                        <ColumnDefinition Width="40"/>
                     </Grid.ColumnDefinitions>
 
-                    <TextBlock Text="Sales Panel"
-                               x:Name="SidebarTitle"
+                    <TextBlock Text="SHOPMATE"
                                Foreground="#E5E7EB"
-                               FontSize="14"
+                               FontSize="18"
                                FontWeight="SemiBold"
-                               HorizontalAlignment="Left"
+                               CharacterSpacing="200"
+                               HorizontalAlignment="Center"
                                VerticalAlignment="Center"/>
                 </Grid>
 
-                <!-- Menu Buttons -->
+                <Rectangle Height="1"
+                           Fill="#1F2937"
+                           Margin="0,0,0,5"/>
+
+                <!-- MENU BUTTONS -->
                 <StackPanel Spacing="10">
+
+                    <!-- Shared style -->
                     <StackPanel.Resources>
                         <Style TargetType="Button">
                             <Setter Property="Width" Value="150"/>
                             <Setter Property="Height" Value="38"/>
-                            <Setter Property="FontSize" Value="14"/>
+                            <Setter Property="FontSize" Value="13"/>
                             <Setter Property="Foreground" Value="#F3F4F6"/>
                             <Setter Property="Background" Value="Transparent"/>
                             <Setter Property="BorderBrush" Value="#1F2937"/>
                             <Setter Property="BorderThickness" Value="1"/>
-                            <Setter Property="CornerRadius" Value="10" />
+                            <Setter Property="CornerRadius" Value="10"/>
                             <Setter Property="HorizontalAlignment" Value="Left"/>
-                            <Setter Property="Padding" Value="12,5"/>
+                            <Setter Property="Padding" Value="8,5"/>
+                            <Setter Property="FontWeight" Value="Light"/>
+                            <Setter Property="HorizontalContentAlignment" Value="Left"/>
                         </Style>
                     </StackPanel.Resources>
 
-                    <Button Content="Dashboard" Click="OnDashboardClicked"/>
-                    <Button Content="Generate Bill" Click="OnGenerateBillClicked"/>
-                    <Button Content="Add Customer" Click="OnAddCustomerClicked"/>
-                    <Button Content="Add Product" Click="OnAddProductClicked"/>
-                    <Button Content="View Inventory" Click="OnViewInventorClicked"/>
+                    <!-- Dashboard -->
+                    <Button Click="OnDashboardClicked">
+                        <StackPanel Orientation="Horizontal" Spacing="10">
+                            <Image Source="ms-appx:///Assets/Icons/dashboard.png"
+                                   Width="20" Height="20"/>
+                            <TextBlock Text="Dashboard"/>
+                        </StackPanel>
+                    </Button>
+
+                    <!-- Generate Bill -->
+                    <Button Click="OnGenerateBillClicked">
+                        <StackPanel Orientation="Horizontal" Spacing="10">
+                            <Image Source="ms-appx:///Assets/Icons/bill.png"
+                                   Width="20" Height="20"/>
+                            <TextBlock Text="Generate Bill"/>
+                        </StackPanel>
+                    </Button>
+
+                    <!-- Add Customer -->
+                    <Button Click="OnAddCustomerClicked">
+                        <StackPanel Orientation="Horizontal" Spacing="10">
+                            <Image Source="ms-appx:///Assets/Icons/add_customer.png"
+                                   Width="20" Height="20"/>
+                            <TextBlock Text="Add Customer"/>
+                        </StackPanel>
+                    </Button>
+
+                    <!-- Add Product -->
+                    <Button Click="OnAddProductClicked">
+                        <StackPanel Orientation="Horizontal" Spacing="10">
+                            <Image Source="ms-appx:///Assets/Icons/add_prod.png"
+                                   Width="20" Height="20"/>
+                            <TextBlock Text="Add Product"/>
+                        </StackPanel>
+                    </Button>
+
+                    <!-- View Inventory -->
+                    <Button Click="OnViewInventorClicked">
+                        <StackPanel Orientation="Horizontal" Spacing="10">
+                            <Image Source="ms-appx:///Assets/Icons/inventory.png"
+                                   Width="20" Height="20"/>
+                            <TextBlock Text="View Inventory"/>
+                        </StackPanel>
+                    </Button>
+
+                    <!-- Update Stock -->
+                    <Button Click="OnUpdateStockClicked">
+                        <StackPanel Orientation="Horizontal" Spacing="10">
+                            <Image Source="ms-appx:///Assets/Icons/update_stock.png"
+                                   Width="20" Height="20"/>
+                            <TextBlock Text="Update Stock"/>
+                        </StackPanel>
+                    </Button>
+
                 </StackPanel>
-                
+
             </StackPanel>
 
 
+            <!-- FOOTER BUTTONS -->
             <StackPanel Grid.Row="1" Padding="10" Spacing="10">
+                <StackPanel.Resources>
+                    <Style TargetType="Button">
+                        <Setter Property="Width" Value="150"/>
+                        <Setter Property="Height" Value="38"/>
+                        <Setter Property="FontSize" Value="13"/>
+                        <Setter Property="Foreground" Value="#F3F4F6"/>
+                        <Setter Property="Background" Value="Transparent"/>
+                        <Setter Property="BorderBrush" Value="#1F2937"/>
+                        <Setter Property="BorderThickness" Value="1"/>
+                        <Setter Property="CornerRadius" Value="10"/>
+                        <Setter Property="HorizontalAlignment" Value="Left"/>
+                        <Setter Property="Padding" Value="8,5"/>
+                        <Setter Property="FontWeight" Value="Light"/>
+                        <Setter Property="HorizontalContentAlignment" Value="Left"/>
+                    </Style>
+                </StackPanel.Resources>
+                
                 <Rectangle Height="1"
                            Fill="#1F2937"
                            Margin="0,0,0,5"/>
-                <Button Content="Sign Out"
-                        Click="OnSignOutClicked"
-                        Foreground="#EF4444"
-                        Width="150"
-                        Height="38"
-                        HorizontalAlignment="Left"
-                        Background="Transparent"
-                        BorderBrush="Transparent"
-                        Padding="12,5"/>
+
+                <!-- Settings -->
+                <Button Click="OnSettingsClicked">
+                    <StackPanel Orientation="Horizontal" Spacing="10">
+                        <Image Source="ms-appx:///Assets/Icons/settings.png"
+                               Width="20" Height="20"/>
+                        <TextBlock Text="Settings"/>
+                    </StackPanel>
+                </Button>
+
+                <!-- Sign Out -->
+                <Button Click="OnSignOutClicked">
+                    <StackPanel Orientation="Horizontal" Spacing="10">
+                        <Image Source="ms-appx:///Assets/Icons/logout.png"
+                               Width="20" Height="20"/>
+                        <TextBlock Text="Sign Out"/>
+                    </StackPanel>
+                </Button>
+
             </StackPanel>
 
         </Grid>

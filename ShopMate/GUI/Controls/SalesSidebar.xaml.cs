@@ -35,11 +35,21 @@ namespace ShopMate.GUI.Controls
         private void OnSignOutClicked(object sender, RoutedEventArgs e)
             => Navigate(typeof(LoginPage));
 
+        private void OnSettingsClicked(object sender, RoutedEventArgs e)
+        {
+            // Navigate(typeof(SalesSettingsPage));
+        }
+
+        private void OnUpdateStockClicked(object sender, RoutedEventArgs e)
+        {
+            // Navigate(typeof(StockUpdatePage));
+        }
+
         private void Navigate(Type t)
         {
             // Try to get the main window's frame from the current window's content
             var window = (Application.Current as App)?._window;
-            Frame? frame = window?.Content as Frame;
+            var frame = window?.Content as Frame;
 
             frame?.Navigate(t);
         }
