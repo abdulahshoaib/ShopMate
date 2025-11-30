@@ -29,7 +29,7 @@ namespace ShopMate.DL
             }
         }
 
-        public async Task<bool> AddEmployee(EmployeeDTO eDTO)
+        public async Task<int?> AddEmployee(EmployeeDTO eDTO)
         {
             try
             {
@@ -39,11 +39,12 @@ namespace ShopMate.DL
                     .From<EmployeeDTO>()
                     .Insert(eDTO);
 
-                return response.Models.Count > 0;
+                var createdEmployee = response.Models[0];
+                return createdEmployee.ID;
             }
             catch (System.Exception)
             {
-                return false;
+                return null;
             }
         }
 
