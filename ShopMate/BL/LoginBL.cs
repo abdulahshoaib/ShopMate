@@ -22,7 +22,14 @@ namespace ShopMate.BL
             if (user == null)
                 return false;
 
-            // Navigate based on roleID instead of role string
+            GlobalSession.CurrentUser = user;
+
+            if (user.EmployeeID != null)
+            {
+                var emBL = new EmployManagementBL();
+                GlobalSession.CurrentEmployee = await emBL.GetEmployee(user.EmployeeID.Value);
+            }
+
             if (user.RoleID == 7)  // Assuming 7 = Admin
                 App.MainFrame?.Navigate(typeof(AdminDashboardPage), user);
             else if (user.RoleID == 8)  // Assuming 8 = Salesperson

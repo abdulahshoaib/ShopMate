@@ -21,6 +21,11 @@ namespace ShopMate.BL
             return await emDL.GetAllEmployees();
         }
 
+        public async Task<EmployeeDTO> GetEmployee(int EmployeeID)
+        {
+            return await emDL.GetEmployee(EmployeeID);
+        }
+
         public async Task<int?> AddEmployee(EmployeeDTO eDTO)
         {
             return await emDL.AddEmployee(eDTO);

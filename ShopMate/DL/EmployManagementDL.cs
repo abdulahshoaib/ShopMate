@@ -29,6 +29,25 @@ namespace ShopMate.DL
             }
         }
 
+        public async Task<EmployeeDTO> GetEmployee(int EmployeeID)
+        {
+            try
+            {
+                var client = SupabaseInitializer.client;
+
+                var response = await client
+                    .From<EmployeeDTO>()
+                    .Where(c => c.ID == EmployeeID)
+                    .Single();
+
+                return response!;
+            }
+            catch
+            {
+                return null!;
+            }
+        }
+
         public async Task<int?> AddEmployee(EmployeeDTO eDTO)
         {
             try
