@@ -132,9 +132,14 @@
                                       x:Name="ProductComboBox"
                                       Width="320"
                                       DisplayMemberPath="Name"
-                                      SelectedValuePath="Id"/>
-                                
-                                <TextBox Header="Quantity" x:Name="QuantityTextBox" Width="120"/>
+                                      SelectedValuePath="Id"
+                                      SelectionChanged="ProductComboBox_SelectionChanged"/>
+
+                                <NumberBox x:Name="QuantityNumberBox"
+                                           Header="Quantity"
+                                           Minimum="1"
+                                           SpinButtonPlacementMode="Inline"/>
+
 
                                 <!-- Add Item Button -->
                                 <Button Content="Add"

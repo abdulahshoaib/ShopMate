@@ -70,13 +70,23 @@ namespace ShopMate.GUI
             }
         }
 
+        private void ProductComboBox_SelectionChanged(object sender, SelectionChangedEventArgs e)
+        {
+            if (ProductComboBox.SelectedItem is ProductDTO pDTO)
+            {
+                QuantityNumberBox.Maximum = pDTO.Stock;
+                QuantityNumberBox.Value = 1;
+            }
+        }
+
         private void AddItem_Click(object sender, RoutedEventArgs e)
         {
-            if (ProductComboBox.SelectedItem is ProductDTO p &&
-                int.TryParse(QuantityTextBox.Text, out int qty) &&
-                qty > 0)
+            if (ProductComboBox.SelectedItem is ProductDTO selectedProd &&
+                QuantityNumberBox.Value > 0)
             {
-                var existing = BillItems.FirstOrDefault(i => i.ProductId == p.ID);
+                int qty = (int)QuantityNumberBox.Value;
+
+                var existing = BillItems.FirstOrDefault(i => i.ProductId == selectedProd.ID);
 
                 if (existing != null)
                 {
@@ -86,17 +96,18 @@ namespace ShopMate.GUI
                 {
                     BillItems.Add(new BillItemVM
                     {
-                        ProductId = p.ID,
-                        ProductName = p.Name,
-                        UnitPrice = p.Price,
+                        ProductId = selectedProd.ID,
+                        ProductName = selectedProd.Name,
+                        UnitPrice = selectedProd.Price,
                         Quantity = qty
                     });
                 }
 
-                QuantityTextBox.Text = string.Empty;
+                QuantityNumberBox.Value = 1;
                 UpdateSummary();
             }
         }
+
 
         private void RemoveItem_Click(object sender, RoutedEventArgs e)
         {
