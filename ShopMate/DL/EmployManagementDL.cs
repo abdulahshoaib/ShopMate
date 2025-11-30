@@ -54,17 +54,23 @@ namespace ShopMate.DL
                 var client = SupabaseInitializer.client;
 
                 await client
+                    .From<UserDTO>()
+                    .Where(u => u.EmployeeID == ID)
+                    .Delete();
+
+                await client
                     .From<EmployeeDTO>()
                     .Where(e => e.ID == ID)
                     .Delete();
 
                 return true;
             }
-            catch (System.Exception)
+            catch (Exception)
             {
                 return false;
             }
         }
+
 
         public async Task<bool> UpdateEmployee(EmployeeDTO eDTO)
         {
