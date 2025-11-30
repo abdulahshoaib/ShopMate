@@ -40,7 +40,7 @@ namespace ShopMate.GUI
         
         private void OnViewCustomersClicked(object sender, RoutedEventArgs e)
         {
-            // Navigate(typeof(ViewCustomersPage));
+            Navigate(typeof(ViewCustomerPage));
         }
 
         public class Customer
