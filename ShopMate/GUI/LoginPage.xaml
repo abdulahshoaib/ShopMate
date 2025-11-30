@@ -8,20 +8,13 @@
     Background="{ThemeResource ApplicationPageBackgroundThemeBrush}">
 
     <Grid>
-
-        <!-- Soft gradient background -->
         <Grid.Background>
             <LinearGradientBrush StartPoint="0,0" EndPoint="1,1">
-                <!-- Start color -->
-                <GradientStop Color="#C8CCD2" Offset="0"/>
-                <!-- Quick jump to next shade -->
-                <GradientStop Color="#B8BEC6" Offset="0.3"/>
-                <!-- Almost final shade -->
-                <GradientStop Color="#AEB4BD" Offset="0.6"/>
-                <!-- End color -->
-                <GradientStop Color="#AEB4BD" Offset="1"/>
+                <GradientStop Color="#0A1F44" Offset="0"/>
+                <GradientStop Color="#081A36" Offset="0.4"/>
+                <GradientStop Color="#061427" Offset="0.75"/>
+                <GradientStop Color="#040E1A" Offset="1"/>
             </LinearGradientBrush>
-
         </Grid.Background>
 
         <StackPanel Spacing="28" HorizontalAlignment="Center" VerticalAlignment="Center">
