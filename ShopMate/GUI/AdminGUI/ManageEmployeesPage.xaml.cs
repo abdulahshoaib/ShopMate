@@ -38,10 +38,10 @@ namespace ShopMate.GUI
             Navigate(typeof(DeleteEmployeePage));
         }
 
-        private void OnViewEmployeesClicked(object sender, RoutedEventArgs e)
-        {
-            Navigate(typeof(ViewEmployeePage));
-        }
+        //private void OnViewEmployeesClicked(object sender, RoutedEventArgs e)
+        //{
+        //    Navigate(typeof(ViewEmployeePage));
+        //}
         
     }
 }
