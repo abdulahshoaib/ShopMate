@@ -5,26 +5,22 @@
     xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
     xmlns:local="using:ShopMate.GUI.AdminGUI"
     xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
-    xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"    xmlns:controls="using:ShopMate.GUI.Controls"
+    xmlns:controls="using:ShopMate.GUI.Controls"
     Background="{ThemeResource ApplicationPageBackgroundThemeBrush}">
 
     <Page.Resources>
 
-        <!-- SIDEBAR ANIMATIONS -->
+        <!-- SIDEBAR ANIMATION -->
         <Storyboard x:Name="CollapseSidebarStoryboard">
-            <DoubleAnimation
-                Storyboard.TargetName="SidebarColumn"
-                Storyboard.TargetProperty="Width.Value"
-                To="60"
-                Duration="0:0:0.25"/>
+            <DoubleAnimation Storyboard.TargetName="SidebarColumn"
+                             Storyboard.TargetProperty="Width.Value"
+                             To="60" Duration="0:0:0.25"/>
         </Storyboard>
 
         <Storyboard x:Name="ExpandSidebarStoryboard">
-            <DoubleAnimation
-                Storyboard.TargetName="SidebarColumn"
-                Storyboard.TargetProperty="Width.Value"
-                To="220"
-                Duration="0:0:0.25"/>
+            <DoubleAnimation Storyboard.TargetName="SidebarColumn"
+                             Storyboard.TargetProperty="Width.Value"
+                             To="220" Duration="0:0:0.25"/>
         </Storyboard>
 
         <!-- LABEL -->
@@ -45,27 +41,16 @@
             <Setter Property="Background" Value="Transparent"/>
         </Style>
 
-        <!-- READONLY PASSWORDBOX -->
-        <Style x:Key="PasswordBoxStyle" TargetType="PasswordBox">
-            <Setter Property="BorderBrush" Value="#D1D5DB"/>
-            <Setter Property="BorderThickness" Value="1"/>
-            <Setter Property="Padding" Value="8"/>
-            <Setter Property="FontSize" Value="14"/>
-            <Setter Property="CornerRadius" Value="6"/>
-            <Setter Property="IsEnabled" Value="False"/>
-            <Setter Property="Background" Value="Transparent"/>
-        </Style>
-
         <!-- CARD -->
         <Style x:Key="CardStyle" TargetType="Border">
             <Setter Property="CornerRadius" Value="18"/>
             <Setter Property="Padding" Value="20"/>
-            <Setter Property="Margin" Value="0,0,0,20"/>
+            <Setter Property="Margin" Value="0,20,0,0"/>
         </Style>
 
     </Page.Resources>
 
-    <!-- ROOT GRID -->
+
     <Grid>
         <Grid.ColumnDefinitions>
             <ColumnDefinition x:Name="SidebarColumn" Width="170"/>
@@ -83,79 +68,47 @@
                            FontSize="32"
                            FontWeight="SemiBold"/>
 
-                <TextBlock Text="Select an employee to view details and delete them."
+                <TextBlock Text="Select an employee to view their details and delete them."
                            FontSize="12"
                            Foreground="Gray"/>
 
                 <!-- EMPLOYEE SELECTOR -->
-                <StackPanel>
+                <StackPanel Margin="0,10,0,0">
                     <TextBlock Text="Choose Employee"
                                FontSize="16"
                                FontWeight="SemiBold"/>
                     <ComboBox x:Name="EmployeeComboBox"
-                              PlaceholderText="Select an employee..."
+                              PlaceholderText="Select employee..."
                               SelectionChanged="EmployeeComboBox_SelectionChanged"
                               Padding="8"
                               FontSize="14"/>
                 </StackPanel>
 
-                <Grid ColumnSpacing="20" RowSpacing="20" Margin="0,20,0,0">
-                    <Grid.ColumnDefinitions>
-                        <ColumnDefinition Width="*"/>
-                        <ColumnDefinition Width="*"/>
-                    </Grid.ColumnDefinitions>
 
-                    <!-- EMPLOYEE INFO -->
-                    <Border Grid.Column="0"
-                            Background="#F59E0B"
-                            Style="{StaticResource CardStyle}">
-                        <StackPanel>
+                <!-- EMPLOYEE INFO CARD -->
+                <Border Background="#F59E0B" Style="{StaticResource CardStyle}">
+                    <StackPanel>
 
-                            <TextBlock Text="Employee Information"
-                                       FontSize="20"
-                                       FontWeight="Bold"
-                                       Foreground="White"
-                                       Margin="0,0,0,12"/>
+                        <TextBlock Text="Employee Information"
+                                   FontSize="20"
+                                   FontWeight="Bold"
+                                   Foreground="White"/>
 
-                            <TextBlock Text="Full Name" Style="{StaticResource LabelStyle}"/>
-                            <TextBox x:Name="NameTextBox" Style="{StaticResource InputStyle}"/>
+                        <TextBlock Text="Full Name" Style="{StaticResource LabelStyle}"/>
+                        <TextBox x:Name="NameTextBox" Style="{StaticResource InputStyle}"/>
 
-                            <TextBlock Text="Phone" Style="{StaticResource LabelStyle}"/>
-                            <TextBox x:Name="PhoneTextBox" Style="{StaticResource InputStyle}"/>
+                        <TextBlock Text="Phone Number" Style="{StaticResource LabelStyle}"/>
+                        <TextBox x:Name="PhoneTextBox" Style="{StaticResource InputStyle}"/>
 
-                            <TextBlock Text="Address" Style="{StaticResource LabelStyle}"/>
-                            <TextBox x:Name="AddressTextBox" Height="70"
-                                     AcceptsReturn="True"
-                                     TextWrapping="Wrap"
-                                     Style="{StaticResource InputStyle}"/>
+                        <TextBlock Text="Address" Style="{StaticResource LabelStyle}"/>
+                        <TextBox x:Name="AddressTextBox"
+                                 Style="{StaticResource InputStyle}"
+                                 Height="70"
+                                 TextWrapping="Wrap"
+                                 AcceptsReturn="True"/>
 
-                        </StackPanel>
-                    </Border>
-
-                    <!-- ACCOUNT INFO -->
-                    <Border Grid.Column="1"
-                            Background="#10B981"
-                            Style="{StaticResource CardStyle}">
-                        <StackPanel>
-
-                            <TextBlock Text="Account Information"
-                                       FontSize="20"
-                                       FontWeight="Bold"
-                                       Foreground="White"
-                                       Margin="0,0,0,12"/>
-
-                            <!--<TextBlock Text="Username" Style="{StaticResource LabelStyle}"/>
-                            <TextBox x:Name="UsernameTextBox" Style="{StaticResource InputStyle}"/>-->
-
-                            <TextBlock Text="Password (hidden)"
-                                       Style="{StaticResource LabelStyle}"/>
-                            <PasswordBox x:Name="PasswordBox"
-                                         Style="{StaticResource PasswordBoxStyle}"/>
-
-                        </StackPanel>
-                    </Border>
-
-                </Grid>
+                    </StackPanel>
+                </Border>
 
                 <!-- DELETE BUTTON -->
                 <Button Content="Delete Employee"
@@ -168,7 +121,6 @@
                         FontSize="18"
                         HorizontalAlignment="Center"
                         Click="OnDeleteEmployeeClicked"/>
-
             </StackPanel>
         </ScrollViewer>
     </Grid>

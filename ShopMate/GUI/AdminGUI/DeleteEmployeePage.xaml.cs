@@ -35,6 +35,7 @@ namespace ShopMate.GUI.AdminGUI
             employees = await emBL.GetAllEmployees();
             EmployeeComboBox.ItemsSource = employees;
             EmployeeComboBox.DisplayMemberPath = "Name";
+            EmployeeComboBox.SelectedIndex = 0;
         }
 
         private void EmployeeComboBox_SelectionChanged(object sender, SelectionChangedEventArgs e)
@@ -48,7 +49,7 @@ namespace ShopMate.GUI.AdminGUI
                 AddressTextBox.Text = emp.Address;
                 
                 // Password is not shown — placeholder
-                PasswordBox.Password = "********";
+                
             }
         }
 
@@ -94,8 +95,8 @@ namespace ShopMate.GUI.AdminGUI
             NameTextBox.Text = "";
             PhoneTextBox.Text = "";
             AddressTextBox.Text = "";
-            // UsernameTextBox.Text = "";
-            PasswordBox.Password = "";
+            //UsernameTextBox.Text = "";
+            //PasswordBox.Password = "";
         }
 
         private async System.Threading.Tasks.Task ShowDialog(string title, string message)
