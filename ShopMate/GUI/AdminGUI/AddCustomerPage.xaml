@@ -26,33 +26,33 @@
 
         <!-- INPUT LABEL -->
         <Style x:Key="LabelStyle" TargetType="TextBlock">
-            <Setter Property="Foreground" Value="White"/>
-            <Setter Property="FontSize" Value="14"/>
-            <Setter Property="Margin" Value="0,5,0,3"/>
+            <Setter Property="Foreground" Value="White" />
+            <Setter Property="FontSize" Value="14" />
+            <Setter Property="Margin" Value="0,5,0,3" />
         </Style>
 
         <!-- TEXTBOX STYLE -->
         <Style x:Key="InputStyle" TargetType="TextBox">
-            <Setter Property="BorderBrush" Value="#D1D5DB"/>
-            <Setter Property="BorderThickness" Value="1"/>
-            <Setter Property="Padding" Value="8"/>
-            <Setter Property="FontSize" Value="14"/>
-            <Setter Property="CornerRadius" Value="6"/>
+            <Setter Property="BorderBrush" Value="#D1D5DB" />
+            <Setter Property="BorderThickness" Value="1" />
+            <Setter Property="Padding" Value="8" />
+            <Setter Property="FontSize" Value="14" />
+            <Setter Property="CornerRadius" Value="6" />
         </Style>
 
         <Style x:Key="ComboStyle" TargetType="ComboBox">
-            <Setter Property="BorderBrush" Value="#D1D5DB"/>
-            <Setter Property="BorderThickness" Value="1"/>
-            <Setter Property="Padding" Value="8"/>
-            <Setter Property="FontSize" Value="14"/>
-            <Setter Property="CornerRadius" Value="6"/>
+            <Setter Property="BorderBrush" Value="#D1D5DB" />
+            <Setter Property="BorderThickness" Value="1" />
+            <Setter Property="Padding" Value="8" />
+            <Setter Property="FontSize" Value="14" />
+            <Setter Property="CornerRadius" Value="6" />
         </Style>
 
         <!-- CARD PANEL -->
         <Style x:Key="CardStyle" TargetType="Border">
-            <Setter Property="CornerRadius" Value="18"/>
-            <Setter Property="Padding" Value="20"/>
-            <Setter Property="Margin" Value="0,0,0,20"/>
+            <Setter Property="CornerRadius" Value="18" />
+            <Setter Property="Padding" Value="20" />
+            <Setter Property="Margin" Value="0,0,0,20" />
         </Style>
 
     </Page.Resources>
@@ -61,12 +61,12 @@
     <!-- MAIN GRID -->
     <Grid>
         <Grid.ColumnDefinitions>
-            <ColumnDefinition x:Name="SidebarColumn" Width="170"/>
-            <ColumnDefinition Width="*"/>
+            <ColumnDefinition x:Name="SidebarColumn" Width="170" />
+            <ColumnDefinition Width="*" />
         </Grid.ColumnDefinitions>
 
         <!-- SIDEBAR -->
-        <controls:AdminSidebarControl Grid.Column="0"/>
+        <controls:AdminSidebarControl Grid.Column="0" />
 
 
         <!-- PAGE CONTENT -->
@@ -76,18 +76,18 @@
                 <!-- PAGE TITLE -->
                 <TextBlock Text="Add Customer"
                            FontSize="32"
-                           FontWeight="SemiBold"/>
+                           FontWeight="SemiBold" />
 
                 <TextBlock Text="Enter the customer information below."
                            FontSize="12"
-                           Foreground="Gray"/>
+                           Foreground="Gray" />
 
 
                 <Grid ColumnSpacing="20" RowSpacing="20" Margin="0,20,0,0">
 
                     <Grid.ColumnDefinitions>
-                        <ColumnDefinition Width="*"/>
-                        <ColumnDefinition Width="*"/>
+                        <ColumnDefinition Width="*" />
+                        <ColumnDefinition Width="*" />
                     </Grid.ColumnDefinitions>
 
                     <!-- CUSTOMER INFO -->
@@ -100,19 +100,20 @@
                                        FontSize="20"
                                        FontWeight="Bold"
                                        Foreground="White"
-                                       Margin="0,0,0,12"/>
+                                       Margin="0,0,0,12" />
 
-                            <TextBlock Text="Full Name" Style="{StaticResource LabelStyle}"/>
-                            <TextBox x:Name="NameTextBox" Style="{StaticResource InputStyle}"/>
+                            <TextBlock Text="Full Name" Style="{StaticResource LabelStyle}" />
+                            <TextBox x:Name="NameTextBox" Style="{StaticResource InputStyle}" />
 
-                            <TextBlock Text="Gender" Style="{StaticResource LabelStyle}"/>
-                            <ComboBox x:Name="GenderComboBox" SelectedIndex="0" HorizontalAlignment="Stretch" Style="{StaticResource ComboStyle}">
-                                <ComboBoxItem Content="Male"/>
-                                <ComboBoxItem Content="Female"/>
+                            <TextBlock Text="Gender" Style="{StaticResource LabelStyle}" />
+                            <ComboBox x:Name="GenderComboBox" SelectedIndex="0" HorizontalAlignment="Stretch"
+                                      Style="{StaticResource ComboStyle}">
+                                <ComboBoxItem Content="Male" />
+                                <ComboBoxItem Content="Female" />
                             </ComboBox>
 
-                            <TextBlock Text="Age" Style="{StaticResource LabelStyle}"/>
-                            <NumberBox x:Name="AgeNumberBox" Style="{StaticResource InputStyle}"/>
+                            <TextBlock Text="Age" Style="{StaticResource LabelStyle}" />
+                            <NumberBox x:Name="AgeNumberBox" />
 
                         </StackPanel>
                     </Border>
@@ -128,14 +129,14 @@
                                        FontSize="20"
                                        FontWeight="Bold"
                                        Foreground="White"
-                                       Margin="0,0,0,12"/>
-                            <TextBlock Text="Address" Style="{StaticResource LabelStyle}"/>
+                                       Margin="0,0,0,12" />
+                            <TextBlock Text="Address" Style="{StaticResource LabelStyle}" />
                             <TextBox x:Name="AddressTextBox" Style="{StaticResource InputStyle}"
                                      Height="70"
                                      TextWrapping="Wrap"
-                                     AcceptsReturn="True"/>
-                            <TextBlock Text="Phone Number" Style="{StaticResource LabelStyle}"/>
-                            <TextBox x:Name="PhoneTextBox" Style="{StaticResource InputStyle}"/>
+                                     AcceptsReturn="True" />
+                            <TextBlock Text="Phone Number" Style="{StaticResource LabelStyle}" />
+                            <TextBox x:Name="PhoneTextBox" Style="{StaticResource InputStyle}" />
 
                         </StackPanel>
                     </Border>
@@ -153,7 +154,7 @@
                         CornerRadius="10"
                         FontSize="18"
                         HorizontalAlignment="Center"
-                        Click="OnAddCustomerClicked"/>
+                        Click="OnAddCustomerClicked" />
 
 
             </StackPanel>
