@@ -15,7 +15,6 @@ namespace ShopMate.DL
             {
                 var client = SupabaseInitializer.client;
 
-                // Insert the bill first
                 var billResponse = await client
                     .From<BillDTO>()
                     .Insert(billDTO);
@@ -26,7 +25,6 @@ namespace ShopMate.DL
                 var createdBill = billResponse.Models[0];
                 int billId = createdBill.Id;
 
-                // Insert all bill items with the billId
                 foreach (var item in items)
                 {
                     item.BillId = billId;

@@ -129,6 +129,8 @@ namespace ShopMate.GUI
 
             var billDTO = new BillDTO
             {
+                // Sales Person UserID
+                UserId = 5,
                 CustomerId = customer.ID,
                 CreatedAt = DateTime.Now,
                 Total = total
