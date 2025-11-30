@@ -151,4 +151,9 @@
       <Generator>MSBuild:Compile</Generator>
     </Page>
   </ItemGroup>
+
+  <ItemGroup>
+    <Folder Include="GUI\AdminGUI\" />
+    <Folder Include="GUI\SalesPersonGUI\" />
+  </ItemGroup>
 </Project>
