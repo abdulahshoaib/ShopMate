@@ -96,11 +96,14 @@ namespace ShopMate.GUI.AdminGUI
                     {
                         Username = UsernameTextBox.Text,
                         PasswordHash = HashPassword(PasswordBox.Password),
-                        RoleID = 2,
+                        RoleID = 8,
                         EmployeeID = selectedEmployee.ID
                     };
 
-                    await umBL.AddUser(newUser);
+                    if(!await umBL.AddUser(newUser))
+                    {
+                        await ShowDialog("Failed", "Unable To change");
+                    }
                 }
             }
 
