@@ -25,11 +25,11 @@ namespace ShopMate.GUI
             // ---------------------------
             // Safe trimmed values
             // ---------------------------
-            string name = (NameTextBox.Text ?? string.Empty).Trim();
-            string phone = (PhoneTextBox.Text ?? string.Empty).Trim();
-            string ageRaw = (AgeTextBox.Text ?? string.Empty).Trim();
-            string gender = (GenderComboBox.SelectedItem as ComboBoxItem)?.Content?.ToString() ?? "Male";
-            string address = (AddressTextBox.Text ?? string.Empty).Trim();
+            var name = (NameTextBox.Text ?? string.Empty).Trim();
+            var phone = (PhoneTextBox.Text ?? string.Empty).Trim(); 
+            double age = AgeNumberBox.Value;
+            var gender = (GenderComboBox.SelectedItem as ComboBoxItem)?.Content?.ToString() ?? "Male";
+            var address = (AddressTextBox.Text ?? string.Empty).Trim();
 
             // ---------------------------
             // Name validation
@@ -62,15 +62,18 @@ namespace ShopMate.GUI
             // ---------------------------
             // Age validation
             // ---------------------------
-            if (!int.TryParse(ageRaw, out int age) || age < 5)
+            if (double.IsNaN(age) || age < 5)
             {
-                AgeTextBox.BorderBrush = new SolidColorBrush(Colors.Red);
-                if (!hasError) AgeTextBox.Focus(FocusState.Programmatic);
+                AgeNumberBox.BorderBrush = new SolidColorBrush(Colors.Red);
+
+                if (!hasError)
+                    AgeNumberBox.Focus(FocusState.Programmatic);
+
                 hasError = true;
             }
             else
             {
-                AgeTextBox.BorderBrush = new SolidColorBrush(Colors.White);
+                AgeNumberBox.BorderBrush = new SolidColorBrush(Colors.White);
             }
 
             // ---------------------------
@@ -101,7 +104,7 @@ namespace ShopMate.GUI
             {
                 Name = name,
                 Phone = phone,
-                Age = age,
+                Age = (int)age,
                 Gender = gender,
                 Address = address
             };
@@ -123,7 +126,7 @@ namespace ShopMate.GUI
                     // Clear fields
                     NameTextBox.Text = "";
                     PhoneTextBox.Text = "";
-                    AgeTextBox.Text = "";
+                    AgeNumberBox.Text = "";
                     AddressTextBox.Text = "";
                     GenderComboBox.SelectedIndex = 0;
                 }
@@ -150,6 +153,19 @@ namespace ShopMate.GUI
                 };
                 await errorDialog.ShowAsync();
             }
+        }
+
+        private void OnBackClicked(object sender, RoutedEventArgs e)
+        {
+            Navigate(typeof(SalesPersonDashboardPage));
+        }
+
+        private void Navigate(Type t)
+        {
+            var window = (Application.Current as App)?._window;
+            var frame = window?.Content as Frame;
+
+            frame?.Navigate(t);
         }
     }
 }

@@ -7,52 +7,53 @@
 
     <Page.Resources>
 
-        <!-- SIDEBAR ANIMATIONS -->
-        <Storyboard x:Name="CollapseSidebarStoryboard">
-            <DoubleAnimation
-                Storyboard.TargetName="SidebarColumn"
-                Storyboard.TargetProperty="Width.Value"
-                To="60"
-                Duration="0:0:0.25" />
-        </Storyboard>
-
-        <Storyboard x:Name="ExpandSidebarStoryboard">
-            <DoubleAnimation
-                Storyboard.TargetName="SidebarColumn"
-                Storyboard.TargetProperty="Width.Value"
-                To="220"
-                Duration="0:0:0.25" />
-        </Storyboard>
-
-        <!-- INPUT LABEL -->
+        <!-- LABEL TEXT -->
         <Style x:Key="LabelStyle" TargetType="TextBlock">
             <Setter Property="Foreground" Value="White"/>
             <Setter Property="FontSize" Value="14"/>
-            <Setter Property="Margin" Value="0,5,0,3"/>
+            <Setter Property="Margin" Value="0,8,0,4"/>
         </Style>
 
-        <!-- TEXTBOX STYLE -->
-        <Style x:Key="InputStyle" TargetType="TextBox">
-            <Setter Property="BorderBrush" Value="#D1D5DB"/>
+        <!-- Number Box -->
+        <Style x:Key="NumberBoxStyle" TargetType="NumberBox">
+            <Setter Property="BorderBrush" Value="#3A3D40"/>
             <Setter Property="BorderThickness" Value="1"/>
             <Setter Property="Padding" Value="8"/>
             <Setter Property="FontSize" Value="14"/>
             <Setter Property="CornerRadius" Value="6"/>
+            <Setter Property="Background" Value="#1F2123"/>
+            <Setter Property="Foreground" Value="White"/>
+            <Setter Property="SpinButtonPlacementMode" Value="Inline"/>
+        </Style>
+
+        <!-- FLUENT INPUT STYLE -->
+        <Style x:Key="InputStyle" TargetType="TextBox">
+            <Setter Property="BorderBrush" Value="#3A3D40"/>
+            <Setter Property="BorderThickness" Value="1"/>
+            <Setter Property="Padding" Value="8"/>
+            <Setter Property="FontSize" Value="14"/>
+            <Setter Property="CornerRadius" Value="6"/>
+            <Setter Property="Background" Value="#1F2123"/>
+            <Setter Property="Foreground" Value="White"/>
         </Style>
 
         <Style x:Key="ComboStyle" TargetType="ComboBox">
-            <Setter Property="BorderBrush" Value="#D1D5DB"/>
+            <Setter Property="BorderBrush" Value="#3A3D40"/>
             <Setter Property="BorderThickness" Value="1"/>
             <Setter Property="Padding" Value="8"/>
             <Setter Property="FontSize" Value="14"/>
             <Setter Property="CornerRadius" Value="6"/>
+            <Setter Property="Background" Value="#1F2123"/>
+            <Setter Property="Foreground" Value="White"/>
         </Style>
 
-        <!-- CARD PANEL -->
+        <!-- CLEAN WHITE CARD -->
         <Style x:Key="CardStyle" TargetType="Border">
-            <Setter Property="CornerRadius" Value="18"/>
+            <Setter Property="CornerRadius" Value="12"/>
             <Setter Property="Padding" Value="20"/>
-            <Setter Property="Margin" Value="0,0,0,20"/>
+            <Setter Property="Background" Value="#1A1C1E"/>
+            <Setter Property="BorderBrush" Value="#2A2D31"/>
+            <Setter Property="BorderThickness" Value="1"/>
         </Style>
 
     </Page.Resources>
@@ -68,22 +69,48 @@
         <!-- SIDEBAR -->
         <controls:SalesSidebarControl Grid.Column="0"/>
 
- 
+
         <!-- PAGE CONTENT -->
         <ScrollViewer Grid.Column="1">
             <StackPanel Padding="40" Spacing="20">
 
                 <!-- PAGE TITLE -->
-                <TextBlock Text="Add Customer"
-                           FontSize="32"
-                           FontWeight="SemiBold"/>
+                <Grid ColumnSpacing="10" VerticalAlignment="Center">
+                    <Grid.ColumnDefinitions>
+                        <ColumnDefinition Width="Auto"/>
+                        <ColumnDefinition Width="*"/>
+                    </Grid.ColumnDefinitions>
 
-                <TextBlock Text="Enter the customer information below."
-                           FontSize="12"
-                           Foreground="Gray"/>
+                    <!-- BACK BUTTON -->
+                    <Button Width="32"
+                            Height="32"
+                            Background="#1F2123"
+                            BorderBrush="#3A3D40"
+                            BorderThickness="1"
+                            CornerRadius="6"
+                            Padding="0"
+                            Click="OnBackClicked">
+                        <Image Source="ms-appx:///Assets/Icons/back.png"
+                               Width="20" Height="20"/>
+                    </Button>
+
+                    <!-- TITLE -->
+                    <TextBlock Grid.Column="1"
+                               Text="Add Customer"
+                               FontSize="28"
+                               FontWeight="SemiBold"
+                               Foreground="White"
+                               VerticalAlignment="Center"/>
+                </Grid>
 
 
-                <Grid ColumnSpacing="20" RowSpacing="20" Margin="0,20,0,0">
+                <TextBlock Text="Fill in the customer's information below."
+                           FontSize="13"
+                           Foreground="#9CA3AF"/>
+
+
+                <!-- TWO-COLUMN CLEAN FORM -->
+                <Grid ColumnSpacing="20" RowSpacing="20" Margin="0,10,0,0">
 
                     <Grid.ColumnDefinitions>
                         <ColumnDefinition Width="*"/>
@@ -91,49 +118,50 @@
                     </Grid.ColumnDefinitions>
 
                     <!-- CUSTOMER INFO -->
-                    <Border Grid.Column="0"
-                            Background="#F59E0B"
-                            Style="{StaticResource CardStyle}">
+                    <Border Grid.Column="0" Style="{StaticResource CardStyle}">
                         <StackPanel>
 
                             <TextBlock Text="Customer Information"
-                                       FontSize="20"
-                                       FontWeight="Bold"
+                                       FontSize="18"
+                                       FontWeight="SemiBold"
                                        Foreground="White"
-                                       Margin="0,0,0,12"/>
+                                       Margin="0,0,0,8"/>
 
                             <TextBlock Text="Full Name" Style="{StaticResource LabelStyle}"/>
                             <TextBox x:Name="NameTextBox" Style="{StaticResource InputStyle}"/>
 
                             <TextBlock Text="Gender" Style="{StaticResource LabelStyle}"/>
-                            <ComboBox x:Name="GenderComboBox" SelectedIndex="0" HorizontalAlignment="Stretch" Style="{StaticResource ComboStyle}">
+                            <ComboBox x:Name="GenderComboBox"
+                                      Style="{StaticResource ComboStyle}"
+                                      SelectedIndex="0">
                                 <ComboBoxItem Content="Male"/>
                                 <ComboBoxItem Content="Female"/>
                             </ComboBox>
 
                             <TextBlock Text="Age" Style="{StaticResource LabelStyle}"/>
-                            <TextBox x:Name="AgeTextBox" Style="{StaticResource InputStyle}"/>
+                            <NumberBox x:Name="AgeNumberBox" Style="{StaticResource NumberBoxStyle}" Minimum="6" Value="6" Maximum="120"/>
 
                         </StackPanel>
                     </Border>
 
 
                     <!-- CONTACT INFO -->
-                    <Border Grid.Column="1"
-                            Background="#10B981"
-                            Style="{StaticResource CardStyle}">
+                    <Border Grid.Column="1" Style="{StaticResource CardStyle}">
                         <StackPanel>
 
                             <TextBlock Text="Contact Information"
-                                       FontSize="20"
-                                       FontWeight="Bold"
+                                       FontSize="18"
+                                       FontWeight="SemiBold"
                                        Foreground="White"
-                                       Margin="0,0,0,12"/>
+                                       Margin="0,0,0,8"/>
+
                             <TextBlock Text="Address" Style="{StaticResource LabelStyle}"/>
-                            <TextBox x:Name="AddressTextBox" Style="{StaticResource InputStyle}"
+                            <TextBox x:Name="AddressTextBox"
+                                     Style="{StaticResource InputStyle}"
                                      Height="70"
                                      TextWrapping="Wrap"
                                      AcceptsReturn="True"/>
+
                             <TextBlock Text="Phone Number" Style="{StaticResource LabelStyle}"/>
                             <TextBox x:Name="PhoneTextBox" Style="{StaticResource InputStyle}"/>
 
@@ -146,15 +174,14 @@
                 <!-- SAVE BUTTON -->
                 <Button Content="Add Customer"
                         Width="200"
-                        Height="50"
+                        Height="48"
                         Background="#3B82F6"
                         Foreground="White"
                         BorderBrush="Transparent"
-                        CornerRadius="10"
-                        FontSize="18"
+                        CornerRadius="8"
+                        FontSize="16"
                         HorizontalAlignment="Center"
                         Click="OnAddCustomerClicked"/>
-
 
             </StackPanel>
         </ScrollViewer>
