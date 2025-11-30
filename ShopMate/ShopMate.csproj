@@ -25,6 +25,13 @@
     <None Remove="AddProductPage.xaml" />
     <None Remove="GenerateBillPage.xaml" />
     <None Remove="GUI\AddEmployeePage.xaml" />
+    <None Remove="GUI\AdminGUI\DeleteCustomerPage.xaml" />
+    <None Remove="GUI\AdminGUI\DeleteEmployeePage.xaml" />
+    <None Remove="GUI\AdminGUI\DeleteProductPage.xaml" />
+    <None Remove="GUI\AdminGUI\EditEmployeePage.xaml" />
+    <None Remove="GUI\AdminGUI\UpdateCustomerPage.xaml" />
+    <None Remove="GUI\AdminGUI\UpdateProductPage.xaml" />
+    <None Remove="GUI\AdminGUI\ViewCustomerPage.xaml" />
     <None Remove="GUI\AdminGUI\ViewInventory.xaml" />
     <None Remove="GUI\Controls\AdminSidebar.xaml" />
     <None Remove="GUI\GenerateReportPage.xaml" />
@@ -104,6 +111,48 @@
 
   <ItemGroup>
     <PRIResource Remove="Pages\**" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <Page Update="GUI\AdminGUI\ViewCustomerPage.xaml">
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+  </ItemGroup>
+
+  <ItemGroup>
+    <Page Update="GUI\AdminGUI\EditEmployeePage.xaml">
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+  </ItemGroup>
+
+  <ItemGroup>
+    <Page Update="GUI\AdminGUI\DeleteEmployeePage.xaml">
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+  </ItemGroup>
+
+  <ItemGroup>
+    <Page Update="GUI\AdminGUI\UpdateCustomerPage.xaml">
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+  </ItemGroup>
+
+  <ItemGroup>
+    <Page Update="GUI\AdminGUI\DeleteCustomerPage.xaml">
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+  </ItemGroup>
+
+  <ItemGroup>
+    <Page Update="GUI\AdminGUI\UpdateProductPage.xaml">
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+  </ItemGroup>
+
+  <ItemGroup>
+    <Page Update="GUI\AdminGUI\DeleteProductPage.xaml">
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
   </ItemGroup>
 
   <ItemGroup>
