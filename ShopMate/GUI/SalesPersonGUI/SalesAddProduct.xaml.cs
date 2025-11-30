@@ -11,7 +11,7 @@ namespace ShopMate.GUI
 {
     public sealed partial class SalesAddProduct : Page
     {
-        private readonly ProductManagementBL pmBL = new ProductManagementBL();
+        private readonly ProductManagementBL pmBL = new();
 
         public SalesAddProduct()
         {
@@ -22,8 +22,6 @@ namespace ShopMate.GUI
         {
             bool hasError = false;
 
-            int stock = 0;
-            decimal price = 0m;
 
             string name = (ProductNameTextBox.Text ?? string.Empty).Trim();
             string desc = (DescriptionTextBox.Text ?? string.Empty).Trim();
@@ -47,7 +45,7 @@ namespace ShopMate.GUI
             // ---------------------------
             // Quantity validation
             // ---------------------------
-            if (!int.TryParse(qty, out stock) || stock < 0)
+            if (!int.TryParse(qty, out int stock) || stock < 0)
             {
                 QuantityTextBox.BorderBrush = new SolidColorBrush(Colors.Red);
                 QuantityTextBox.Focus(FocusState.Programmatic);
@@ -61,7 +59,7 @@ namespace ShopMate.GUI
             // ---------------------------
             // Price validation
             // ---------------------------
-            if (!decimal.TryParse(pr, out price) || price < 0m)
+            if (!decimal.TryParse(pr, out decimal price) || price < 0m)
             {
                 PriceTextBox.BorderBrush = new SolidColorBrush(Colors.Red);
                 PriceTextBox.Focus(FocusState.Programmatic);

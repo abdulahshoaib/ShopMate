@@ -82,7 +82,7 @@ namespace ShopMate.DL
             }
             catch (System.Exception)
             {
-                return new List<BillDTO>();
+                return [];
             }
         }
 
@@ -101,7 +101,7 @@ namespace ShopMate.DL
             }
             catch (System.Exception)
             {
-                return new List<BillItemDTO>();
+                return [];
             }
         }
 

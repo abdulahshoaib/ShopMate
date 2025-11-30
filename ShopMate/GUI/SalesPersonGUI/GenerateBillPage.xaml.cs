@@ -18,7 +18,7 @@ namespace ShopMate.GUI
         private readonly CustomerServiceBL csBL;
         private readonly ProductManagementBL pmBL;
 
-        public ObservableCollection<BillItemVM> BillItems { get; } = new ObservableCollection<BillItemVM>();
+        public ObservableCollection<BillItemVM> BillItems { get; } = [];
 
         public GenerateBillPage()
         {
