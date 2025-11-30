@@ -1,8 +1,6 @@
 ﻿using ShopMate.DTOs;
-using System;
 using System.Collections.Generic;
 using System.Linq;
-using System.Text;
 using System.Threading.Tasks;
 
 namespace ShopMate.DL
@@ -22,7 +20,7 @@ namespace ShopMate.DL
                     .From<UserDTO>()
                     .Get();
 
-               return response.Models.ToList();
+                return response.Models.ToList();
             }
             catch
             {
@@ -42,8 +40,8 @@ namespace ShopMate.DL
                     .Get();
 
                 return response.Models.FirstOrDefault();
-            }   
-            catch 
+            }
+            catch
             {
                 return null;
             }

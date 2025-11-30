@@ -1,11 +1,10 @@
-﻿using Microsoft.UI.Xaml;
+﻿using Microsoft.UI;
+using Microsoft.UI.Xaml;
 using Microsoft.UI.Xaml.Controls;
+using Microsoft.UI.Xaml.Media;
 using ShopMate.BL;
 using ShopMate.DTOs;
 using System;
-using Microsoft.UI;
-using Microsoft.UI.Xaml.Media;
-using System.Drawing;
 using System.Threading.Tasks;
 
 namespace ShopMate.GUI

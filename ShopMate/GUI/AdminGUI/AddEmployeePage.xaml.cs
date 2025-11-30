@@ -1,10 +1,10 @@
-﻿using Microsoft.UI.Xaml;
+﻿using Microsoft.UI;
+using Microsoft.UI.Xaml;
 using Microsoft.UI.Xaml.Controls;
+using Microsoft.UI.Xaml.Media;
 using ShopMate.BL;
 using ShopMate.DTOs;
 using System;
-using Microsoft.UI;
-using Microsoft.UI.Xaml.Media;
 using System.Threading.Tasks;
 
 namespace ShopMate.GUI
@@ -89,7 +89,7 @@ namespace ShopMate.GUI
                 EmployeeID = createdEmp
             };
 
-            var createdUser= await umBL.AddUser(newUser);
+            var createdUser = await umBL.AddUser(newUser);
 
             if (!createdUser)
             {

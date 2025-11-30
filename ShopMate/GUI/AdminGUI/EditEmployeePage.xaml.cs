@@ -2,10 +2,9 @@
 using Microsoft.UI.Xaml.Controls;
 using ShopMate.BL;
 using ShopMate.DTOs;
-using System.Linq;
+using System;
 using System.Collections.Generic;
 using System.Threading.Tasks;
-using System;
 
 namespace ShopMate.GUI.AdminGUI
 {
@@ -72,7 +71,7 @@ namespace ShopMate.GUI.AdminGUI
                 await ShowDialog("Error", "Please select an employee.");
                 return;
             }
-            
+
             selectedEmployee.Name = NameTextBox.Text;
             selectedEmployee.Phone = PhoneTextBox.Text;
             selectedEmployee.Address = AddressTextBox.Text;
@@ -100,7 +99,7 @@ namespace ShopMate.GUI.AdminGUI
                         EmployeeID = selectedEmployee.ID
                     };
 
-                    if(!await umBL.AddUser(newUser))
+                    if (!await umBL.AddUser(newUser))
                     {
                         await ShowDialog("Failed", "Unable To change");
                     }

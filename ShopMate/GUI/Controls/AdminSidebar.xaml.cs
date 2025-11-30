@@ -1,6 +1,5 @@
 using Microsoft.UI.Xaml;
 using Microsoft.UI.Xaml.Controls;
-using ShopMate.GUI;
 using System;
 
 namespace ShopMate.GUI.Controls
@@ -31,7 +30,7 @@ namespace ShopMate.GUI.Controls
         private void OnSignOutClicked(object sender, RoutedEventArgs e)
             => Navigate(typeof(LoginPage));
 
-        
+
 
 
         private void Navigate(Type t)

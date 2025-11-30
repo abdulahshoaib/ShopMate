@@ -1,9 +1,6 @@
-﻿using ShopMate.DTOs;
-using ShopMate.DL;
-using System;
+﻿using ShopMate.DL;
+using ShopMate.DTOs;
 using System.Collections.Generic;
-using System.Linq;
-using System.Text;
 using System.Threading.Tasks;
 
 namespace ShopMate.BL
@@ -12,7 +9,8 @@ namespace ShopMate.BL
     {
         private readonly CustomerServiceDL csDL;
 
-        public CustomerServiceBL() {
+        public CustomerServiceBL()
+        {
             csDL = new CustomerServiceDL();
         }
 

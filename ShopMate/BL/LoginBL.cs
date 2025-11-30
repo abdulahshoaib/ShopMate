@@ -1,5 +1,5 @@
-﻿using ShopMate.DTOs;
-using ShopMate.DL;
+﻿using ShopMate.DL;
+using ShopMate.DTOs;
 using ShopMate.GUI;
 using System.Threading.Tasks;
 

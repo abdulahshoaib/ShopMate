@@ -1,8 +1,7 @@
 using Microsoft.UI.Xaml;
 using Microsoft.UI.Xaml.Controls;
-using Windows.ApplicationModel.VoiceCommands;
-using System;
 using ShopMate.GUI.AdminGUI;
+using System;
 
 namespace ShopMate.GUI
 {
@@ -42,6 +41,6 @@ namespace ShopMate.GUI
         {
             Navigate(typeof(ViewEmployeePage));
         }
-        
+
     }
 }

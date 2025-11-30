@@ -1,9 +1,4 @@
 ﻿using ShopMate.DTOs;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 
 namespace ShopMate
 {
@@ -13,6 +8,6 @@ namespace ShopMate
         public static EmployeeDTO? CurrentEmployee { get; set; }
 
         public static string DisplayUsername =>
-            CurrentEmployee?.Name?? "Unknown User";
+            CurrentEmployee?.Name ?? "Unknown User";
     }
 }

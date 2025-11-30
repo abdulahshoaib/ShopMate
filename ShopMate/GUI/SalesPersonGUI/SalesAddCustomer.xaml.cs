@@ -6,7 +6,6 @@ using ShopMate.BL;
 using ShopMate.DTOs;
 using System;
 using System.Text.RegularExpressions;
-using System.Threading.Tasks;
 
 namespace ShopMate.GUI
 {

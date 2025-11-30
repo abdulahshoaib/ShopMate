@@ -43,7 +43,7 @@ namespace ShopMate.GUI
             }
             else PriceNumberBox.BorderBrush = White();
 
-            if (fail) return; 
+            if (fail) return;
 
             int quantity = (int)QuantityNumberBox.Value;
             decimal price = (decimal)PriceNumberBox.Value;

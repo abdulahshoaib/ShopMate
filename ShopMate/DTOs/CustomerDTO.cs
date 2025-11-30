@@ -20,13 +20,13 @@ namespace ShopMate.DTOs
 
         [Column("customerName")]
         public string Name { get; set; }
-        
+
         [Column("phoneNumber")]
         public string Phone { get; set; }
-        
+
         [Column("customerGender")]
         public string Gender { get; set; }
-        
+
         [Column("customerAddress")]
         public string Address { get; set; }
 

@@ -1,5 +1,4 @@
 ﻿using Supabase;
-using System;
 using System.Threading.Tasks;
 
 namespace ShopMate.DL

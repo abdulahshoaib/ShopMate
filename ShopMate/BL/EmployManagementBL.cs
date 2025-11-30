@@ -1,9 +1,6 @@
 ﻿using ShopMate.DL;
 using ShopMate.DTOs;
-using System;
 using System.Collections.Generic;
-using System.Linq;
-using System.Text;
 using System.Threading.Tasks;
 
 namespace ShopMate.BL
@@ -11,7 +8,7 @@ namespace ShopMate.BL
     public class EmployManagementBL
     {
         private readonly EmployManagementDL emDL;
-        public EmployManagementBL() 
+        public EmployManagementBL()
         {
             emDL = new EmployManagementDL();
         }

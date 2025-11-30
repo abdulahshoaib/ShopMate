@@ -23,7 +23,7 @@ namespace ShopMate.GUI
         {
             Navigate(typeof(ManageEmployeesPage));
         }
-        
+
 
         private void OnManageCustomersClicked(object sender, RoutedEventArgs e)
         {
@@ -35,11 +35,11 @@ namespace ShopMate.GUI
             Navigate(typeof(ManageProductsPage));
         }
 
-        
+
         private void OnGenerateReportClicked(object sender, RoutedEventArgs e)
         {
             Navigate(typeof(GenerateReportPage));
         }
-        
+
     }
 }

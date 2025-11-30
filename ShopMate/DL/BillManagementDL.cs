@@ -2,7 +2,6 @@
 using System;
 using System.Collections.Generic;
 using System.Linq;
-using System.Text;
 using System.Threading.Tasks;
 
 namespace ShopMate.DL
@@ -118,7 +117,7 @@ namespace ShopMate.DL
                     .From<BillDTO>()
                     .Where(b => b.CreatedAt >= todayStart && b.CreatedAt < tomorrowStart)
                     .Get();
-                
+
                 return response.Models.Sum(b => b.Total);
             }
             catch (System.Exception)
