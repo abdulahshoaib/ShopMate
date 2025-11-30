@@ -1,15 +1,14 @@
 using Microsoft.UI.Xaml;
 using Microsoft.UI.Xaml.Controls;
+using ShopMate.BL;
+using ShopMate.DTOs;
 using System;
 using System.Collections.ObjectModel;
-using System.Globalization;
+using System.Diagnostics;
 using System.IO;
 using System.Linq;
 using System.Text;
-using System.Diagnostics;
-using ShopMate.BL;
 using System.Threading.Tasks;
-using Windows.ApplicationModel.VoiceCommands;
 
 namespace ShopMate.GUI
 {
@@ -19,17 +18,16 @@ namespace ShopMate.GUI
         private readonly CustomerServiceBL csBL;
         private readonly ProductManagementBL pmBL;
 
-        // Observable collection to bind to ListView
-        public ObservableCollection<BillItem> BillItems { get; } = new ObservableCollection<BillItem>();
+        public ObservableCollection<BillItemVM> BillItems { get; } = new ObservableCollection<BillItemVM>();
 
         public GenerateBillPage()
         {
-            this.InitializeComponent();
-            this.DataContext = this;
+            InitializeComponent();
+            DataContext = this;
 
-            this.bmBL = new BillManagementBL();
-            this.csBL = new CustomerServiceBL();
-            this.pmBL = new ProductManagementBL();
+            bmBL = new BillManagementBL();
+            csBL = new CustomerServiceBL();
+            pmBL = new ProductManagementBL();
 
             _ = LoadCustomers();
             _ = LoadProducts();
@@ -39,33 +37,24 @@ namespace ShopMate.GUI
 
         private async Task LoadCustomers()
         {
-            var customers = await csBL.GetAllCustomers();
-            CustomerComboBox.ItemsSource = customers;
+            CustomerComboBox.ItemsSource = await csBL.GetAllCustomers();
         }
 
         private async Task LoadProducts()
         {
-            var products = await pmBL.GetAllProducts();
-            ProductComboBox.ItemsSource = products;
+            ProductComboBox.ItemsSource = await pmBL.GetAllProducts();
         }
 
         private async Task LoadKPI()
         {
             try
             {
-                var totalSales = await bmBL.GetTotalSalesToday();
-                TotalSalesTextBlock.Text = $"${totalSales:N2}";
-
-                var totalBills = await bmBL.GetTotalBillsToday();
-                TotalBillsTextBlock.Text = totalBills.ToString();
-
-                var avgBillVal = await bmBL.GetAverageBillValueToday();
-                AvgBillValTextBlock.Text = avgBillVal.ToString();
-
-                var lowStock = await bmBL.GetLowStockProductsCount();
-                LowStockTextBlock.Text = lowStock.ToString();
+                TotalSalesTextBlock.Text = $"${(await bmBL.GetTotalSalesToday()):N2}";
+                TotalBillsTextBlock.Text = (await bmBL.GetTotalBillsToday()).ToString();
+                AvgBillValTextBlock.Text = (await bmBL.GetAverageBillValueToday()).ToString();
+                LowStockTextBlock.Text = (await bmBL.GetLowStockProductsCount()).ToString();
             }
-            catch (Exception)
+            catch
             {
                 TotalSalesTextBlock.Text = "$0.00";
                 TotalBillsTextBlock.Text = "0";
@@ -74,130 +63,161 @@ namespace ShopMate.GUI
             }
         }
 
-        // ----------------- ADD ITEM -----------------
         private void AddItem_Click(object sender, RoutedEventArgs e)
         {
-            if (ProductComboBox.SelectedItem is string productToken &&
-                !string.IsNullOrWhiteSpace(QuantityTextBox.Text) &&
+            if (ProductComboBox.SelectedItem is ProductDTO p &&
                 int.TryParse(QuantityTextBox.Text, out int qty) &&
                 qty > 0)
             {
-                var parts = productToken.Split('|');
-                var name = parts[0];
-                decimal price = 0;
-                if (parts.Length > 1) decimal.TryParse(parts[1], NumberStyles.Any, CultureInfo.InvariantCulture, out price);
+                var existing = BillItems.FirstOrDefault(i => i.ProductId == p.ID);
 
-                BillItems.Add(new BillItem
+                if (existing != null)
                 {
-                    ProductName = name,
-                    Price = price,
-                    Quantity = qty
-                });
+                    existing.Quantity += qty;
+                }
+                else
+                {
+                    BillItems.Add(new BillItemVM
+                    {
+                        ProductId = p.ID,
+                        ProductName = p.Name,
+                        UnitPrice = p.Price,
+                        Quantity = qty
+                    });
+                }
 
+                QuantityTextBox.Text = string.Empty;
                 UpdateSummary();
             }
         }
 
-        // ----------------- REMOVE ITEM -----------------
         private void RemoveItem_Click(object sender, RoutedEventArgs e)
         {
-            if (sender is Button btn && btn.DataContext is BillItem item)
+            if (sender is Button btn && btn.DataContext is BillItemVM item)
             {
                 BillItems.Remove(item);
                 UpdateSummary();
             }
         }
 
-        // ----------------- UPDATE BILL SUMMARY -----------------
         private void UpdateSummary()
         {
-            int totalItems = BillItems.Sum(i => i.Quantity);
+            int totalQty = BillItems.Sum(i => i.Quantity);
             decimal subtotal = BillItems.Sum(i => i.Total);
 
-            TotalItemsTextBlock.Text = $"Items: {totalItems}";
+            TotalItemsTextBlock.Text = $"Items: {totalQty}";
             SubtotalTextBlock.Text = $"Subtotal: {subtotal:C}";
             TotalTextBlock.Text = $"Total: {subtotal:C}";
         }
 
-        // ----------------- GENERATE BILL -----------------
         private async void GenerateBill_Click(object sender, RoutedEventArgs e)
         {
+            if (!BillItems.Any())
+            {
+                await ShowDialog("Add at least one item.");
+                return;
+            }
+
+            if (CustomerComboBox.SelectedItem is not CustomerDTO customer)
+            {
+                await ShowDialog("Select a customer.");
+                return;
+            }
+
+            UpdateSummary();
+            decimal total = BillItems.Sum(i => i.Total);
+
+            var billDTO = new BillDTO
+            {
+                CustomerId = customer.ID,
+                CreatedAt = DateTime.Now,
+                Total = total
+            };
+
+            var itemDTOs = BillItems.Select(i => new BillItemDTO
+            {
+                ProductId = i.ProductId,
+                ProductName = i.ProductName!,
+                UnitPrice = i.UnitPrice,
+                Quantity = i.Quantity,
+                LineTotal = i.Total
+            }).ToList();
+
+            int? billId = await bmBL.CreateBill(billDTO, itemDTOs);
+
+            if (billId == null)
+            {
+                await ShowDialog("Failed to save bill.");
+                return;
+            }
+
             try
             {
-                UpdateSummary();
-
                 string timestamp = DateTime.Now.ToString("yyyy_MM_dd_HHmmss");
-                string fileName = $"ShopMate_Bill_{timestamp}.txt";
+                string fileName = $"ShopMate_Bill_{billId}_{timestamp}.txt";
 
-                string downloadsPath = Path.Combine(Environment.GetFolderPath(Environment.SpecialFolder.UserProfile), "Downloads");
-                if (!Directory.Exists(downloadsPath)) downloadsPath = Environment.GetFolderPath(Environment.SpecialFolder.MyDocuments);
+                string dir = Path.Combine(Environment.GetFolderPath(Environment.SpecialFolder.UserProfile), "Downloads");
+                if (!Directory.Exists(dir))
+                    dir = Environment.GetFolderPath(Environment.SpecialFolder.MyDocuments);
 
-                string fullPath = Path.Combine(downloadsPath, fileName);
+                string path = Path.Combine(dir, fileName);
 
-                // Build bill content
                 var sb = new StringBuilder();
                 sb.AppendLine("===== ShopMate - Bill =====");
+                sb.AppendLine($"Bill ID: {billId}");
+                sb.AppendLine($"Customer: {customer.Name}");
                 sb.AppendLine($"Date: {DateTime.Now}");
                 sb.AppendLine("----------------------------");
-                sb.AppendLine("Product\tPrice\tQty\tTotal");
+                sb.AppendLine(string.Format("{0,-20} {1,8} {2,5} {3,10}", "Product", "Price", "Qty", "Total"));
 
                 foreach (var item in BillItems)
-                {
-                    sb.AppendLine($"{item.ProductName}\t{item.Price:C}\t{item.Quantity}\t{item.Total:C}");
-                }
+                    sb.AppendLine(string.Format("{0,-20} {1,8:C} {2,5} {3,10:C}", item.ProductName, item.UnitPrice, item.Quantity, item.Total));
 
                 sb.AppendLine("----------------------------");
-                sb.AppendLine(TotalItemsTextBlock.Text);
-                sb.AppendLine(SubtotalTextBlock.Text);
-                sb.AppendLine(TotalTextBlock.Text);
+                sb.AppendLine($"Items: {BillItems.Sum(i => i.Quantity)}");
+                sb.AppendLine($"Subtotal: {total:C}");
+                sb.AppendLine($"Total: {total:C}");
                 sb.AppendLine("============================");
 
-                // Save the file
-                await File.WriteAllTextAsync(fullPath, sb.ToString());
+                await File.WriteAllTextAsync(path, sb.ToString());
 
-                // Show confirmation dialog
                 var dialog = new ContentDialog
                 {
-                    Title = "Bill exported",
-                    Content = $"Saved bill to Downloads as:\n{fileName}",
+                    Title = "Bill Generated",
+                    Content = $"Saved to:\n{fileName}",
                     CloseButtonText = "OK",
-                    PrimaryButtonText = "Show in folder",
-                    XamlRoot = this.XamlRoot   
+                    PrimaryButtonText = "Show in Folder",
+                    XamlRoot = XamlRoot
                 };
 
                 var result = await dialog.ShowAsync();
-
                 if (result == ContentDialogResult.Primary)
                 {
-                    // Open folder and select file
-                    Process.Start(new ProcessStartInfo("explorer.exe", $"/select,\"{fullPath}\"") { UseShellExecute = true });
+                    Process.Start(new ProcessStartInfo("explorer.exe", $"/select,\"{path}\"")
+                    {
+                        UseShellExecute = true
+                    });
                 }
+
+                BillItems.Clear();
+                UpdateSummary();
             }
             catch (Exception ex)
             {
-                var err = new ContentDialog
-                {
-                    Title = "Export failed",
-                    Content = $"Could not generate bill: {ex.Message}",
-                    CloseButtonText = "OK",
-                    XamlRoot = this.XamlRoot
-                };
-                await err.ShowAsync();
+                await ShowDialog($"Bill saved but file export failed.\n\n{ex.Message}");
             }
         }
 
-    }
-
-    // ----------------- BILL ITEM MODEL -----------------
-    public class BillItem
-    {
-        public string ProductName { get; set; } = "";
-        public decimal Price { get; set; }
-        public int Quantity { get; set; }
-
-        public decimal Total => Price * Quantity;
-
-        public string FormattedPrice => Price.ToString("C", CultureInfo.CurrentCulture);
-        public string FormattedTotal => Total.ToString("C", CultureInfo.CurrentCulture);
+        private async Task ShowDialog(string msg)
+        {
+            var d = new ContentDialog
+            {
+                Title = "Error",
+                Content = msg,
+                CloseButtonText = "OK",
+                XamlRoot = XamlRoot
+            };
+            await d.ShowAsync();
+        }
     }
 }

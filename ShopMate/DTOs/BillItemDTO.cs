@@ -7,7 +7,6 @@ namespace ShopMate.DTOs
     public class BillItemDTO : BaseModel
     {
         [PrimaryKey("id", false)]
-        [Column("id")]
         public int Id { get; set; }
 
         [Column("billid")]
