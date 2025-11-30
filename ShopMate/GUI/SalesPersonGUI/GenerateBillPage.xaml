@@ -8,21 +8,6 @@
 
     <!-- Animations for sidebar toggle -->
     <Page.Resources>
-        <Storyboard x:Name="CollapseSidebarStoryboard">
-            <DoubleAnimation Storyboard.TargetName="SidebarColumn"
-                             Storyboard.TargetProperty="Width.Value"
-                             To="60"
-                             Duration="0:0:0.25"/>
-        </Storyboard>
-
-        <Storyboard x:Name="ExpandSidebarStoryboard">
-            <DoubleAnimation
-                Storyboard.TargetName="SidebarColumn"
-                Storyboard.TargetProperty="Width.Value"
-                To="220"
-                Duration="0:0:0.25"/>
-        </Storyboard>
-
         <!-- Makes ListViewItem stretch fully for column alignment -->
         <Style x:Key="ListViewItemStretchStyle" TargetType="ListViewItem">
             <Setter Property="HorizontalContentAlignment" Value="Stretch"/>
