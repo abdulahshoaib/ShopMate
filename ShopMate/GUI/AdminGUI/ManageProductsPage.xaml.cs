@@ -2,6 +2,7 @@ using Microsoft.UI.Xaml;
 using Microsoft.UI.Xaml.Controls;
 using Windows.ApplicationModel.VoiceCommands;
 using System;
+using ShopMate.GUI.AdminGUI;
 
 namespace ShopMate.GUI
 {
@@ -39,7 +40,9 @@ namespace ShopMate.GUI
 
         private void OnViewProductsClicked(object sender, RoutedEventArgs e)
         {
+            Navigate(typeof(ViewInventory));
         }
+
         // Example data model
         public class Customer
         {

@@ -25,6 +25,7 @@
     <None Remove="AddProductPage.xaml" />
     <None Remove="GenerateBillPage.xaml" />
     <None Remove="GUI\AddEmployeePage.xaml" />
+    <None Remove="GUI\AdminGUI\ViewInventory.xaml" />
     <None Remove="GUI\Controls\AdminSidebar.xaml" />
     <None Remove="GUI\GenerateReportPage.xaml" />
     <None Remove="GUI\MainWindow.xaml" />
@@ -98,6 +99,7 @@
     <PublishReadyToRun Condition="'$(Configuration)' != 'Debug'">True</PublishReadyToRun>
     <PublishTrimmed Condition="'$(Configuration)' == 'Debug'">False</PublishTrimmed>
     <PublishTrimmed Condition="'$(Configuration)' != 'Debug'">True</PublishTrimmed>
+    <AllowUnsafeBlocks>true</AllowUnsafeBlocks>
   </PropertyGroup>
 
   <ItemGroup>
@@ -153,7 +155,14 @@
   </ItemGroup>
 
   <ItemGroup>
-    <Folder Include="GUI\AdminGUI\" />
-    <Folder Include="GUI\SalesPersonGUI\" />
+    <Page Update="GUI\AdminGUI\ViewInventory.xaml">
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+  </ItemGroup>
+
+  <ItemGroup>
+    <Page Update="GUI\SalesPersonGUI\SalesViewInventory.xaml">
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
   </ItemGroup>
 </Project>
