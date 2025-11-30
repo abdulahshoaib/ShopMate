@@ -1,4 +1,4 @@
-using Microsoft.UI.Xaml;
+﻿using Microsoft.UI.Xaml;
 using Microsoft.UI.Xaml.Controls;
 using ShopMate.BL;
 using ShopMate.DTOs;
@@ -21,77 +21,86 @@ namespace ShopMate.GUI
         }
         private async void OnAddCustomerClicked(object sender, RoutedEventArgs e)
         {
-            bool f = false;
-            if (NameTextBox.Text == "")
+            bool fail = false;
+
+            if (string.IsNullOrWhiteSpace(NameTextBox.Text))
             {
-                NameTextBox.BorderBrush = new SolidColorBrush(ColorHelper.FromArgb(255, 255, 0, 0));
+                NameTextBox.BorderBrush = Red();
                 NameTextBox.Focus(FocusState.Programmatic);
-                f = true;
+                fail = true;
             }
-            else
+            else NameTextBox.BorderBrush = White();
+
+            if (string.IsNullOrWhiteSpace(PhoneTextBox.Text))
             {
-                NameTextBox.BorderBrush = new SolidColorBrush(ColorHelper.FromArgb(255, 255, 255, 255));
-            }
-            if (PhoneTextBox.Text == "")
-            {
-                PhoneTextBox.BorderBrush = new SolidColorBrush(ColorHelper.FromArgb(255, 255, 0, 0));
+                PhoneTextBox.BorderBrush = Red();
                 PhoneTextBox.Focus(FocusState.Programmatic);
-                f = true;
+                fail = true;
+            }
+            else PhoneTextBox.BorderBrush = White();
+
+            if (double.IsNaN(AgeNumberBox.Value) || AgeNumberBox.Value < 5)
+            {
+                AgeNumberBox.BorderBrush = Red();
+                AgeNumberBox.Focus(FocusState.Programmatic);
+                fail = true;
+            }
+            else AgeNumberBox.BorderBrush = White();
+
+            if (fail) return;
+
+
+            var customer = new CustomerDTO
+            {
+                Name = NameTextBox.Text.Trim(),
+                Phone = PhoneTextBox.Text.Trim(),
+                Address = AddressTextBox.Text.Trim(),
+                Age = (int)AgeNumberBox.Value,
+                Gender = (GenderComboBox.SelectedItem as ComboBoxItem)?.Content.ToString() ?? "Male"
+            };
+
+
+            bool success = await csBL.AddCustomerAsync(customer);
+
+            if (success)
+            {
+                await ShowDialog("Success", "Customer added successfully!");
+                ClearFields();
             }
             else
             {
-                PhoneTextBox.BorderBrush = new SolidColorBrush(ColorHelper.FromArgb(255, 255, 255, 255));
-            }
-            if (AgeTextBox.Text == "" || Convert.ToInt32(AgeTextBox.Text) < 5)
-            {
-                AgeTextBox.BorderBrush = new SolidColorBrush(ColorHelper.FromArgb(255, 255, 0, 0));
-                AgeTextBox.Focus(FocusState.Programmatic);
-                f = true;
-            }
-            else
-            {
-                AgeTextBox.BorderBrush = new SolidColorBrush(ColorHelper.FromArgb(255, 255, 255, 255));
-            }
-            if (!f)
-            {
-                var customer = new CustomerDTO
-                {
-                    Name = NameTextBox.Text.Trim(),
-                    Phone = PhoneTextBox.Text.Trim(),
-                    Address = AddressTextBox.Text,
-                    Age = Convert.ToInt32(AgeTextBox.Text),
-                    Gender = (GenderComboBox.SelectedItem as ComboBoxItem)?.Content.ToString() ?? "Male"
-                };
-                if(await csBL.AddCustomerAsync(customer))
-                {
-                    ContentDialog dialog = new ContentDialog
-                    {
-                        Title = "Success",
-                        Content = "Customer added successfully!",
-                        CloseButtonText = "OK",
-                        XamlRoot = this.XamlRoot
-                    };
-                    await dialog.ShowAsync();
-                    NameTextBox.Text = "";
-                    PhoneTextBox.Text = "";
-                    AddressTextBox.Text = "";
-                    AgeTextBox.Text = "";
-                    GenderComboBox.SelectedIndex = 0;
-                }
-                else
-                {
-                    ContentDialog dialog = new ContentDialog
-                    {
-                        Title = "Error",
-                        Content = "Failed to add customer. Please try again.",
-                        CloseButtonText = "OK",
-                        XamlRoot = this.XamlRoot
-                    };
-                    await dialog.ShowAsync();
-                }
+                await ShowDialog("Error", "Failed to add customer. Please try again.");
             }
         }
 
-        
+        private SolidColorBrush Red() =>
+            new SolidColorBrush(ColorHelper.FromArgb(255, 255, 0, 0));
+
+        private SolidColorBrush White() =>
+            new SolidColorBrush(ColorHelper.FromArgb(255, 255, 255, 255));
+
+        private void ClearFields()
+        {
+            NameTextBox.Text = "";
+            PhoneTextBox.Text = "";
+            AddressTextBox.Text = "";
+            GenderComboBox.SelectedIndex = 0;
+
+            AgeNumberBox.Value = double.NaN;
+            AgeNumberBox.BorderBrush = White();
+        }
+
+        private async Task ShowDialog(string title, string msg)
+        {
+            var dlg = new ContentDialog
+            {
+                Title = title,
+                Content = msg,
+                CloseButtonText = "OK",
+                XamlRoot = this.XamlRoot
+            };
+
+            await dlg.ShowAsync().AsTask();
+        }
     }
 }

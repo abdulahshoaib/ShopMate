@@ -112,7 +112,7 @@
                             </ComboBox>
 
                             <TextBlock Text="Age" Style="{StaticResource LabelStyle}"/>
-                            <TextBox x:Name="AgeTextBox" Style="{StaticResource InputStyle}"/>
+                            <NumberBox x:Name="AgeNumberBox" Style="{StaticResource InputStyle}"/>
 
                         </StackPanel>
                     </Border>
