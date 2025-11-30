@@ -1,3 +1,4 @@
+using Microsoft.UI;
 using Microsoft.UI.Xaml;
 using Microsoft.UI.Xaml.Controls;
 using Microsoft.UI.Xaml.Controls.Primitives;
@@ -52,13 +53,46 @@ namespace ShopMate.GUI.AdminGUI
 
         private async void OnSaveProductClicked(object sender, RoutedEventArgs e)
         {
-            if (selectedProduct is null)
+            if (ProductComboBox.SelectedIndex<0)
             {
                 await ShowDialog("Error", "Please select a product to edit.");
                 return;
             }
-
-            // Update values
+            bool f = false;
+            if (ProductNameTextBox.Text=="")
+            {
+                ProductNameTextBox.BorderBrush = new SolidColorBrush(ColorHelper.FromArgb(255, 255, 0, 0));
+                ProductNameTextBox.Focus(FocusState.Programmatic);
+                f = true;
+            }
+            else
+            {
+                ProductNameTextBox.BorderBrush = new SolidColorBrush(ColorHelper.FromArgb(255, 255, 255, 255));
+            }
+            if (PriceTextBox.Text == "")
+            {
+                PriceTextBox.BorderBrush = new SolidColorBrush(ColorHelper.FromArgb(255, 255, 0, 0));
+                PriceTextBox.Focus(FocusState.Programmatic);
+                f = true;
+            }
+            else
+            {
+                PriceTextBox.BorderBrush = new SolidColorBrush(ColorHelper.FromArgb(255, 255, 255, 255));
+            }
+            if(QuantityTextBox.Text == "")
+            {
+                QuantityTextBox.BorderBrush = new SolidColorBrush(ColorHelper.FromArgb(255, 255, 0, 0));
+                QuantityTextBox.Focus(FocusState.Programmatic);
+                f = true;
+            }
+            else
+            {
+                QuantityTextBox.BorderBrush = new SolidColorBrush(ColorHelper.FromArgb(255, 255, 255, 255));
+            }
+            if(f)
+            {
+                return;
+            }
             selectedProduct.Name = ProductNameTextBox.Text;
             selectedProduct.Description = DescriptionTextBox.Text;
 
