@@ -9,88 +9,66 @@ namespace ShopMate.DL
 {
     public class BillManagementDL
     {
-
-public async Task<int?> CreateBill(BillDTO billDTO, List<BillItemDTO> items)
-    {
-        try
+        public async Task<int?> CreateBill(BillDTO billDTO, List<BillItemDTO> items)
         {
-            var client = SupabaseInitializer.client;
-
-            // 1. Insert the bill
-            var billResponse = await client
-                .From<BillDTO>()
-                .Insert(billDTO);
-
-            if (billResponse.Models.Count == 0)
-                return null;
-
-            var createdBill = billResponse.Models[0];
-            int billId = createdBill.Id;
-
-            // Prepare items for insertion
-            foreach (var item in items)
+            try
             {
-                item.BillId = billId;
-                item.LineTotal = item.UnitPrice * item.Quantity;
-            }
+                var client = SupabaseInitializer.client;
 
-            // 2. Insert all bill items
-            var itemsResponse = await client
-                .From<BillItemDTO>()
-                .Insert(items);
+                var billResponse = await client
+                    .From<BillDTO>()
+                    .Insert(billDTO);
 
-            if (itemsResponse.Models.Count == 0)
-            {
-                // Optional: Implement rollback logic here if items insertion fails
-                return null;
-            }
+                if (billResponse.Models.Count == 0)
+                    return null;
 
-            // --- 3. DECREMENT STOCK (New Logic) ---
+                var createdBill = billResponse.Models[0];
+                int billId = createdBill.Id;
 
-            // Group items by ProductId to find the total quantity sold for each product
-            var soldProducts = items
-                .Where(i => i.ProductId.HasValue)
-                .GroupBy(i => i.ProductId.Value)
-                .Select(g => new
+                foreach (var item in items)
                 {
-                    ProductId = g.Key,
-                    QuantitySold = g.Sum(i => i.Quantity)
-                })
-                .ToList();
+                    item.BillId = billId;
+                    item.LineTotal = item.UnitPrice * item.Quantity;
+                }
 
-            // Perform atomic update for each unique product
-            foreach (var productSale in soldProducts)
-            {
-                // Create a temporary ProductDTO object to hold the ID
-                var productToUpdate = new ProductDTO { Id = productSale.ProductId };
+                var itemsResponse = await client
+                    .From<BillItemDTO>()
+                    .Insert(items);
 
-                // Set the update dictionary for the decrement operation
-                var updatePayload = new Dictionary<string, object>
-            {
-                // Tells PostgREST to subtract the QuantitySold from the 'stock' column
-                {"stock", productSale.QuantitySold}
-            };
+                if (itemsResponse.Models.Count == 0)
+                    return null;
 
-                // Use the client's Update method with the Set method for atomic decrement
-                // This translates to: SET stock = stock - <QuantitySold> WHERE id = <ProductId>
-                await client
-                    .From<ProductDTO>()
-                    .Where(p => p.ID == productSale.ProductId)
-                    .Decrement(productToUpdate, updatePayload);
+                foreach (var item in items)
+                {
+                    var productResp = await client
+                        .From<ProductDTO>()
+                        .Where(p => p.ID == item.ProductId)
+                        .Get();
+
+                    if (productResp.Models.Count == 0)
+                        continue;
+
+                    var product = productResp.Models[0];
+
+                    product.Stock -= item.Quantity;
+                    if (product.Stock < 0)
+                        product.Stock = 0;
+
+                    await client
+                        .From<ProductDTO>()
+                        .Update(product);
+                }
+
+                return billId;
             }
-
-            // --- END DECREMENT STOCK ---
-
-            return billId;
+            catch
+            {
+                return null;
+            }
         }
-        catch (Exception)
-        {
-            // Log the exception (recommended)
-            return null;
-        }
-    }
 
-    public async Task<List<BillDTO>> GetAllBills()
+
+        public async Task<List<BillDTO>> GetAllBills()
         {
             try
             {

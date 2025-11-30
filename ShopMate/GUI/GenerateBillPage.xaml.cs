@@ -165,6 +165,7 @@ namespace ShopMate.GUI
 
             int? billId = await bmBL.CreateBill(billDTO, itemDTOs);
             _ = LoadKPI();
+            _ = LoadProducts();
 
             if (billId == null)
             {
