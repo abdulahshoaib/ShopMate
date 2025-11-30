@@ -5,11 +5,13 @@ using Microsoft.UI.Xaml.Data;
 using Microsoft.UI.Xaml.Input;
 using Microsoft.UI.Xaml.Media;
 using Microsoft.UI.Xaml.Navigation;
+using ShopMate.GUI.SalesPersonGUI;
 using System;
 using System.Collections.Generic;
 using System.IO;
 using System.Linq;
 using System.Runtime.InteropServices.WindowsRuntime;
+using System.Xml.Serialization;
 using Windows.Foundation;
 using Windows.Foundation.Collections;
 
@@ -40,7 +42,8 @@ namespace ShopMate.GUI.Controls
         private void OnAddProductClicked(object sender, RoutedEventArgs e)
             => Navigate(typeof(SalesAddProduct));
 
-
+        private void OnViewInventorClicked(object sender, RoutedEventArgs e)
+            => Navigate(typeof(SalesViewInventory));
         private void OnSignOutClicked(object sender, RoutedEventArgs e)
             => Navigate(typeof(LoginPage));
 

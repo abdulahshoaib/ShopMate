@@ -44,6 +44,7 @@
                     <!--<Button Content="Generate Report" Click="OnGenerateReportClicked"/>-->
                     <Button Content="Add Customer" Click="OnAddCustomerClicked"/>
                     <Button Content="Add Product" Click="OnAddProductClicked"/>
+                    <Button Content="View Inventory" Click="OnViewInventorClicked"/>
                     <StackPanel Grid.Row="2"
                         Spacing="10"
                         Margin="0,0,0,20">
