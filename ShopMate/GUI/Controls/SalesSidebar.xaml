@@ -33,6 +33,7 @@
                                Foreground="#E5E7EB"
                                FontSize="14"
                                FontWeight="SemiBold"
+                               HorizontalAlignment="Left"
                                VerticalAlignment="Center"/>
                 </Grid>
 
@@ -45,7 +46,9 @@
                             <Setter Property="FontSize" Value="14"/>
                             <Setter Property="Foreground" Value="#F3F4F6"/>
                             <Setter Property="Background" Value="Transparent"/>
-                            <Setter Property="BorderBrush" Value="Transparent"/>
+                            <Setter Property="BorderBrush" Value="#1F2937"/>
+                            <Setter Property="BorderThickness" Value="1"/>
+                            <Setter Property="CornerRadius" Value="10" />
                             <Setter Property="HorizontalAlignment" Value="Left"/>
                             <Setter Property="Padding" Value="12,5"/>
                         </Style>
@@ -57,13 +60,14 @@
                     <Button Content="Add Product" Click="OnAddProductClicked"/>
                     <Button Content="View Inventory" Click="OnViewInventorClicked"/>
                 </StackPanel>
-                <Rectangle Height="1"
-                           Fill="#1F2937"
-                           Margin="0,0,0,5"/>
+                
             </StackPanel>
 
 
             <StackPanel Grid.Row="1" Padding="10" Spacing="10">
+                <Rectangle Height="1"
+                           Fill="#1F2937"
+                           Margin="0,0,0,5"/>
                 <Button Content="Sign Out"
                         Click="OnSignOutClicked"
                         Foreground="#EF4444"

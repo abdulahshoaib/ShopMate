@@ -14,8 +14,6 @@ namespace ShopMate.GUI.Controls
         private void OnDashboardClicked(object sender, RoutedEventArgs e)
             => Navigate(typeof(AdminDashboardPage));
 
-        private void OnGenerateReportClicked(object sender, RoutedEventArgs e)
-            => Navigate(typeof(GenerateReportPage));
 
         private void OnManageEmployeesClicked(object sender, RoutedEventArgs e)
             => Navigate(typeof(ManageEmployeesPage));
