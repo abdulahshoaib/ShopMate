@@ -25,8 +25,8 @@ namespace ShopMate.GUI
 
             string name = (ProductNameTextBox.Text ?? string.Empty).Trim();
             string desc = (DescriptionTextBox.Text ?? string.Empty).Trim();
-            string qty = (QuantityTextBox.Text ?? string.Empty).Trim();
-            string pr = (PriceTextBox.Text ?? string.Empty).Trim();
+            string qty = (QuantityNumberBox.Text ?? string.Empty).Trim();
+            string pr = (PriceNumberBox.Text ?? string.Empty).Trim();
 
             // ---------------------------
             // Name validation
@@ -47,13 +47,13 @@ namespace ShopMate.GUI
             // ---------------------------
             if (!int.TryParse(qty, out int stock) || stock < 0)
             {
-                QuantityTextBox.BorderBrush = new SolidColorBrush(Colors.Red);
-                QuantityTextBox.Focus(FocusState.Programmatic);
+                QuantityNumberBox.BorderBrush = new SolidColorBrush(Colors.Red);
+                QuantityNumberBox.Focus(FocusState.Programmatic);
                 hasError = true;
             }
             else
             {
-                QuantityTextBox.BorderBrush = new SolidColorBrush(Colors.White);
+                QuantityNumberBox.BorderBrush = new SolidColorBrush(Colors.White);
             }
 
             // ---------------------------
@@ -61,13 +61,13 @@ namespace ShopMate.GUI
             // ---------------------------
             if (!decimal.TryParse(pr, out decimal price) || price < 0m)
             {
-                PriceTextBox.BorderBrush = new SolidColorBrush(Colors.Red);
-                PriceTextBox.Focus(FocusState.Programmatic);
+                PriceNumberBox.BorderBrush = new SolidColorBrush(Colors.Red);
+                PriceNumberBox.Focus(FocusState.Programmatic);
                 hasError = true;
             }
             else
             {
-                PriceTextBox.BorderBrush = new SolidColorBrush(Colors.White);
+                PriceNumberBox.BorderBrush = new SolidColorBrush(Colors.White);
             }
 
             // ---------------------------
@@ -142,8 +142,8 @@ namespace ShopMate.GUI
                     // Clear fields
                     ProductNameTextBox.Text = "";
                     DescriptionTextBox.Text = "";
-                    QuantityTextBox.Text = "";
-                    PriceTextBox.Text = "";
+                    QuantityNumberBox.Text = "";
+                    PriceNumberBox.Text = "";
 
                     // Reset expiry UI
                     if (ExpiryDatePicker != null)
@@ -227,6 +227,19 @@ namespace ShopMate.GUI
             {
                 return false;
             }
+        }
+
+        private void OnBackClicked(object sender, RoutedEventArgs e)
+        {
+            Navigate(typeof(SalesPersonDashboardPage));
+        }
+
+        private void Navigate(Type t)
+        {
+            var window = (Application.Current as App)?._window;
+            var frame = window?.Content as Frame;
+
+            frame?.Navigate(t);
         }
     }
 }
