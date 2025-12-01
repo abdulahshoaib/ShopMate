@@ -11,7 +11,7 @@ namespace ShopMate.GUI
 {
     public sealed partial class AddEmployeePage : Page
     {
-        private readonly EmployManagementBL emBL = new EmployManagementBL();
+        private readonly EmployeeManagementBL emBL = new EmployeeManagementBL();
         private readonly UserManagementBL umBL = new UserManagementBL();
 
         public AddEmployeePage()

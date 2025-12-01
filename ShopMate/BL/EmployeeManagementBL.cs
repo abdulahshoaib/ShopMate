@@ -5,10 +5,10 @@ using System.Threading.Tasks;
 
 namespace ShopMate.BL
 {
-    public class EmployManagementBL
+    public class EmployeeManagementBL
     {
         private readonly EmployManagementDL emDL;
-        public EmployManagementBL()
+        public EmployeeManagementBL()
         {
             emDL = new EmployManagementDL();
         }

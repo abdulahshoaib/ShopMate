@@ -17,13 +17,13 @@ namespace ShopMate.GUI.AdminGUI
         private UserDTO? selectedUser = new();
 
         private readonly UserManagementBL umBL;
-        private readonly EmployManagementBL emBL;
+        private readonly EmployeeManagementBL emBL;
         public EditEmployeePage()
         {
             this.InitializeComponent();
 
             this.umBL = new UserManagementBL();
-            this.emBL = new EmployManagementBL();
+            this.emBL = new EmployeeManagementBL();
             LoadData();
         }
 

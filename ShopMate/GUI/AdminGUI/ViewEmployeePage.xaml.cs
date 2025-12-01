@@ -11,7 +11,7 @@ namespace ShopMate.GUI.AdminGUI
     public sealed partial class ViewEmployeePage : Page
     {
         private List<EmployeeViewModel> viewModels = [];
-        private readonly EmployManagementBL emBL = new EmployManagementBL();
+        private readonly EmployeeManagementBL emBL = new EmployeeManagementBL();
         private readonly UserManagementBL umBL = new UserManagementBL();
 
         public ViewEmployeePage()

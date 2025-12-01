@@ -11,12 +11,12 @@ namespace ShopMate.GUI.AdminGUI
     {
         private List<EmployeeDTO> employees = [];
         private EmployeeDTO selectedEmployee = new EmployeeDTO();
-        private readonly EmployManagementBL emBL;
+        private readonly EmployeeManagementBL emBL;
         public DeleteEmployeePage()
         {
             InitializeComponent();
 
-            this.emBL = new EmployManagementBL();
+            this.emBL = new EmployeeManagementBL();
             LoadEmployees();
         }
 

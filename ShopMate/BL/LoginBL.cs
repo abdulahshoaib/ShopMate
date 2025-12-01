@@ -26,7 +26,7 @@ namespace ShopMate.BL
 
             if (user.EmployeeID != null)
             {
-                var emBL = new EmployManagementBL();
+                var emBL = new EmployeeManagementBL();
                 GlobalSession.CurrentEmployee = await emBL.GetEmployee(user.EmployeeID.Value);
             }
 
