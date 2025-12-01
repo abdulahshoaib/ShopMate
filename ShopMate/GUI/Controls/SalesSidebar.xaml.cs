@@ -37,7 +37,7 @@ namespace ShopMate.GUI.Controls
 
         private void OnSettingsClicked(object sender, RoutedEventArgs e)
         {
-            // Navigate(typeof(SalesSettingsPage));
+            Navigate(typeof(SalesSettingsPage));
         }
 
         private void OnUpdateStockClicked(object sender, RoutedEventArgs e)
