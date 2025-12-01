@@ -6,228 +6,299 @@
     xmlns:dto="using:ShopMate.DTOs"
     Background="{ThemeResource ApplicationPageBackgroundThemeBrush}">
 
-    <!-- Animations for sidebar toggle -->
     <Page.Resources>
-        <!-- Makes ListViewItem stretch fully for column alignment -->
+
+        <!-- Make ListView items fill width -->
         <Style x:Key="ListViewItemStretchStyle" TargetType="ListViewItem">
-            <Setter Property="HorizontalContentAlignment" Value="Stretch"/>
-            <Setter Property="Padding" Value="0"/>
-            <Setter Property="Margin" Value="0"/>
+            <Setter Property="HorizontalContentAlignment" Value="Stretch" />
+            <Setter Property="Padding" Value="0" />
+            <Setter Property="Margin" Value="0" />
         </Style>
+
+        <!-- Minimal header label -->
+        <Style x:Key="HeaderLabel" TargetType="TextBlock">
+            <Setter Property="FontWeight" Value="SemiBold" />
+            <Setter Property="Foreground" Value="#E5E7EB" />
+            <Setter Property="FontSize" Value="14" />
+        </Style>
+
+        <!-- Dark panel card -->
+        <Style x:Key="CardStyle" TargetType="Border">
+            <Setter Property="Background" Value="#1A1C1E" />
+            <Setter Property="BorderBrush" Value="#2A2D31" />
+            <Setter Property="BorderThickness" Value="1" />
+            <Setter Property="CornerRadius" Value="12" />
+            <Setter Property="Padding" Value="20" />
+        </Style>
+
+        <!-- Dark inputs -->
+        <Style x:Key="InputComboStyle" TargetType="ComboBox">
+            <Setter Property="Background" Value="#1F2123" />
+            <Setter Property="Foreground" Value="White" />
+            <Setter Property="BorderBrush" Value="#3A3D40" />
+            <Setter Property="BorderThickness" Value="1" />
+            <Setter Property="Padding" Value="8" />
+            <Setter Property="CornerRadius" Value="6" />
+            <Setter Property="FontSize" Value="14" />
+        </Style>
+
+        <Style x:Key="NumberBoxStyle" TargetType="NumberBox">
+            <Setter Property="Background" Value="#1F2123" />
+            <Setter Property="Foreground" Value="White" />
+            <Setter Property="BorderBrush" Value="#3A3D40" />
+            <Setter Property="BorderThickness" Value="1" />
+            <Setter Property="Padding" Value="8" />
+            <Setter Property="CornerRadius" Value="6" />
+            <Setter Property="FontSize" Value="14" />
+            <Setter Property="SpinButtonPlacementMode" Value="Inline" />
+        </Style>
+
     </Page.Resources>
 
+
     <Grid>
-        <!-- Main layout with sidebar + content -->
         <Grid.ColumnDefinitions>
-            <ColumnDefinition x:Name="SidebarColumn" Width="170"/>
-            <ColumnDefinition Width="*"/>
+            <ColumnDefinition x:Name="SidebarColumn" Width="170" />
+            <ColumnDefinition Width="*" />
         </Grid.ColumnDefinitions>
 
-        <!-- Sidebar -->
-        <controls:SalesSidebarControl Grid.Column="0"/>
+        <!-- SIDEBAR -->
+        <controls:SalesSidebarControl Grid.Column="0" />
 
-        <!-- MAIN CONTENT -->
+
+        <!-- ==== MAIN CONTENT ==== -->
         <ScrollViewer Grid.Column="1">
             <StackPanel Padding="40" Spacing="20">
 
-                <!-- Page Header -->
-                <TextBlock Text="Generate Bill"
-                           FontSize="32"
-                           FontWeight="SemiBold"/>
-                <TextBlock Text="Create bills quickly and review billing metrics."
-                           FontSize="12"
-                           Foreground="Gray"/>
-
-                <!-- KPI Cards -->
-                <Grid ColumnSpacing="20" RowSpacing="20" Margin="0,20,0,0">
+                <!-- BACK + TITLE -->
+                <Grid ColumnSpacing="10">
                     <Grid.ColumnDefinitions>
-                        <ColumnDefinition Width="*"/>
-                        <ColumnDefinition Width="*"/>
-                        <ColumnDefinition Width="*"/>
-                        <ColumnDefinition Width="*"/>
+                        <ColumnDefinition Width="Auto" />
+                        <ColumnDefinition Width="*" />
                     </Grid.ColumnDefinitions>
 
-                    <!-- KPI cards -->
-                    <Border Grid.Column="0" Background="#3B82F6" CornerRadius="18" Padding="18">
-                        <StackPanel>
-                            <TextBlock Text="Total Sales" Foreground="White" FontWeight="Bold" FontSize="14"/>
-                            <!-- Changed currency symbol to Pakistani Rupee (₨) -->
-                            <TextBlock x:Name="TotalSalesTextBlock" Text="₨0.00" Foreground="White" FontSize="22" FontWeight="SemiBold" Margin="0,6,0,0"/>
-                            <TextBlock Text="Today" Foreground="#E6F0FF" FontSize="12" Margin="0,6,0,0"/>
-                        </StackPanel>
-                    </Border>
+                    <Button Width="32"
+                            Height="32"
+                            Background="#1F2123"
+                            BorderBrush="#3A3D40"
+                            BorderThickness="1"
+                            CornerRadius="6"
+                            Padding="0"
+                            Click="OnBackClicked">
+                        <Image Source="ms-appx:///Assets/Icons/back.png"
+                               Width="20" Height="20"/>
+                    </Button>
 
-                    <Border Grid.Column="1" Background="#10B981" CornerRadius="18" Padding="18">
-                        <StackPanel>
-                            <TextBlock Text="Bills Today" Foreground="White" FontWeight="Bold" FontSize="14"/>
-                            <TextBlock x:Name="TotalBillsTextBlock" Text="0" Foreground="White" FontSize="22" FontWeight="SemiBold" Margin="0,6,0,0"/>
-                            <TextBlock Text="Created" Foreground="#EAF7EE" FontSize="12" Margin="0,6,0,0"/>
-                        </StackPanel>
-                    </Border>
-
-                    <Border Grid.Column="2" Background="#8B5CF6" CornerRadius="18" Padding="18">
-                        <StackPanel>
-                            <TextBlock Text="Average Bill" Foreground="White" FontWeight="Bold" FontSize="14"/>
-                            <TextBlock x:Name="AvgBillValTextBlock" Text="₨0.00" Foreground="White" FontSize="22" FontWeight="SemiBold" Margin="0,6,0,0"/>
-                            <TextBlock Text="Today" Foreground="#EFE6FF" FontSize="12" Margin="0,6,0,0"/>
-                        </StackPanel>
-                    </Border>
-
-                    <Border Grid.Column="3" Background="#F59E0B" CornerRadius="18" Padding="18">
-                        <StackPanel>
-                            <TextBlock Text="Low Stock" Foreground="White" FontWeight="Bold" FontSize="14"/>
-                            <TextBlock x:Name="LowStockTextBlock" Text="0" Foreground="White" FontSize="22" FontWeight="SemiBold" Margin="0,6,0,0"/>
-                            <TextBlock Text="Products" Foreground="#FFF7E6" FontSize="12" Margin="0,6,0,0"/>
-                        </StackPanel>
-                    </Border>
+                    <TextBlock Text="Generate Bill"
+                               Grid.Column="1"
+                               FontSize="28"
+                               FontWeight="SemiBold"
+                               Foreground="White"
+                               VerticalAlignment="Center" />
                 </Grid>
 
-                <!-- BILL CREATION AREA -->
-                <Grid Margin="0,20,0,0" ColumnSpacing="20">
+                <TextBlock Text="Create bills quickly and add items."
+                           FontSize="13"
+                           Foreground="#9CA3AF" />
+
+                <!-- KPI SLIM ROW -->
+                <StackPanel Orientation="Horizontal"
+                            Spacing="24"
+                            Margin="0,4,0,10">
+
+                    <StackPanel Orientation="Horizontal" Spacing="4">
+                        <TextBlock Text="Sales:"
+                                   Foreground="#9CA3AF"
+                                   FontSize="13" />
+                        <TextBlock x:Name="TotalSalesTextBlock"
+                                   Foreground="White"
+                                   FontSize="13" />
+                    </StackPanel>
+
+                    <StackPanel Orientation="Horizontal" Spacing="4">
+                        <TextBlock Text="Bills:"
+                                   Foreground="#9CA3AF"
+                                   FontSize="13" />
+                        <TextBlock x:Name="TotalBillsTextBlock"
+                                   Foreground="White"
+                                   FontSize="13" />
+                    </StackPanel>
+
+                    <StackPanel Orientation="Horizontal" Spacing="4">
+                        <TextBlock Text="Avg:"
+                                   Foreground="#9CA3AF"
+                                   FontSize="13" />
+                        <TextBlock x:Name="AvgBillValTextBlock"
+                                   Foreground="White"
+                                   FontSize="13" />
+                    </StackPanel>
+
+                    <StackPanel Orientation="Horizontal" Spacing="4">
+                        <TextBlock Text="Low Stock:"
+                                   Foreground="#9CA3AF"
+                                   FontSize="13" />
+                        <TextBlock x:Name="LowStockTextBlock"
+                                   Foreground="White"
+                                   FontSize="13" />
+                    </StackPanel>
+
+                </StackPanel>
+
+
+                <!-- MAIN 2-COLUMN LAYOUT -->
+                <Grid ColumnSpacing="20" Margin="0,10,0,0">
                     <Grid.ColumnDefinitions>
-                        <ColumnDefinition Width="2*"/>
-                        <ColumnDefinition Width="*"/>
+                        <ColumnDefinition Width="2*" />
+                        <ColumnDefinition Width="*" />
                     </Grid.ColumnDefinitions>
 
-                    <!-- LEFT SECTION: Add items -->
-                    <Border Grid.Column="0" Background="#0B1220" CornerRadius="12" Padding="20">
+
+                    <!-- LEFT CARD: BILL CREATION -->
+                    <Border Grid.Column="0" Style="{StaticResource CardStyle}">
                         <StackPanel Spacing="12">
 
-                            <TextBlock Text="Create New Bill"
+                            <TextBlock Text="Bill Details"
                                        FontSize="20"
                                        FontWeight="SemiBold"
-                                       Foreground="#E5E7EB"/>
+                                       Foreground="White" />
 
-                            <TextBlock Text="Select customer, add products and quantities."
-                                       FontSize="12"
-                                       Foreground="Gray"/>
+                            <!-- Customer -->
+                            <ComboBox x:Name="CustomerComboBox"
+                                      Header="Select Customer"
+                                      Style="{StaticResource InputComboStyle}"
+                                      DisplayMemberPath="Name"
+                                      SelectedValuePath="ID"
+                                      Width="320" />
 
-                            <!-- Customer selection -->
-                            <StackPanel Orientation="Horizontal" Spacing="12" Margin="0,6,0,0">
-                                <ComboBox Header="Select Customer"
-                                          x:Name="CustomerComboBox"
-                                          Width="320"
-                                          DisplayMemberPath="Name"
-                                          SelectedValuePath="ID"/>
-                            </StackPanel>
 
-                            <!-- Product + qty + add button -->
+                            <!-- Product + quantity + add -->
                             <StackPanel Orientation="Horizontal" Spacing="12">
 
-                                <ComboBox Header="Select Product"
-                                      x:Name="ProductComboBox"
-                                      Width="320"
-                                      DisplayMemberPath="Name"
-                                      SelectedValuePath="Id"
-                                      SelectionChanged="ProductComboBox_SelectionChanged"/>
+                                <ComboBox x:Name="ProductComboBox"
+                                          Header="Product"
+                                          Width="320"
+                                          Style="{StaticResource InputComboStyle}"
+                                          DisplayMemberPath="Name"
+                                          SelectedValuePath="Id"
+                                          SelectionChanged="ProductComboBox_SelectionChanged" />
 
                                 <NumberBox x:Name="QuantityNumberBox"
-                                           Header="Quantity"
+                                           Header="Qty"
                                            Minimum="1"
-                                           SpinButtonPlacementMode="Inline"/>
+                                           Style="{StaticResource NumberBoxStyle}" />
 
-
-                                <!-- Add Item Button -->
                                 <Button Content="Add"
-                                        Click="AddItem_Click"
-                                        Grid.Column="2"
+                                        Width="80" Height="36"
                                         VerticalAlignment="Bottom"
-                                        Background="green"
+                                        Background="#3B82F6"
                                         Foreground="White"
-                                        BorderBrush="green"
-                                        Margin="0,4,0,0"
-                                        Width="80"
-                                        VerticalContentAlignment="Center"/>
+                                        BorderBrush="Transparent"
+                                        Click="AddItem_Click" />
                             </StackPanel>
 
-                            <!-- Table header -->
-                            <Grid Margin="0,12,0,4">
+
+                            <!-- TABLE HEADER -->
+                            <Grid Margin="0,8,0,4" ColumnSpacing="10">
                                 <Grid.ColumnDefinitions>
-                                    <ColumnDefinition Width="2*"/>
-                                    <ColumnDefinition Width="*"/>
-                                    <ColumnDefinition Width="80"/>
-                                    <ColumnDefinition Width="*"/>
-                                    <ColumnDefinition Width="100"/>
+                                    <ColumnDefinition Width="2*" />
+                                    <ColumnDefinition Width="*" />
+                                    <ColumnDefinition Width="70" />
+                                    <ColumnDefinition Width="*" />
+                                    <ColumnDefinition Width="80" />
                                 </Grid.ColumnDefinitions>
 
-                                <TextBlock Text="Product" Grid.Column="0" FontWeight="SemiBold" Foreground="#D1D5DB"/>
-                                <TextBlock Text="Price"   Grid.Column="1" FontWeight="SemiBold" Foreground="#D1D5DB" HorizontalAlignment="Right" TextAlignment="Right"/>
-                                <TextBlock Text="Qty"     Grid.Column="2" FontWeight="SemiBold" Foreground="#D1D5DB" HorizontalAlignment="Center"/>
-                                <TextBlock Text="Total"   Grid.Column="3" FontWeight="SemiBold" Foreground="#D1D5DB" HorizontalAlignment="Right" TextAlignment="Right"/>
-                                <TextBlock Text=""        Grid.Column="4"/>
+                                <TextBlock Text="Product" Style="{StaticResource HeaderLabel}" />
+                                <TextBlock Text="Price" Grid.Column="1" Style="{StaticResource HeaderLabel}"
+                                           HorizontalAlignment="Right" />
+                                <TextBlock Text="Qty" Grid.Column="2" Style="{StaticResource HeaderLabel}"
+                                           HorizontalAlignment="Center" />
+                                <TextBlock Text="Total" Grid.Column="3" Style="{StaticResource HeaderLabel}"
+                                           HorizontalAlignment="Right" />
                             </Grid>
 
-                            <!-- Item rows -->
-                            <ListView x:Name="BillItemsListView"
-                                      ItemsSource="{Binding BillItems}"
-                                      Margin="0,12,0,0"
-                                      ItemContainerStyle="{StaticResource ListViewItemStretchStyle}"
-                                      SelectionMode="None">
+                            <Rectangle Height="1" Fill="#2A2D31" />
 
-                                <ListView.ItemTemplate>
-                                    <DataTemplate x:DataType="dto:BillItemVM">
-                                        <Grid Padding="8" HorizontalAlignment="Stretch" VerticalAlignment="Center">
-                                            <Grid.ColumnDefinitions>
-                                                <ColumnDefinition Width="2*"/>
-                                                <ColumnDefinition Width="*"/>
-                                                <ColumnDefinition Width="80"/>
-                                                <ColumnDefinition Width="*"/>
-                                                <ColumnDefinition Width="100"/>
-                                            </Grid.ColumnDefinitions>
 
-                                            <TextBlock Text="{x:Bind ProductName}" Grid.Column="0" VerticalAlignment="Center"/>
+                            <!-- BILL ITEMS LIST -->
+                                <ListView x:Name="BillItemsListView"
+                                          ItemsSource="{Binding BillItems}"
+                                          ItemContainerStyle="{StaticResource ListViewItemStretchStyle}"
+                                          SelectionMode="None">
 
-                                            <!-- show rupee symbol and align right -->
-                                            <TextBlock Grid.Column="1" HorizontalAlignment="Right" TextAlignment="Right" VerticalAlignment="Center">
-                                                <Run Text="{x:Bind UnitPrice, Mode=OneWay}"/>
-                                            </TextBlock>
+                                    <ListView.ItemTemplate>
+                                        <DataTemplate x:DataType="dto:BillItemVm">
+                                            <Grid Padding="8" ColumnSpacing="10">
+                                                <Grid.ColumnDefinitions>
+                                                    <ColumnDefinition Width="2*" />
+                                                    <ColumnDefinition Width="*" />
+                                                    <ColumnDefinition Width="70" />
+                                                    <ColumnDefinition Width="*" />
+                                                    <ColumnDefinition Width="80" />
+                                                </Grid.ColumnDefinitions>
 
-                                            <TextBlock Text="{x:Bind Quantity}" Grid.Column="2" HorizontalAlignment="Center" VerticalAlignment="Center"/>
+                                                <TextBlock Text="{x:Bind ProductName}"
+                                                           VerticalAlignment="Center"
+                                                           Foreground="White" />
 
-                                            <TextBlock Grid.Column="3" HorizontalAlignment="Right" TextAlignment="Right" VerticalAlignment="Center">
-                                                <Run Text="{x:Bind Total, Mode=OneWay}"/>
-                                            </TextBlock>
+                                                <TextBlock Text="{x:Bind UnitPrice}"
+                                                           Grid.Column="1"
+                                                           HorizontalAlignment="Right"
+                                                           VerticalAlignment="Center"
+                                                           Foreground="White" />
 
-                                            <Button Content="Remove"
-                                                    Grid.Column="4"
-                                                    Width="80"
-                                                    Height="32"
-                                                    Margin="12,0,0,0"
-                                                    Background="Red"
-                                                    Foreground="White"
-                                                    Click="RemoveItem_Click"/>
-                                        </Grid>
-                                    </DataTemplate>
-                                </ListView.ItemTemplate>
+                                            <TextBlock Text="{x:Bind Quantity, Mode=OneWay}"
+                                                           Grid.Column="2"
+                                                           HorizontalAlignment="Center"
+                                                           VerticalAlignment="Center"
+                                                           Foreground="White" />
 
-                            </ListView>
+                                            <TextBlock Text="{x:Bind Total, Mode=OneWay}"
+                                                           Grid.Column="3"
+                                                           HorizontalAlignment="Right"
+                                                           VerticalAlignment="Center"
+                                                           Foreground="White" />
 
+                                                <Button Content="Remove"
+                                                        Grid.Column="4"
+                                                        Width="70"
+                                                        Background="#7A0000"
+                                                        Foreground="White"
+                                                        BorderBrush="Transparent"
+                                                        Click="RemoveItem_Click" />
+                                            </Grid>
+                                        </DataTemplate>
+                                    </ListView.ItemTemplate>
+                                </ListView>
+                                
                         </StackPanel>
                     </Border>
 
-                    <!-- RIGHT SECTION: Summary -->
-                    <Border Grid.Column="1" Background="#0B1220" CornerRadius="12" Padding="20">
-                        <StackPanel Spacing="12">
-                            <TextBlock Text="Bill Summary"
+                    <!-- RIGHT CARD: SUMMARY -->
+                    <Border Grid.Column="1" Style="{StaticResource CardStyle}">
+                        <StackPanel Spacing="16">
+
+                            <TextBlock Text="Summary"
                                        FontSize="20"
                                        FontWeight="SemiBold"
-                                       Foreground="#E5E7EB"/>
+                                       Foreground="White" />
 
-                            <TextBlock x:Name="TotalItemsTextBlock" Foreground="#D1D5DB"/>
-                            <TextBlock x:Name="SubtotalTextBlock" Foreground="#D1D5DB"/>
+                            <TextBlock x:Name="TotalItemsTextBlock" Foreground="#D1D5DB" />
+                            <TextBlock x:Name="SubtotalTextBlock" Foreground="#D1D5DB" />
                             <TextBlock x:Name="TotalTextBlock"
                                        FontSize="20"
                                        FontWeight="Bold"
-                                       Foreground="#E5E7EB"/>
+                                       Foreground="White" />
+
                             <Button Content="Generate Bill"
-                                    Click="GenerateBill_Click"
                                     Background="#3B82F6"
                                     Foreground="White"
                                     BorderBrush="Transparent"
+                                    CornerRadius="6"
                                     Padding="10,8"
-                                    CornerRadius="6"/>
+                                    Click="GenerateBill_Click" />
                         </StackPanel>
                     </Border>
+
                 </Grid>
 
             </StackPanel>

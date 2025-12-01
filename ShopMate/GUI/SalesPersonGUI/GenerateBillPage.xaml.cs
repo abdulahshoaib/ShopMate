@@ -18,8 +18,7 @@ namespace ShopMate.GUI
         private readonly CustomerServiceBL csBL;
         private readonly ProductManagementBL pmBL;
 
-        // Properly initialize collection
-        public ObservableCollection<BillItemVM> BillItems { get; } = new ObservableCollection<BillItemVM>();
+        public ObservableCollection<BillItemVm> BillItems { get; } = [];
 
         public GenerateBillPage()
         {
@@ -110,13 +109,24 @@ namespace ShopMate.GUI
             {
                 if (ProductComboBox.SelectedItem is ProductDTO pDTO)
                 {
-                    QuantityNumberBox.Maximum = pDTO.Stock;
-                    QuantityNumberBox.Value = 1;
+                    if (pDTO.Stock <= 0)
+                    {
+                        QuantityNumberBox.Minimum = 0;
+                        QuantityNumberBox.Maximum = 0;
+                        QuantityNumberBox.Value = 0;
+                    }
+                    else
+                    {
+                        QuantityNumberBox.Minimum = 1;
+                        QuantityNumberBox.Maximum = pDTO.Stock;
+                        QuantityNumberBox.Value = 1;
+                    }
                 }
                 else
                 {
-                    QuantityNumberBox.Maximum = 1;
-                    QuantityNumberBox.Value = 1;
+                    QuantityNumberBox.Minimum = 0;
+                    QuantityNumberBox.Maximum = 0;
+                    QuantityNumberBox.Value = 0;
                 }
             }
             catch (Exception ex)
@@ -125,25 +135,35 @@ namespace ShopMate.GUI
             }
         }
 
+
         private void AddItem_Click(object sender, RoutedEventArgs e)
         {
             try
             {
-                if (ProductComboBox.SelectedItem is ProductDTO selectedProd &&
-                    QuantityNumberBox.Value > 0)
+                if (ProductComboBox.SelectedItem is ProductDTO selectedProd)
                 {
+                    // no stock left -> do nothing
+                    if (selectedProd.Stock <= 0)
+                        return;
+
                     int qty = (int)QuantityNumberBox.Value;
+
+                    if (qty <= 0)
+                        return;
+
+                    // clamp to available stock
+                    if (qty > selectedProd.Stock)
+                        qty = selectedProd.Stock;
 
                     var existing = BillItems.FirstOrDefault(i => i.ProductId == selectedProd.ID);
 
                     if (existing != null)
                     {
-                        existing.Quantity += qty;
-                        // If BillItemVM does not notify Total automatically, ensure UI refresh (depends on VM implementation)
+                        existing.Quantity += qty;   // UI will now update via INotifyPropertyChanged
                     }
                     else
                     {
-                        BillItems.Add(new BillItemVM
+                        BillItems.Add(new BillItemVm
                         {
                             ProductId = selectedProd.ID,
                             ProductName = selectedProd.Name,
@@ -152,7 +172,24 @@ namespace ShopMate.GUI
                         });
                     }
 
-                    QuantityNumberBox.Value = 1;
+                    // decrement local stock
+                    selectedProd.Stock -= qty;
+                    if (selectedProd.Stock < 0)
+                        selectedProd.Stock = 0;
+
+                    if (selectedProd.Stock <= 0)
+                    {
+                        QuantityNumberBox.Minimum = 0;
+                        QuantityNumberBox.Maximum = 0;
+                        QuantityNumberBox.Value = 0;
+                    }
+                    else
+                    {
+                        QuantityNumberBox.Minimum = 1;
+                        QuantityNumberBox.Maximum = selectedProd.Stock;
+                        QuantityNumberBox.Value = 1;
+                    }
+
                     UpdateSummary();
                 }
             }
@@ -166,10 +203,43 @@ namespace ShopMate.GUI
         {
             try
             {
-                if (sender is Button btn && btn.DataContext is BillItemVM item)
+                switch ((sender as FrameworkElement)?.DataContext)
                 {
-                    BillItems.Remove(item);
-                    UpdateSummary();
+                    case BillItemVm item:
+                    {
+                        if (ProductComboBox.ItemsSource is System.Collections.IEnumerable productsEnum)
+                        {
+                            foreach (var p in productsEnum)
+                            {
+                                if (p is not ProductDTO prod || prod.ID != item.ProductId) continue;
+                                prod.Stock += item.Quantity;
+
+                                if (ProductComboBox.SelectedItem is ProductDTO selected &&
+                                    selected.ID == prod.ID)
+                                {
+                                    if (prod.Stock <= 0)
+                                    {
+                                        QuantityNumberBox.Minimum = 0;
+                                        QuantityNumberBox.Maximum = 0;
+                                        QuantityNumberBox.Value = 0;
+                                    }
+                                    else
+                                    {
+                                        QuantityNumberBox.Minimum = 1;
+                                        QuantityNumberBox.Maximum = prod.Stock;
+                                        if (QuantityNumberBox.Value == 0)
+                                            QuantityNumberBox.Value = 1;
+                                    }
+                                }
+
+                                break;
+                            }
+                        }
+
+                        BillItems.Remove(item);
+                        UpdateSummary();
+                        break;
+                    }
                 }
             }
             catch (Exception ex)
@@ -354,6 +424,19 @@ namespace ShopMate.GUI
                 XamlRoot = XamlRoot
             };
             await d.ShowAsync();
+        }
+
+        private void OnBackClicked(object sender, RoutedEventArgs e)
+        {
+            Navigate(typeof(SalesPersonDashboardPage));
+        }
+
+        private void Navigate(Type t)
+        {
+            var window = (Application.Current as App)?._window;
+            var frame = window?.Content as Frame;
+
+            frame?.Navigate(t);
         }
     }
 }
