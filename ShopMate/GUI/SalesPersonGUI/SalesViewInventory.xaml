@@ -1,4 +1,4 @@
-<Page
+﻿<Page
     x:Class="ShopMate.GUI.SalesPersonGUI.SalesViewInventory"
     xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
     xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
@@ -10,73 +10,21 @@
     mc:Ignorable="d">
 
     <Page.Resources>
+
         <local:ExpiryDateConverter x:Key="ExpiryDateConverter"/>
 
-        <!-- SIDEBAR ANIMATIONS -->
-        <Storyboard x:Name="CollapseSidebarStoryboard">
-            <DoubleAnimation
-                Storyboard.TargetName="SidebarColumn"
-                Storyboard.TargetProperty="Width.Value"
-                To="60"
-                Duration="0:0:0.25" />
-        </Storyboard>
-
-        <Storyboard x:Name="ExpandSidebarStoryboard">
-            <DoubleAnimation
-                Storyboard.TargetName="SidebarColumn"
-                Storyboard.TargetProperty="Width.Value"
-                To="220"
-                Duration="0:0:0.25" />
-        </Storyboard>
-
-        <!-- INPUT LABEL -->
-        <Style x:Key="LabelStyle" TargetType="TextBlock">
-            <Setter Property="Foreground" Value="White"/>
+        <!-- TABLE HEADER LABEL -->
+        <Style x:Key="HeaderLabel" TargetType="TextBlock">
             <Setter Property="FontSize" Value="14"/>
-            <Setter Property="Margin" Value="0,5,0,3"/>
+            <Setter Property="FontWeight" Value="SemiBold"/>
+            <Setter Property="Foreground" Value="White"/>
         </Style>
 
-        <!-- CARD PANEL -->
-        <Style x:Key="CardStyle" TargetType="Border">
-            <Setter Property="CornerRadius" Value="18"/>
-            <Setter Property="Padding" Value="20"/>
-            <Setter Property="Margin" Value="0,0,0,20"/>
+        <!-- ROW TEXT -->
+        <Style x:Key="RowText" TargetType="TextBlock">
+            <Setter Property="FontSize" Value="14"/>
+            <Setter Property="Foreground" Value="White"/>
         </Style>
-
-        <!-- PRODUCT ITEM CARD -->
-        <DataTemplate x:Key="ProductTemplate">
-            <Border Background="#3B82F6" Padding="15" CornerRadius="12" Margin="0,0,0,12">
-                <StackPanel Spacing="4">
-
-                    <!-- Name -->
-                    <TextBlock Text="{Binding Name}"
-                       FontSize="20"
-                       FontWeight="SemiBold"
-                       Foreground="White"/>
-
-                    <!-- Description -->
-                    <TextBlock Text="{Binding Description}"
-                       FontSize="14"
-                       Foreground="White"
-                       TextWrapping="Wrap"/>
-
-                    <StackPanel Orientation="Horizontal" Spacing="20" Margin="0,8,0,0">
-                        <TextBlock Text="Qty:" Foreground="White" FontSize="14"/>
-                        <TextBlock Text="{Binding Stock}" Foreground="White" FontSize="14"/>
-
-                        <TextBlock Text="Price:" Foreground="White" FontSize="14"/>
-                        <TextBlock Text="{Binding Price}" Foreground="White" FontSize="14"/>
-                    </StackPanel>
-
-                    <TextBlock Text="{Binding ExpiryDate, Converter={StaticResource ExpiryDateConverter}}"
-                               Foreground="White"
-                               FontSize="12"
-                               Opacity="0.8"/>
-
-                </StackPanel>
-            </Border>
-        </DataTemplate>
-
 
     </Page.Resources>
 
@@ -91,18 +39,43 @@
         <!-- SIDEBAR -->
         <controls:SalesSidebarControl Grid.Column="0"/>
 
-        <!-- PAGE CONTENT -->
+        <!-- MAIN CONTENT -->
         <ScrollViewer Grid.Column="1">
             <StackPanel Padding="40" Spacing="20">
 
-                <!-- PAGE TITLE -->
-                <TextBlock Text="Inventory"
-                           FontSize="32"
-                           FontWeight="SemiBold"/>
+                <!-- BACK + TITLE -->
+                <Grid ColumnSpacing="10" VerticalAlignment="Center">
+                    <Grid.ColumnDefinitions>
+                        <ColumnDefinition Width="Auto"/>
+                        <ColumnDefinition Width="*"/>
+                    </Grid.ColumnDefinitions>
 
-                <TextBlock Text="List of all products in inventory."
-                           FontSize="12"
-                           Foreground="Gray"/>
+                    <!-- Back Button -->
+                    <Button Width="32"
+                            Height="32"
+                            Background="#1F2123"
+                            BorderBrush="#3A3D40"
+                            BorderThickness="1"
+                            CornerRadius="6"
+                            Padding="0"
+                            Click="OnBackClicked">
+                        <Image Source="ms-appx:///Assets/Icons/back.png"
+                               Width="20" Height="20"/>
+                    </Button>
+
+                    <!-- Title -->
+                    <TextBlock Grid.Column="1"
+                               Text="Inventory"
+                               FontSize="28"
+                               FontWeight="SemiBold"
+                               Foreground="White"
+                               VerticalAlignment="Center"/>
+                </Grid>
+
+                <TextBlock Text="List of all available products."
+                           FontSize="13"
+                           Foreground="#9CA3AF"/>
+
 
                 <!-- TABLE HEADER -->
                 <Grid ColumnSpacing="10" Margin="0,20,0,5">
@@ -110,16 +83,20 @@
                         <ColumnDefinition Width="2*"/>
                         <ColumnDefinition Width="*"/>
                         <ColumnDefinition Width="*"/>
-                        <ColumnDefinition Width="*"/>
+                        <ColumnDefinition Width="1.5*"/>
                         <ColumnDefinition Width="3*"/>
                     </Grid.ColumnDefinitions>
 
-                    <TextBlock Text="Product Name" FontWeight="Bold" />
-                    <TextBlock Text="Stock" Grid.Column="1" FontWeight="Bold"/>
-                    <TextBlock Text="Price" Grid.Column="2" FontWeight="Bold"/>
-                    <TextBlock Text="Expiry" Grid.Column="3" FontWeight="Bold"/>
-                    <TextBlock Text="Description" Grid.Column="4" FontWeight="Bold"/>
+                    <TextBlock Text="Product Name" Style="{StaticResource HeaderLabel}"/>
+                    <TextBlock Text="Stock" Grid.Column="1" Style="{StaticResource HeaderLabel}"/>
+                    <TextBlock Text="Price" Grid.Column="2" Style="{StaticResource HeaderLabel}"/>
+                    <TextBlock Text="Expiry" Grid.Column="3" Style="{StaticResource HeaderLabel}"/>
+                    <TextBlock Text="Description" Grid.Column="4" Style="{StaticResource HeaderLabel}"/>
                 </Grid>
+
+                <!-- HEADER SEPARATOR -->
+                <Rectangle Height="1" Fill="#2A2D31"/>
+
 
                 <!-- TABLE ROWS -->
                 <ItemsRepeater x:Name="ProductsRepeater">
@@ -129,9 +106,9 @@
 
                     <ItemsRepeater.ItemTemplate>
                         <DataTemplate>
-                            <Grid ColumnSpacing="10" Padding="8" CornerRadius="6">
+                            <Grid ColumnSpacing="10" Padding="10" CornerRadius="6">
 
-                                <!-- STRIPED ROW BACKGROUND -->
+                                <!-- Alternating row color -->
                                 <Grid.Background>
                                     <SolidColorBrush Color="{Binding RowColor}"/>
                                 </Grid.Background>
@@ -140,27 +117,32 @@
                                     <ColumnDefinition Width="2*"/>
                                     <ColumnDefinition Width="*"/>
                                     <ColumnDefinition Width="*"/>
-                                    <ColumnDefinition Width="*"/>
+                                    <ColumnDefinition Width="1.5*"/>
                                     <ColumnDefinition Width="3*"/>
                                 </Grid.ColumnDefinitions>
 
-                                <TextBlock Text="{Binding Name}" />
+                                <TextBlock Text="{Binding Name}" Style="{StaticResource RowText}"/>
 
-                                <TextBlock Text="{Binding Stock}" Grid.Column="1"/>
+                                <TextBlock Text="{Binding Stock}"
+                                           Grid.Column="1"
+                                           Style="{StaticResource RowText}"/>
 
-                                <TextBlock Text="{Binding Price}" Grid.Column="2"/>
+                                <TextBlock Text="{Binding Price}"
+                                           Grid.Column="2"
+                                           Style="{StaticResource RowText}"/>
 
-                                <TextBlock Text="{Binding ExpiryDate, Converter={StaticResource ExpiryDateConverter}}" 
-                           Grid.Column="3"/>
+                                <TextBlock Text="{Binding ExpiryDate, Converter={StaticResource ExpiryDateConverter}}"
+                                           Grid.Column="3"
+                                           Style="{StaticResource RowText}"/>
 
-                                <TextBlock Text="{Binding Description}" 
-                           Grid.Column="4"
-                           TextWrapping="Wrap" />
+                                <TextBlock Text="{Binding Description}"
+                                           Grid.Column="4"
+                                           TextWrapping="Wrap"
+                                           Style="{StaticResource RowText}"/>
                             </Grid>
                         </DataTemplate>
                     </ItemsRepeater.ItemTemplate>
                 </ItemsRepeater>
-
 
             </StackPanel>
         </ScrollViewer>

@@ -1,6 +1,8 @@
+using System;
 using Microsoft.UI.Xaml.Controls;
 using ShopMate.BL;
 using System.Collections.Generic;
+using Microsoft.UI.Xaml;
 using static ShopMate.GUI.AdminGUI.ViewInventory;
 
 namespace ShopMate.GUI.SalesPersonGUI
@@ -34,6 +36,19 @@ namespace ShopMate.GUI.SalesPersonGUI
             }
 
             ProductsRepeater.ItemsSource = rows;
+        }
+
+        private void OnBackClicked(object sender, RoutedEventArgs e)
+        {
+            Navigate(typeof(SalesPersonDashboardPage));
+        }
+
+        private void Navigate(Type t)
+        {
+            var window = (Application.Current as App)?._window;
+            var frame = window?.Content as Frame;
+
+            frame?.Navigate(t);
         }
     }
 }
