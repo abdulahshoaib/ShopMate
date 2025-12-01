@@ -4,7 +4,7 @@ using System.Runtime.CompilerServices;
 namespace ShopMate.DTOs
 {
 #pragma warning disable CsWinRT1028
-    internal class BillItemVm : INotifyPropertyChanged
+    public class BillItemVm : INotifyPropertyChanged
 #pragma warning restore CsWinRT1028
     {
         public int ProductId { get; set; }
