@@ -16,7 +16,7 @@ namespace ShopMate.DL
             // Fetch user by username and password
             var response = await client.From<UserDTO>()
                                        .Where(u => u.Username == loginDTO.Username &&
-                                                   u.PasswordHash == hashed)
+                                        u.PasswordHash == hashed)
                                        .Get();
 
             var user = response.Models.FirstOrDefault();
