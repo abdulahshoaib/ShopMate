@@ -12,7 +12,7 @@ namespace ShopMate.GUI
     public sealed partial class AddProductPage : Page
     {
         private readonly ProductManagementBL pmBL = new ProductManagementBL();
-
+            
         public AddProductPage()
         {
             this.InitializeComponent();
@@ -98,6 +98,29 @@ namespace ShopMate.GUI
             };
 
             await dlg.ShowAsync().AsTask();
+        }
+        private void OnBackClicked(object sender, RoutedEventArgs e)
+        {
+            Navigate(typeof(ManageProductsPage));
+        }
+
+        private void HasExpiryCheckBox_Checked(object sender, RoutedEventArgs e)
+        {
+            ExpiryDatePicker.IsEnabled = true;
+        }
+
+        private void HasExpiryCheckBox_Unchecked(object sender, RoutedEventArgs e)
+        {
+            ExpiryDatePicker.IsEnabled = false;
+            ExpiryDatePicker.ClearValue(DatePicker.DateProperty);
+        }
+
+        private void Navigate(Type t)
+        {
+            var window = (Application.Current as App)?._window;
+            var frame = window?.Content as Frame;
+
+            frame?.Navigate(t);
         }
     }
 }

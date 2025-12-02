@@ -1,3 +1,4 @@
+<?xml version="1.0" encoding="utf-8"?>
 <Page
     x:Class="ShopMate.GUI.AdminGUI.EditEmployeePage"
     xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
@@ -7,140 +8,159 @@
 
     <Page.Resources>
 
-        <!-- SIDEBAR ANIMATIONS -->
-        <Storyboard x:Name="CollapseSidebarStoryboard">
-            <DoubleAnimation Storyboard.TargetName="SidebarColumn"
-                             Storyboard.TargetProperty="Width.Value"
-                             To="60" Duration="0:0:0.25"/>
-        </Storyboard>
-
-        <Storyboard x:Name="ExpandSidebarStoryboard">
-            <DoubleAnimation Storyboard.TargetName="SidebarColumn"
-                             Storyboard.TargetProperty="Width.Value"
-                             To="220" Duration="0:0:0.25"/>
-        </Storyboard>
-
-        <!-- LABEL STYLE -->
+        <!-- LABEL -->
         <Style x:Key="LabelStyle" TargetType="TextBlock">
-            <Setter Property="Foreground" Value="White"/>
-            <Setter Property="FontSize" Value="14"/>
-            <Setter Property="Margin" Value="0,5,0,3"/>
+            <Setter Property="Foreground" Value="White" />
+            <Setter Property="FontSize" Value="14" />
+            <Setter Property="Margin" Value="0,8,0,4" />
         </Style>
 
-        <!-- TEXTBOX STYLE -->
+        <!-- INPUT TEXTBOX -->
         <Style x:Key="InputStyle" TargetType="TextBox">
-            <Setter Property="BorderBrush" Value="#D1D5DB"/>
-            <Setter Property="BorderThickness" Value="1"/>
-            <Setter Property="Padding" Value="8"/>
-            <Setter Property="FontSize" Value="14"/>
-            <Setter Property="CornerRadius" Value="6"/>
+            <Setter Property="BorderBrush" Value="#3A3D40" />
+            <Setter Property="BorderThickness" Value="1" />
+            <Setter Property="Padding" Value="8" />
+            <Setter Property="FontSize" Value="14" />
+            <Setter Property="CornerRadius" Value="6" />
+            <Setter Property="Background" Value="#1F2123" />
+            <Setter Property="Foreground" Value="White" />
         </Style>
 
-        <!-- PASSWORD BOX STYLE -->
+        <!-- PASSWORDBOX -->
         <Style x:Key="PasswordBoxStyle" TargetType="PasswordBox">
-            <Setter Property="BorderBrush" Value="#D1D5DB"/>
-            <Setter Property="BorderThickness" Value="1"/>
-            <Setter Property="Padding" Value="8"/>
-            <Setter Property="FontSize" Value="14"/>
-            <Setter Property="CornerRadius" Value="6"/>
+            <Setter Property="BorderBrush" Value="#3A3D40" />
+            <Setter Property="BorderThickness" Value="1" />
+            <Setter Property="Padding" Value="8" />
+            <Setter Property="FontSize" Value="14" />
+            <Setter Property="CornerRadius" Value="6" />
+            <Setter Property="Background" Value="#1F2123" />
+            <Setter Property="Foreground" Value="White" />
         </Style>
 
-        <!-- CARD PANEL -->
+        <!-- CARD -->
         <Style x:Key="CardStyle" TargetType="Border">
-            <Setter Property="CornerRadius" Value="18"/>
-            <Setter Property="Padding" Value="20"/>
-            <Setter Property="Margin" Value="0,0,0,20"/>
+            <Setter Property="CornerRadius" Value="12" />
+            <Setter Property="Padding" Value="20" />
+            <Setter Property="Background" Value="#1A1C1E" />
+            <Setter Property="BorderBrush" Value="#2A2D31" />
+            <Setter Property="BorderThickness" Value="1" />
+            <Setter Property="Margin" Value="0,10,0,0" />
         </Style>
 
     </Page.Resources>
 
 
-    <!-- LAYOUT -->
+    <!-- MAIN LAYOUT -->
     <Grid>
         <Grid.ColumnDefinitions>
-            <ColumnDefinition x:Name="SidebarColumn" Width="170"/>
-            <ColumnDefinition Width="*"/>
+            <ColumnDefinition x:Name="SidebarColumn" Width="170" />
+            <ColumnDefinition Width="*" />
         </Grid.ColumnDefinitions>
 
         <!-- SIDEBAR -->
-        <controls:AdminSidebarControl Grid.Column="0"/>
+        <controls:AdminSidebarControl Grid.Column="0" />
 
-        <!-- MAIN CONTENT -->
+        <!-- PAGE CONTENT -->
         <ScrollViewer Grid.Column="1">
             <StackPanel Padding="40" Spacing="20">
 
-                <!-- PAGE TITLE -->
-                <TextBlock Text="Edit Employee"
-                           FontSize="32"
-                           FontWeight="SemiBold"/>
+                <!-- TITLE + BACK BUTTON -->
+                <Grid ColumnSpacing="10">
+                    <Grid.ColumnDefinitions>
+                        <ColumnDefinition Width="Auto" />
+                        <ColumnDefinition Width="*" />
+                    </Grid.ColumnDefinitions>
 
-                <TextBlock Text="Select an employee and update their details - login credentials."
-                           FontSize="12" Foreground="Gray"/>
+                    <Button Width="32"
+                            Height="32"
+                            Background="#1F2123"
+                            BorderBrush="#3A3D40"
+                            BorderThickness="1"
+                            CornerRadius="6"
+                            Padding="0"
+                            Click="OnBackClicked">
+                        <Image Source="ms-appx:///Assets/Icons/back.png"
+                               Width="20" Height="20"/>
+                    </Button>
+
+                    <TextBlock Grid.Column="1"
+                               Text="Edit Employee"
+                               FontSize="28"
+                               FontWeight="SemiBold"
+                               Foreground="White"
+                               VerticalAlignment="Center"/>
+                </Grid>
+
+                <TextBlock Text="Select an employee and update their details below."
+                           FontSize="13"
+                           Foreground="#9CA3AF"/>
+
 
                 <!-- EMPLOYEE SELECTOR -->
-                <StackPanel Margin="0,10,0,0">
-                    <TextBlock Text="Choose Employee"
-                               FontSize="16"
-                               FontWeight="SemiBold"/>
+                <StackPanel>
+                    <TextBlock Text="Choose Employee" Style="{StaticResource LabelStyle}" />
                     <ComboBox x:Name="EmployeeComboBox"
                               PlaceholderText="Select employee..."
-                              SelectionChanged="EmployeeComboBox_SelectionChanged"
                               Padding="8"
-                              FontSize="14"/>
+                              FontSize="14"
+                              BorderBrush="#3A3D40"
+                              BorderThickness="1"
+                              SelectionChanged="EmployeeComboBox_SelectionChanged"/>
                 </StackPanel>
 
 
-                <!-- EMPLOYEE AND USER INFO GRID -->
-                <Grid ColumnSpacing="20" Margin="0,20,0,0">
+                <!-- TWO COLUMN GRID -->
+                <Grid ColumnSpacing="20" Margin="0,10,0,0">
                     <Grid.ColumnDefinitions>
-                        <ColumnDefinition Width="*"/>
-                        <ColumnDefinition Width="*"/>
+                        <ColumnDefinition Width="*" />
+                        <ColumnDefinition Width="*" />
                     </Grid.ColumnDefinitions>
 
                     <!-- EMPLOYEE INFO -->
-                    <Border Background="#F59E0B"
-                            Grid.Column="0"
-                            Style="{StaticResource CardStyle}">
+                    <Border Grid.Column="0" Style="{StaticResource CardStyle}">
                         <StackPanel>
 
                             <TextBlock Text="Employee Information"
+                                       FontSize="18"
+                                       FontWeight="SemiBold"
                                        Foreground="White"
-                                       FontSize="20"
-                                       FontWeight="Bold"/>
+                                       Margin="0,0,0,8" />
 
-                            <TextBlock Text="Full Name" Style="{StaticResource LabelStyle}"/>
-                            <TextBox x:Name="NameTextBox" Style="{StaticResource InputStyle}"/>
+                            <TextBlock Text="Full Name" Style="{StaticResource LabelStyle}" />
+                            <TextBox x:Name="NameTextBox" Style="{StaticResource InputStyle}" />
 
-                            <TextBlock Text="Phone Number" Style="{StaticResource LabelStyle}"/>
-                            <TextBox x:Name="PhoneTextBox" Style="{StaticResource InputStyle}"/>
+                            <TextBlock Text="Phone Number" Style="{StaticResource LabelStyle}" />
+                            <TextBox x:Name="PhoneTextBox" Style="{StaticResource InputStyle}" />
 
-                            <TextBlock Text="Address" Style="{StaticResource LabelStyle}"/>
+                            <TextBlock Text="Address" Style="{StaticResource LabelStyle}" />
                             <TextBox x:Name="AddressTextBox"
-                                     Style="{StaticResource InputStyle}"
                                      Height="70"
                                      AcceptsReturn="True"
-                                     TextWrapping="Wrap"/>
+                                     TextWrapping="Wrap"
+                                     Style="{StaticResource InputStyle}" />
 
                         </StackPanel>
                     </Border>
 
 
-                    <!-- USER ACCOUNT INFO -->
-                    <Border Background="#10B981"
-                            Grid.Column="1"
-                            Style="{StaticResource CardStyle}">
+                    <!-- ACCOUNT INFO -->
+                    <Border Grid.Column="1" Style="{StaticResource CardStyle}">
                         <StackPanel>
 
                             <TextBlock Text="Account Login Information"
+                                       FontSize="18"
+                                       FontWeight="SemiBold"
                                        Foreground="White"
-                                       FontSize="20"
-                                       FontWeight="Bold"/>
+                                       Margin="0,0,0,8"/>
 
-                            <TextBlock Text="Username" Style="{StaticResource LabelStyle}"/>
-                            <TextBox x:Name="UsernameTextBox" Style="{StaticResource InputStyle}"/>
+                            <TextBlock Text="Username" Style="{StaticResource LabelStyle}" />
+                            <TextBox x:Name="UsernameTextBox"
+                                     Style="{StaticResource InputStyle}" />
 
-                            <TextBlock Text="Password (enter new to change)" Style="{StaticResource LabelStyle}"/>
-                            <PasswordBox x:Name="PasswordBox" Style="{StaticResource PasswordBoxStyle}"/>
+                            <TextBlock Text="Password (enter new to change)"
+                                       Style="{StaticResource LabelStyle}" />
+                            <PasswordBox x:Name="PasswordBox"
+                                         Style="{StaticResource PasswordBoxStyle}" />
 
                         </StackPanel>
                     </Border>
@@ -149,14 +169,16 @@
                 <!-- SAVE BUTTON -->
                 <Button Content="Save Changes"
                         Width="200"
-                        Height="50"
+                        Height="48"
                         Background="#3B82F6"
                         Foreground="White"
-                        CornerRadius="10"
+                        BorderBrush="Transparent"
+                        CornerRadius="8"
+                        FontSize="16"
                         HorizontalAlignment="Center"
                         Click="OnSaveEmployeeClicked"/>
+
             </StackPanel>
         </ScrollViewer>
-
     </Grid>
 </Page>

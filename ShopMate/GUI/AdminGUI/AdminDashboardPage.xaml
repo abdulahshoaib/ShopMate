@@ -26,12 +26,12 @@
 
                     <!-- LEFT SIDE: Greeting -->
                     <StackPanel>
-                        <TextBlock x:Name="WelcomeTitle"
-                                   Text="Admin"
+                        <TextBlock Text="Admin"
                                    FontSize="26"
                                    FontWeight="Light"
                                    FontFamily="Inter"
                                    Foreground="GhostWhite"/>
+
 
                     </StackPanel>
 

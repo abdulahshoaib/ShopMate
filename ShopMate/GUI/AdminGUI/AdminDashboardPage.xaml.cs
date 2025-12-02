@@ -1,46 +1,23 @@
 using Microsoft.UI.Xaml;
 using Microsoft.UI.Xaml.Controls;
-using ShopMate.BL;
 using System;
-using System.Globalization;
 
 namespace ShopMate.GUI
 {
     public sealed partial class AdminDashboardPage : Page
     {
-        private readonly BillManagementBL bmBL;
         public AdminDashboardPage()
         {
             this.InitializeComponent();
 
-            bmBL = new BillManagementBL();
-
-            WelcomeTitle.Text = GlobalSession.DisplayUsername;
             DashboardDay.Text = DateTime.Now.ToString("dddd");
             DashboardDate.Text = DateTime.Now.ToString("MMMM dd, yyyy");
 
-            // start loading KPIs
-            LoadKpis();
-        }
-
-        private async void LoadKpis()
-        {
-            try
-            {
-                var totalSales = await bmBL.GetTotalSalesToday();
-                var totalBills = await bmBL.GetTotalBillsToday();
-                var avgBill = await bmBL.GetAverageBillValueToday();
-                var lowStock = await bmBL.GetLowStockProductsCount();
-
-                KpiSalesTodayValue.Text = totalSales.ToString("C", CultureInfo.CurrentCulture);
-                KpiTotalBillsValue.Text = totalBills.ToString();
-                KpiAvgBillValue.Text = avgBill.ToString("C", CultureInfo.CurrentCulture);
-                KpiLowStockValue.Text = lowStock.ToString();
-            }
-            catch
-            {
-                // keep defaults on error
-            }
+            // Minimal placeholder KPI values; replace with real data calls later
+            KpiSalesTodayValue.Text = "0";
+            KpiTotalBillsValue.Text = "0";
+            KpiAvgBillValue.Text = "0";
+            KpiLowStockValue.Text = "0";
         }
 
         private void Navigate(Type t)

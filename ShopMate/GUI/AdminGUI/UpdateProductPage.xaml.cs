@@ -11,14 +11,13 @@ namespace ShopMate.GUI.AdminGUI
 {
     public sealed partial class UpdateProductPage : Page
     {
-        private List<ProductDTO> products = [];
-        private ProductDTO selectedProduct = new ProductDTO();
-        private readonly ProductManagementBL pmBL;
+        private List<ProductDTO> products = new();
+        private ProductDTO selectedProduct = new();
+        private readonly ProductManagementBL pmBL = new();
+
         public UpdateProductPage()
         {
             InitializeComponent();
-
-            this.pmBL = new ProductManagementBL();
             LoadProducts();
         }
 
@@ -37,75 +36,61 @@ namespace ShopMate.GUI.AdminGUI
 
                 ProductNameTextBox.Text = p.Name;
                 DescriptionTextBox.Text = p.Description;
-                QuantityTextBox.Text = p.Stock.ToString();
-                PriceTextBox.Text = p.Price.ToString("0.00");
+                QuantityNumberBox.Value = p.Stock;
+                PriceNumberBox.Value = (double)p.Price;
             }
         }
 
         private async void OnSaveProductClicked(object sender, RoutedEventArgs e)
         {
-            if (ProductComboBox.SelectedIndex < 0)
-            {
-                await ShowDialog("Error", "Please select a product to edit.");
-                return;
-            }
-            bool f = false;
-            if (ProductNameTextBox.Text == "")
-            {
-                ProductNameTextBox.BorderBrush = new SolidColorBrush(ColorHelper.FromArgb(255, 255, 0, 0));
-                ProductNameTextBox.Focus(FocusState.Programmatic);
-                f = true;
-            }
-            else
-            {
-                ProductNameTextBox.BorderBrush = new SolidColorBrush(ColorHelper.FromArgb(255, 255, 255, 255));
-            }
-            if (PriceTextBox.Text == "")
-            {
-                PriceTextBox.BorderBrush = new SolidColorBrush(ColorHelper.FromArgb(255, 255, 0, 0));
-                PriceTextBox.Focus(FocusState.Programmatic);
-                f = true;
-            }
-            else
-            {
-                PriceTextBox.BorderBrush = new SolidColorBrush(ColorHelper.FromArgb(255, 255, 255, 255));
-            }
-            if (QuantityTextBox.Text == "")
-            {
-                QuantityTextBox.BorderBrush = new SolidColorBrush(ColorHelper.FromArgb(255, 255, 0, 0));
-                QuantityTextBox.Focus(FocusState.Programmatic);
-                f = true;
-            }
-            else
-            {
-                QuantityTextBox.BorderBrush = new SolidColorBrush(ColorHelper.FromArgb(255, 255, 255, 255));
-            }
-            if (f)
-            {
-                return;
-            }
-            selectedProduct.Name = ProductNameTextBox.Text;
-            selectedProduct.Description = DescriptionTextBox.Text;
+            bool fail = false;
 
-            if (int.TryParse(QuantityTextBox.Text, out int qty))
-                selectedProduct.Stock = qty;
+            if (string.IsNullOrWhiteSpace(ProductNameTextBox.Text))
+            {
+                ProductNameTextBox.BorderBrush = Red();
+                fail = true;
+            }
+            else ProductNameTextBox.BorderBrush = White();
 
-            if (decimal.TryParse(PriceTextBox.Text, out decimal price))
-                selectedProduct.Price = price;
+            if (double.IsNaN(QuantityNumberBox.Value))
+            {
+                QuantityNumberBox.BorderBrush = Red();
+                fail = true;
+            }
+            else QuantityNumberBox.BorderBrush = White();
 
-            // Save
+            if (double.IsNaN(PriceNumberBox.Value))
+            {
+                PriceNumberBox.BorderBrush = Red();
+                fail = true;
+            }
+            else PriceNumberBox.BorderBrush = White();
+
+            if (fail) return;
+
+            selectedProduct.Name = ProductNameTextBox.Text.Trim();
+            selectedProduct.Description = DescriptionTextBox.Text.Trim();
+            selectedProduct.Stock = (int)QuantityNumberBox.Value;
+            selectedProduct.Price = (decimal)PriceNumberBox.Value;
+
             bool success = await pmBL.UpdateProduct(selectedProduct);
 
             if (success)
             {
-                await ShowDialog("Saved", "Product updated successfully.");
-                LoadProducts(); // refresh combo
+                await ShowDialog("Success", "Product updated successfully.");
+                LoadProducts();
             }
             else
             {
                 await ShowDialog("Error", "Failed to update product.");
             }
         }
+
+        private SolidColorBrush Red() =>
+            new SolidColorBrush(ColorHelper.FromArgb(255, 255, 0, 0));
+
+        private SolidColorBrush White() =>
+            new SolidColorBrush(ColorHelper.FromArgb(255, 255, 255, 255));
 
         private async System.Threading.Tasks.Task ShowDialog(string title, string message)
         {
@@ -118,6 +103,19 @@ namespace ShopMate.GUI.AdminGUI
             };
 
             await dialog.ShowAsync();
+        }
+
+        private void OnBackClicked(object sender, RoutedEventArgs e)
+        {
+            Navigate(typeof(ManageProductsPage));
+        }
+
+        private void Navigate(Type t)
+        {
+            var window = (Application.Current as App)?._window;
+            var frame = window?.Content as Frame;
+
+            frame?.Navigate(t);
         }
     }
 }

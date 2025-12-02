@@ -128,5 +128,17 @@ namespace ShopMate.GUI.AdminGUI
 
             await dlg.ShowAsync().AsTask();
         }
+        private void OnBackClicked(object sender, RoutedEventArgs e)
+        {
+            Navigate(typeof(ManageEmployeesPage));
+        }
+
+        private void Navigate(Type t)
+        {
+            var window = (Application.Current as App)?._window;
+            var frame = window?.Content as Frame;
+
+            frame?.Navigate(t);
+        }
     }
 }

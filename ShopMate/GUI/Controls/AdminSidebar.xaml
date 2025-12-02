@@ -97,14 +97,7 @@
                     </Button>
 
                     <!-- Report -->
-                    <Button Click="OnReportClicked">
-                        <StackPanel Orientation="Horizontal" Spacing="10">
-                            <Image Source="ms-appx:///Assets/Icons/update_stock.png"
-                   Width="20" Height="20"/>
-                            <TextBlock Text="Report"/>
-                        </StackPanel>
-                    </Button>
-
+                 
                 </StackPanel>
             </StackPanel>
 

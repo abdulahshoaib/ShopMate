@@ -119,13 +119,18 @@
   </ItemGroup>
 
   <ItemGroup>
+    <Compile Remove="GUI\AdminGUI\ReportPage.xaml.cs" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <Page Remove="GUI\AdminGUI\ReportPage.xaml" />
+  </ItemGroup>
+
+  <ItemGroup>
     <None Update="appsettings.json">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </None>
     <Page Update="GUI\AdminGUI\SettingsPage.xaml">
-      <Generator>MSBuild:Compile</Generator>
-    </Page>
-    <Page Update="GUI\AdminGUI\ReportPage.xaml">
       <Generator>MSBuild:Compile</Generator>
     </Page>
     <Page Update="GUI\SalesPersonGUI\SalesSettingsPage.xaml">

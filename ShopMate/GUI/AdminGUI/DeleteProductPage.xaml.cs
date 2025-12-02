@@ -95,5 +95,17 @@ namespace ShopMate.GUI.AdminGUI
 
             await dialog.ShowAsync();
         }
+        private void OnBackClicked(object sender, RoutedEventArgs e)
+        {
+            Navigate(typeof(ManageProductsPage));
+        }
+
+        private void Navigate(Type t)
+        {
+            var window = (Application.Current as App)?._window;
+            var frame = window?.Content as Frame;
+
+            frame?.Navigate(t);
+        }
     }
 }
