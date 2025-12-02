@@ -29,6 +29,8 @@
     <None Remove="GUI\AdminGUI\DeleteEmployeePage.xaml" />
     <None Remove="GUI\AdminGUI\DeleteProductPage.xaml" />
     <None Remove="GUI\AdminGUI\EditEmployeePage.xaml" />
+    <None Remove="GUI\AdminGUI\ReportPage.xaml" />
+    <None Remove="GUI\AdminGUI\SettingsPage.xaml" />
     <None Remove="GUI\AdminGUI\UpdateCustomerPage.xaml" />
     <None Remove="GUI\AdminGUI\UpdateProductPage.xaml" />
     <None Remove="GUI\AdminGUI\ViewCustomerPage.xaml" />
@@ -120,6 +122,12 @@
     <None Update="appsettings.json">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </None>
+    <Page Update="GUI\AdminGUI\SettingsPage.xaml">
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Update="GUI\AdminGUI\ReportPage.xaml">
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
     <Page Update="GUI\SalesPersonGUI\SalesSettingsPage.xaml">
       <Generator>MSBuild:Compile</Generator>
     </Page>

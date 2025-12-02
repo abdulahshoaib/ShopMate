@@ -5,25 +5,6 @@
     xmlns:controls="using:ShopMate.GUI.Controls"
     Background="{ThemeResource ApplicationPageBackgroundThemeBrush}">
 
-    <Page.Resources>
-        <Storyboard x:Name="CollapseSidebarStoryboard">
-            <DoubleAnimation
-                Storyboard.TargetName="SidebarColumn"
-                Storyboard.TargetProperty="Width.Value"
-                To="60"
-                Duration="0:0:0.25"/>
-        </Storyboard>
-
-        <Storyboard x:Name="ExpandSidebarStoryboard">
-            <DoubleAnimation
-                Storyboard.TargetName="SidebarColumn"
-                Storyboard.TargetProperty="Width.Value"
-                To="220"
-                Duration="0:0:0.25"/>
-        </Storyboard>
-    </Page.Resources>
-
-
     <Grid>
         <Grid.ColumnDefinitions>
             <ColumnDefinition x:Name="SidebarColumn"
@@ -37,130 +18,225 @@
         <ScrollViewer Grid.Column="1">
             <StackPanel Padding="40" Spacing="20">
 
-                <TextBlock Text="Welcome!"
-                           FontSize="32"
-                           FontWeight="SemiBold"/>
-                <TextBlock Text="Manage your inventory and staff."
-                           FontSize="12"
-                           Foreground="Gray"/>
-
-                <Grid ColumnSpacing="20"
-                      RowSpacing="20"
-                      Margin="0,20,0,0">
-
+                <Grid Margin="0,0,0,20">
                     <Grid.ColumnDefinitions>
+                        <ColumnDefinition Width="*" />
+                        <ColumnDefinition Width="Auto" />
+                    </Grid.ColumnDefinitions>
+
+                    <!-- LEFT SIDE: Greeting -->
+                    <StackPanel>
+                        <TextBlock x:Name="WelcomeTitle"
+                                   Text="Admin"
+                                   FontSize="26"
+                                   FontWeight="Light"
+                                   FontFamily="Inter"
+                                   Foreground="GhostWhite"/>
+
+                    </StackPanel>
+
+                    <StackPanel Grid.Column="1"
+                                HorizontalAlignment="Right"
+                                VerticalAlignment="Center"
+                                Spacing="2">
+
+                        <TextBlock x:Name="DashboardDay"
+                                   Text="Day"
+                                   FontSize="26"
+                                   FontWeight="Light"
+                                   FontFamily="Inter"
+                                   Foreground="White"
+                                   HorizontalAlignment="Right"/>
+
+                        <TextBlock x:Name="DashboardDate"
+                                   Text="Date"
+                                   FontSize="14"
+                                   FontWeight="Light"
+                                   Foreground="#7A7F85"
+                                   HorizontalAlignment="Right"/>
+                    </StackPanel>
+                </Grid>
+                <!-- Minimalistic KPI row -->
+                <Grid ColumnSpacing="12"
+                      RowSpacing="12"
+                      Margin="0,10,0,0">
+                    <Grid.ColumnDefinitions>
+                        <ColumnDefinition Width="*"/>
+                        <ColumnDefinition Width="*"/>
                         <ColumnDefinition Width="*"/>
                         <ColumnDefinition Width="*"/>
                     </Grid.ColumnDefinitions>
 
-                    <Grid.RowDefinitions>
-                        <RowDefinition Height="Auto"/>
-                        <RowDefinition Height="Auto"/>
-                    </Grid.RowDefinitions>
-
-                    <Border Grid.Column="0" Grid.Row="0"
-                            Background="#3B82F6"
-                            CornerRadius="18"
-                            Padding="20">
+                    <Border Grid.Column="0" CornerRadius="10" Padding="12" Background="#22121212">
                         <StackPanel>
-                            <TextBlock Text="Manage Customers"
-                                       FontWeight="Bold"
-                                       Foreground="White"
-                                       FontSize="20"/>
-
-                            <TextBlock Text="Manage all of your customers."
-                                       Foreground="White"
-                                       FontSize="13"
-                                       Margin="0,4,0,10"/>
-
-                            <Button Content="Get Started"
-                                    Padding="8,4"
-                                    Background="#20FFFFFF"
-                                    Foreground="White"
-                                    BorderBrush="Transparent"
-                                    Click="OnManageCustomersClicked"
-                                    CornerRadius="6"/>
+                            <TextBlock x:Name="KpiSalesTodayValue" Text="0" FontSize="20" FontWeight="SemiBold" Foreground="White" HorizontalAlignment="Left"/>
+                            <TextBlock Text="Total Sales Today" FontSize="12" Foreground="#9AA0A6"/>
                         </StackPanel>
                     </Border>
 
-                    <Border Grid.Column="1" Grid.Row="0"
-                            Background="#10B981"
-                            CornerRadius="18"
-                            Padding="20">
+                    <Border Grid.Column="1" CornerRadius="10" Padding="12" Background="#22121212">
                         <StackPanel>
-                            <TextBlock Text="Manage Products"
-                                       FontWeight="Bold"
-                                       Foreground="White"
-                                       FontSize="20"/>
-
-                            <TextBlock Text="Manage your inventory."
-                                       Foreground="White"
-                                       FontSize="13"                              
-                                       Margin="0,4,0,10"/>
-
-                            <Button Content="Get Started"
-                                    Padding="8,4"
-                                    Background="#20FFFFFF"
-                                    Foreground="White"
-                                    BorderBrush="Transparent"
-                                    Click="OnManageProductsClicked"
-                                    CornerRadius="6"/>
+                            <TextBlock x:Name="KpiTotalBillsValue" Text="0" FontSize="20" FontWeight="SemiBold" Foreground="White" HorizontalAlignment="Left"/>
+                            <TextBlock Text="Bills Today" FontSize="12" Foreground="#9AA0A6"/>
                         </StackPanel>
                     </Border>
 
-                    <Border Grid.Column="0" Grid.Row="1"
-                            Background="#EF4444"
-                            CornerRadius="18"
-                            Padding="20">
+                    <Border Grid.Column="2" CornerRadius="10" Padding="12" Background="#22121212">
                         <StackPanel>
-                            <TextBlock Text="Manage Staff"
-                                       FontWeight="Bold"
-                                       Foreground="White"
-                                       FontSize="20"/>
-
-                            <TextBlock Text="Manage your employees."
-                                       Foreground="White"
-                                       FontSize="13"
-                                       Margin="0,4,0,10"/>
-
-                            <Button Content="Get Started"
-                                    Tag="Implement"
-                                    Padding="8,4"
-                                    Background="#20FFFFFF"
-                                    Foreground="White"
-                                    BorderBrush="Transparent"
-                                    Click="OnManageEmployeesClicked"
-                                    CornerRadius="6"/>
+                            <TextBlock x:Name="KpiAvgBillValue" Text="0" FontSize="20" FontWeight="SemiBold" Foreground="White" HorizontalAlignment="Left"/>
+                            <TextBlock Text="Avg. Bill Value" FontSize="12" Foreground="#9AA0A6"/>
                         </StackPanel>
                     </Border>
 
-                    <!--<Border Grid.Column="1" Grid.Row="1"
-                            Background="#F59E0B"
-                            CornerRadius="18"
-                            Padding="20">
+                    <Border Grid.Column="3" CornerRadius="10" Padding="12" Background="#22121212">
                         <StackPanel>
-                            <TextBlock Text="Sales Report"
-                                       FontWeight="Bold"
-                                       Foreground="White"
-                                       FontSize="20"/>
-
-                            <TextBlock Text="Monthly sales report"
-                                       Foreground="White"
-                                       FontSize="13"
-                                       Margin="0,4,0,10"/>
-
-                            <Button Content="View Reports"
-                                    Padding="8,4"
-                                    Background="#20FFFFFF"
-                                    Foreground="White"
-                                    BorderBrush="Transparent"
-                                    Click="OnGenerateReportClicked"
-                                    CornerRadius="6"/>
+                            <TextBlock x:Name="KpiLowStockValue" Text="0" FontSize="20" FontWeight="SemiBold" Foreground="White" HorizontalAlignment="Left"/>
+                            <TextBlock Text="Low Stock" FontSize="12" Foreground="#9AA0A6"/>
                         </StackPanel>
-                    </Border>-->
+                    </Border>
 
                 </Grid>
 
+                <TextBlock Text="Quick Actions"
+                           FontSize="20"
+                           Foreground="White"
+                           Margin="0,0,0,0"/>
+
+                <!-- ACTION ROWS (table-like quick actions) -->
+                <StackPanel Spacing="8" Margin="0,0,0,0">
+
+                    <!-- MANAGE CUSTOMERS -->
+                    <Button Click="OnManageCustomersClicked"
+                            Background="Transparent"
+                            BorderThickness="0"
+                            HorizontalAlignment="Stretch"
+                            HorizontalContentAlignment="Stretch"
+                            Padding="0">
+
+                        <StackPanel HorizontalAlignment="Stretch">
+                            <Grid Padding="16" HorizontalAlignment="Stretch">
+                                <Grid.ColumnDefinitions>
+                                    <ColumnDefinition Width="Auto" />
+                                    <ColumnDefinition Width="*" />
+                                    <ColumnDefinition Width="Auto" />
+                                </Grid.ColumnDefinitions>
+
+                                <Image Source="ms-appx:///Assets/Icons/add_customer.png"
+                                       Width="28"
+                                       Height="28"
+                                       VerticalAlignment="Center"/>
+
+                                <StackPanel Grid.Column="1"
+                                            Margin="14,0,0,0"
+                                            VerticalAlignment="Center">
+                                    <TextBlock Text="Manage Customers"
+                                               FontSize="18"
+                                               FontWeight="Light" />
+                                    <TextBlock Text="Manage all of your customers"
+                                               FontSize="13"
+                                               Foreground="#6B7280" />
+                                </StackPanel>
+
+                                <TextBlock Text="›"
+                                           Grid.Column="2"
+                                           FontSize="24"
+                                           FontWeight="Light"
+                                           Foreground="#9CA3AF"
+                                           VerticalAlignment="Center" />
+                            </Grid>
+
+                            <Rectangle Height="1" Fill="#4B4F54" />
+                        </StackPanel>
+
+                    </Button>
+
+                    <!-- MANAGE PRODUCTS -->
+                    <Button Click="OnManageProductsClicked"
+                            Background="Transparent"
+                            BorderThickness="0"
+                            HorizontalAlignment="Stretch"
+                            HorizontalContentAlignment="Stretch"
+                            Padding="0">
+
+                        <StackPanel HorizontalAlignment="Stretch">
+                            <Grid Padding="16" HorizontalAlignment="Stretch">
+                                <Grid.ColumnDefinitions>
+                                    <ColumnDefinition Width="Auto" />
+                                    <ColumnDefinition Width="*" />
+                                    <ColumnDefinition Width="Auto" />
+                                </Grid.ColumnDefinitions>
+
+                                <Image Source="ms-appx:///Assets/Icons/add_prod.png"
+                                       Width="28"
+                                       Height="28"
+                                       VerticalAlignment="Center"/>
+
+                                <StackPanel Grid.Column="1"
+                                            Margin="14,0,0,0"
+                                            VerticalAlignment="Center">
+                                    <TextBlock Text="Manage Products"
+                                               FontSize="18"
+                                               FontWeight="Light" />
+                                    <TextBlock Text="Manage your inventory"
+                                               FontSize="13"
+                                               Foreground="#6B7280" />
+                                </StackPanel>
+
+                                <TextBlock Text="›"
+                                           Grid.Column="2"
+                                           FontSize="24"
+                                           Foreground="#9CA3AF"
+                                           VerticalAlignment="Center" />
+                            </Grid>
+
+                            <Rectangle Height="1" Fill="#4B4F54" />
+                        </StackPanel>
+                    </Button>
+
+                    <!-- MANAGE STAFF -->
+                    <Button Click="OnManageEmployeesClicked"
+                            Background="Transparent"
+                            BorderThickness="0"
+                            HorizontalAlignment="Stretch"
+                            HorizontalContentAlignment="Stretch"
+                            Padding="0">
+
+                        <StackPanel HorizontalAlignment="Stretch">
+                            <Grid Padding="16" HorizontalAlignment="Stretch">
+                                <Grid.ColumnDefinitions>
+                                    <ColumnDefinition Width="Auto" />
+                                    <ColumnDefinition Width="*" />
+                                    <ColumnDefinition Width="Auto" />
+                                </Grid.ColumnDefinitions>
+
+                                <Image Source="ms-appx:///Assets/Icons/add_staff.png"
+                                       Width="28"
+                                       Height="28"
+                                       VerticalAlignment="Center"/>
+
+                                <StackPanel Grid.Column="1"
+                                            Margin="14,0,0,0"
+                                            VerticalAlignment="Center">
+                                    <TextBlock Text="Manage Staff"
+                                               FontSize="18"
+                                               FontWeight="Light" />
+                                    <TextBlock Text="Manage your employees"
+                                               FontSize="13"
+                                               Foreground="#6B7280" />
+                                </StackPanel>
+
+                                <TextBlock Text="›"
+                                           Grid.Column="2"
+                                           FontSize="24"
+                                           Foreground="#9CA3AF"
+                                           VerticalAlignment="Center" />
+                            </Grid>
+
+                            <Rectangle Height="1" Fill="#4B4F54" />
+                        </StackPanel>
+                    </Button>
+
+                </StackPanel>
             </StackPanel>
         </ScrollViewer>
 
